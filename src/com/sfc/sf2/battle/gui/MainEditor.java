@@ -7,6 +7,7 @@ package com.sfc.sf2.battle.gui;
 
 import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.BattleManager;
+import com.sfc.sf2.battle.mapcoords.gui.BattleMapCoordsTableModel;
 import com.sfc.sf2.map.layout.MapLayoutManager;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDynamic.map;
 import java.awt.GridLayout;
@@ -21,6 +22,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -428,6 +431,12 @@ public class MainEditor extends javax.swing.JFrame {
         );
 
         jTabbedPane2.addTab("Terrain", jPanel21);
+
+        jTabbedPane3.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane3StateChanged(evt);
+            }
+        });
 
         jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane7.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -1076,7 +1085,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField28.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battes\\entries\\battle01\\newspriteset.bin");
+            jTextField28.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\entries\\battle01\\newspriteset.bin");
             jTextField28.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField28ActionPerformed(evt);
@@ -1374,10 +1383,36 @@ public class MainEditor extends javax.swing.JFrame {
         jSpinner8.setValue(battle.getMapCoords().getTrigY());
         
         jTable2.setModel(new AllyPropertiesTableModel(battle, battlePanel));
+        jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            private int selectedRow;
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                if(selectedRow!=jTable2.getSelectedRow()){
+                    selectedRow = jTable2.getSelectedRow();
+                    battlePanel.setSelectedAlly(selectedRow);
+                    battlePanel.updateSpriteDisplay();
+                    jPanel2.revalidate();
+                    jPanel2.repaint();
+                }
+            }
+        });        
         jPanel21.validate();
         jPanel21.repaint();
         enemyTableModel = new EnemyPropertiesTableModel(battle, battlePanel);
         jTable3.setModel(enemyTableModel);
+        jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            private int selectedRow;
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                if(selectedRow!=jTable3.getSelectedRow()){
+                    selectedRow = jTable3.getSelectedRow();
+                    battlePanel.setSelectedEnemy(selectedRow);
+                    battlePanel.updateSpriteDisplay();
+                    jPanel2.revalidate();
+                    jPanel2.repaint();
+                }
+            }
+        });  
         jPanel24.validate();
         jPanel24.repaint();
         aiRegionTableModel = new AIRegionPropertiesTableModel(battle, battlePanel);
@@ -1660,6 +1695,26 @@ public class MainEditor extends javax.swing.JFrame {
             jTextField32.setText(file.getAbsolutePath());
         }
     }//GEN-LAST:event_jButton38ActionPerformed
+
+    private void jTabbedPane3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane3StateChanged
+        int index = jTabbedPane3.getSelectedIndex();
+        if(battlePanel!=null){
+            switch(index){
+                case 0:
+                    battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_ALLY);
+                    break;
+                case 1:
+                    battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_ENEMY);
+                    break;
+                case 2:
+                    battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_AIREGION);
+                    break;
+                case 3:
+                    battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_AIPOINT);
+                    break;
+            }
+        }
+    }//GEN-LAST:event_jTabbedPane3StateChanged
 
     /**
      * @param args the command line arguments

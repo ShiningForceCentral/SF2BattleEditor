@@ -73,7 +73,7 @@ public class AllyPropertiesTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int row, int col) {
         tableData[row][col] = (Integer)value;
         updateProperties();
-        //battlePanel.updateAllyDisplay();
+        battlePanel.updateSpriteDisplay();
         battlePanel.revalidate();
         battlePanel.repaint();
     }    

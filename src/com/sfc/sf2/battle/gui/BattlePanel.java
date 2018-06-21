@@ -60,8 +60,11 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     public static final int SPRITESETMODE_ENEMY = 1;
     public static final int SPRITESETMODE_AIREGION = 2;
     public static final int SPRITESETMODE_AIPOINT = 3;
-    
-    private int currentSpritesetEntry = 0;
+    private int currentSpritesetMode = 0;
+    private int selectedAlly = -1;
+    private int selectedEnemy = -1;
+    private int selectedAIRegion = -1;
+    private int selectedAIPoint = -1;
     
     private MapBlock selectedBlock0;
     MapBlock[][] copiedBlocks;
@@ -273,7 +276,11 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 g2.drawString(val, targetX+1, targetY-1);
                 g2.drawString(val, targetX+1, targetY+1);
                 g2.setColor(Color.yellow);
-                g2.drawString(val, targetX, targetY);                
+                g2.drawString(val, targetX, targetY);  
+                if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_ALLY && i==selectedAlly){
+                    g2.setColor(Color.YELLOW);
+                    g2.drawRect((x+ally.getX())*3*8 + 3, (y+ally.getY())*3*8, 1*24-6, 1*24-6);
+                }
             }
             Enemy[] enemies = battle.getSpriteset().getEnemies();
             for(int i=0;i<enemies.length;i++){
@@ -284,7 +291,11 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 if(mapspriteImages[spriteId]==null){
                     mapspriteImages[spriteId] = MapSpriteLayout.buildImage(mapsprites[spriteId*3+2].getTiles(), 6).getSubimage(0, 0, 3*8, 3*8);
                 }
-                g2.drawImage(mapspriteImages[spriteId], targetX, targetY, null);
+                g2.drawImage(mapspriteImages[spriteId], targetX, targetY, null);  
+                if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_ENEMY && i==selectedEnemy){
+                    g2.setColor(Color.YELLOW);
+                    g2.drawRect((x+enemy.getX())*3*8 + 3, (y+enemy.getY())*3*8, 1*24-6, 1*24-6);
+                }
             }
         }
         return spritesImage;
@@ -450,118 +461,6 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     public void mouseMoved(MouseEvent e) {
         
     }
-    
-    private void updateLeftSlot(MapBlock block){
-        BufferedImage img = new BufferedImage(3*8,3*8,BufferedImage.TYPE_INT_ARGB);
-        Graphics g = img.getGraphics();
-        g.drawImage(block.getImage(), 0, 0, null);
-        g.drawImage(block.getExplorationFlagImage(), 0, 0, null);
-        leftSlot.setBlockImage(img);
-        leftSlot.revalidate();
-        leftSlot.repaint(); 
-    }
-    
-    public void setBlockValue(int x, int y, int value){
-        MapBlock[] blocks = layout.getBlocks();
-        MapBlock block = blocks[y*64+x];
-        if(block.getIndex()!=value){
-            int[] action = new int[3];
-            action[0] = ACTION_CHANGE_BLOCK_VALUE;
-            action[1] = y*64+x;
-            action[2] = block.getIndex();
-            block.setIndex(value);
-            block.setImage(null);
-            block.setTiles(blockset[block.getIndex()].getTiles());
-            actions.add(action);
-            redraw = true;
-        }
-    }
-    
-    public void setFlagValue(int x, int y, int value){
-        MapBlock[] blocks = layout.getBlocks();
-        MapBlock block = blocks[y*64+x];
-        if(block.getFlags()!=value){
-            int[] action = new int[3];
-            action[0] = ACTION_CHANGE_BLOCK_FLAGS;
-            action[1] = y*64+x;
-            int origFlags = block.getFlags();
-            action[2] = origFlags;
-            int newFlags = (0xC000 & value) + (0x3C00 & origFlags);
-            block.setFlags(newFlags);
-            block.setExplorationFlagImage(null);
-            actions.add(action);
-            redraw = true;
-        }
-    }
-    
-    public void clearFlagValue(int x, int y){
-        MapBlock[] blocks = layout.getBlocks();
-        MapBlock block = blocks[y*64+x];
-        if(block.getFlags()!=0){
-            int[] action = new int[3];
-            action[0] = ACTION_CHANGE_BLOCK_FLAGS;
-            action[1] = y*64+x;
-            int origFlags = block.getFlags();
-            action[2] = origFlags;
-            int newFlags = 0;
-            block.setFlags(newFlags);
-            block.setExplorationFlagImage(null);
-            actions.add(action);
-            redraw = true;
-        }
-    }
-    
-    public void revertLastAction(){
-        if(actions.size()>0){
-            int[] action = actions.get(actions.size()-1);
-            switch (action[0]) {
-                case ACTION_CHANGE_BLOCK_VALUE:
-                    {
-                        MapBlock block = layout.getBlocks()[action[1]];
-                        block.setIndex(action[2]);
-                        block.setImage(null);
-                        block.setTiles(blockset[block.getIndex()].getTiles());
-                        actions.remove(actions.size()-1);
-                        redraw = true;
-                        this.repaint();
-                        break;
-                    }
-                case ACTION_CHANGE_BLOCK_FLAGS:
-                    {
-                        MapBlock block = layout.getBlocks()[action[1]];
-                        block.setFlags(action[2]);               
-                        block.setExplorationFlagImage(null);
-                        block.setInteractionFlagImage(null);
-                        actions.remove(actions.size()-1);
-                        redraw = true;
-                        this.repaint();
-                        break;
-                    }
-                case ACTION_MASS_COPY:
-                    int blockIndex = action[1];
-                    int width = action[2];
-                    int height = action[3];
-                    for(int j=0;j<height;j++){
-                        for(int i=0;i<width;i++){
-                            int value = action[4+2*(j*width+i)];
-                            int flags = action[4+2*(j*width+i)+1];
-                            if(value != -1 && flags != -1){
-                                MapBlock block = new MapBlock();
-                                block.setIndex(value);
-                                block.setFlags(flags);
-                                block.setTiles(blockset[block.getIndex()].getTiles());
-                                layout.getBlocks()[blockIndex+j*64+i] = block;
-                            }
-                        }
-                    }   actions.remove(actions.size()-1);
-                    redraw = true;
-                    this.repaint();
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
     public MapBlock[] getBlockset() {
         return blockset;
@@ -628,15 +527,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     public void setCurrentMode(int currentMode) {
         this.currentMode = currentMode;
     }
-
-    public BlockSlotPanel getLeftSlot() {
-        return leftSlot;
-    }
-
-    public void setLeftSlot(BlockSlotPanel leftSlot) {
-        this.leftSlot = leftSlot;
-    }
-
+    
     public boolean isDrawActionFlags() {
         return drawActionFlags;
     }
@@ -677,6 +568,11 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         spritesImage = null;
         this.redraw = true;
     }
+    
+    public void updateSpriteDisplay(){
+        spritesImage = null;
+        this.redraw = true;
+    }
 
     public MapSprite[] getMapsprites() {
         return mapsprites;
@@ -692,6 +588,46 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void setEnemySpriteIds(byte[] enemySpriteIds) {
         this.enemySpriteIds = enemySpriteIds;
+    }
+
+    public int getSelectedAlly() {
+        return selectedAlly;
+    }
+
+    public void setSelectedAlly(int selectedAlly) {
+        this.selectedAlly = selectedAlly;
+    }
+
+    public int getSelectedEnemy() {
+        return selectedEnemy;
+    }
+
+    public void setSelectedEnemy(int selectedEnemy) {
+        this.selectedEnemy = selectedEnemy;
+    }
+
+    public int getSelectedAIRegion() {
+        return selectedAIRegion;
+    }
+
+    public void setSelectedAIRegion(int selectedAIRegion) {
+        this.selectedAIRegion = selectedAIRegion;
+    }
+
+    public int getSelectedAIPoint() {
+        return selectedAIPoint;
+    }
+
+    public void setSelectedAIPoint(int selectedAIPoint) {
+        this.selectedAIPoint = selectedAIPoint;
+    }
+
+    public int getCurrentSpritesetMode() {
+        return currentSpritesetMode;
+    }
+
+    public void setCurrentSpritesetMode(int currentSpritesetMode) {
+        this.currentSpritesetMode = currentSpritesetMode;
     }
     
     

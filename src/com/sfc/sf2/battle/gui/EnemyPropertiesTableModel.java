@@ -34,7 +34,7 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
                 tableData[i] = new Integer[11];
                 tableData[i][0] = enemies[i].getIndex();
                 tableData[i][1] = enemies[i].getX();
-                tableData[i][2] = enemies[i].getX();
+                tableData[i][2] = enemies[i].getY();
                 tableData[i][3] = enemies[i].getAi();
                 tableData[i][4] = enemies[i].getItem();
                 tableData[i][5] = enemies[i].getMoveOrder1();
@@ -93,7 +93,7 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int row, int col) {
         tableData[row][col] = (Integer)value;
         updateProperties();
-        //battlePanel.updateEnemyDisplay();
+        battlePanel.updateSpriteDisplay();
         battlePanel.revalidate();
         battlePanel.repaint();
     }    

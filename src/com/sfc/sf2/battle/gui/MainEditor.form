@@ -518,6 +518,9 @@
                                       </Layout>
                                       <SubComponents>
                                         <Container class="javax.swing.JTabbedPane" name="jTabbedPane3">
+                                          <Events>
+                                            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jTabbedPane3StateChanged"/>
+                                          </Events>
 
                                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                                           <SubComponents>
@@ -1479,7 +1482,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField28">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="D:\u005cSEGADEV\u005cGITHUB\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattes\u005centries\u005cbattle01\u005cnewspriteset.bin" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="D:\u005cSEGADEV\u005cGITHUB\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005centries\u005cbattle01\u005cnewspriteset.bin" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField28ActionPerformed"/>
