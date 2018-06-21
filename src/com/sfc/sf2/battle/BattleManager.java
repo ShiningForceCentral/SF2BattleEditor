@@ -10,11 +10,17 @@ import com.sfc.sf2.battle.io.PngManager;
 import com.sfc.sf2.battle.mapcoords.BattleMapCoords;
 import com.sfc.sf2.battle.mapcoords.BattleMapCoordsManager;
 import com.sfc.sf2.battle.mapterrain.BattleMapTerrainManager;
+import com.sfc.sf2.graphics.Tile;
 import com.sfc.sf2.map.layout.MapLayoutManager;
+import com.sfc.sf2.mapsprite.MapSprite;
+import com.sfc.sf2.mapsprite.MapSpriteManager;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,15 +31,18 @@ public class BattleManager {
     private MapLayoutManager mapLayoutManager = new MapLayoutManager();
     private BattleMapCoordsManager mapCoordsManager = new BattleMapCoordsManager();
     private BattleMapTerrainManager mapTerrainManager = new BattleMapTerrainManager();
+    private MapSpriteManager mapspriteManager = new MapSpriteManager();
     private Battle battle;
     private String[][] mapEntries = null;
-    private BattleMapCoords coords = null;
+    private BattleMapCoords[] coordsArray = null;
+    private MapSprite[] mapsprites = null;
+    private byte[] enemySpriteIds = null;
     
-    public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String mapspriteEntriesPath, String enemySpritesPath, String neutralEntitiesPath,
+    public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String basePalettePath, String mapspriteEntriesPath, String enemySpritesPath, String neutralEntitiesPath,
                                     int battleIndex, String terrainPath, String spritesetPath){
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Importing disassembly ...");
         mapCoordsManager.importDisassembly(mapCoordsPath);
-        BattleMapCoords[] coordsArray = mapCoordsManager.getCoords();
+        coordsArray = mapCoordsManager.getCoords();
         battle = new Battle();
         battle.setIndex(battleIndex);
         battle.setMapCoords(coordsArray[battleIndex]);
@@ -41,16 +50,20 @@ public class BattleManager {
         battle.setTerrain(mapTerrainManager.getTerrain());
         battle.setSpriteset(DisassemblyManager.importSpriteset(spritesetPath));
         mapEntries = importMapEntryFile(incbinPath, mapEntriesPath);
+        mapsprites = mapspriteManager.importDisassemblyFromEntryFile(basePalettePath, mapspriteEntriesPath, incbinPath);
+        enemySpriteIds = DisassemblyManager.importEnemySriteIDs(enemySpritesPath);
         /* TODO :
-        - Import mapsprite entries
-        - Import enemy sprite IDs
-        - Import neutral entites */
+        - Import neutral entities */
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Disassembly imported.");
     }
     
     public void exportDisassembly(String mapcoordsPath, String terrainPath, String spritesetPath){
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Exporting disassembly ...");
-
+        coordsArray[battle.getIndex()] = battle.getMapCoords();
+        mapCoordsManager.exportDisassembly(coordsArray, mapcoordsPath);
+        mapTerrainManager.setTerrain(battle.getTerrain());
+        mapTerrainManager.exportDisassembly(terrainPath);
+        
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Disassembly exported.");        
     }      
     
@@ -138,12 +151,10 @@ public class BattleManager {
                 System.out.println(entries[i][0]+" / "+entries[i][1]+" / "+entries[i][2]);
             }
         }catch(Exception e){
-             System.err.println("com.sfc.sf2.mapsprite.io.PngManager.importPng() - Error while parsing map entries data : "+e);
+             System.err.println("com.sfc.sf2.battle.BattleManager.importMapEntryFile() - Error while parsing map entries data : "+e);
         }         
         return entries;
     }
-    
-    
 
     public String[][] getMapEntries() {
         return mapEntries;
@@ -153,20 +164,28 @@ public class BattleManager {
         this.mapEntries = mapEntries;
     }
 
-    public BattleMapCoords getCoords() {
-        return coords;
-    }
-
-    public void setCoords(BattleMapCoords coords) {
-        this.coords = coords;
-    }
-
     public Battle getBattle() {
         return battle;
     }
 
     public void setBattle(Battle battle) {
         this.battle = battle;
+    }
+
+    public MapSprite[] getMapsprites() {
+        return mapsprites;
+    }
+
+    public void setMapsprites(MapSprite[] mapsprites) {
+        this.mapsprites = mapsprites;
+    }
+
+    public byte[] getEnemySpriteIds() {
+        return enemySpriteIds;
+    }
+
+    public void setEnemySpriteIds(byte[] enemySpriteIds) {
+        this.enemySpriteIds = enemySpriteIds;
     }
     
     

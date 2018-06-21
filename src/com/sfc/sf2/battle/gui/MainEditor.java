@@ -162,6 +162,9 @@ public class MainEditor extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jTextField31 = new javax.swing.JTextField();
         jButton37 = new javax.swing.JButton();
+        jLabel33 = new javax.swing.JLabel();
+        jTextField32 = new javax.swing.JTextField();
+        jButton38 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -570,7 +573,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3)
         );
 
         jTabbedPane2.addTab("Spriteset", jPanel22);
@@ -586,7 +589,6 @@ public class MainEditor extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setSelected(true);
         jCheckBox1.setText("Exploration");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -666,7 +668,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -852,6 +854,22 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
+            jLabel33.setText("Base palette :");
+
+            jTextField32.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\graphics\\tech\\basepalette.bin");
+            jTextField32.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jTextField32ActionPerformed(evt);
+                }
+            });
+
+            jButton38.setText("File...");
+            jButton38.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton38ActionPerformed(evt);
+                }
+            });
+
             javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
             jPanel3.setLayout(jPanel3Layout);
             jPanel3Layout.setHorizontalGroup(
@@ -928,6 +946,12 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jButton18)
                     .addContainerGap())
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addComponent(jLabel33)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton38))
             );
             jPanel3Layout.setVerticalGroup(
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -956,6 +980,11 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel20)
                         .addComponent(jButton25))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel33)
+                        .addComponent(jButton38))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -989,7 +1018,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton18)
-                    .addContainerGap(257, Short.MAX_VALUE))
+                    .addContainerGap(228, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Import", jPanel3);
@@ -1015,7 +1044,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel28.setText("Battle Map Coords :");
 
-            jTextField26.setText(".\\global\\newbattlemapcoords.bin");
+            jTextField26.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\global\\newbattlemapcoords.bin");
             jTextField26.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField26ActionPerformed(evt);
@@ -1024,7 +1053,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel29.setText("Battle Terrain :");
 
-            jTextField27.setText(".\\entries\\battle01\\newterrain.bin");
+            jTextField27.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\entries\\battle01\\newterrain.bin");
             jTextField27.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField27ActionPerformed(evt);
@@ -1047,7 +1076,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField28.setText(".\\entries\\battle01\\newspriteset.bin");
+            jTextField28.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battes\\entries\\battle01\\newspriteset.bin");
             jTextField28.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField28ActionPerformed(evt);
@@ -1296,6 +1325,7 @@ public class MainEditor extends javax.swing.JFrame {
         String incbinPath = jTextField23.getText();
         String mapEntriesPath = jTextField19.getText();
         String mapCoordsPath = jTextField20.getText();
+        String basePalettePath = jTextField32.getText();
         String mapspriteEntriesPath = jTextField30.getText();
         String enemySpritesPath = jTextField29.getText();
         String neutralEntitiesPath = jTextField31.getText();
@@ -1303,7 +1333,7 @@ public class MainEditor extends javax.swing.JFrame {
         String terrainPath = jTextField24.getText();
         String spritesetPath = jTextField25.getText();
         
-        battleManager.importDisassembly(mapPalettesPath, mapTilesetsPath, incbinPath, mapEntriesPath, mapCoordsPath, mapspriteEntriesPath, enemySpritesPath, neutralEntitiesPath,
+        battleManager.importDisassembly(mapPalettesPath, mapTilesetsPath, incbinPath, mapEntriesPath, mapCoordsPath, basePalettePath, mapspriteEntriesPath, enemySpritesPath, neutralEntitiesPath,
                                     battleIndex, terrainPath, spritesetPath);
 
         battle = battleManager.getBattle();
@@ -1323,6 +1353,8 @@ public class MainEditor extends javax.swing.JFrame {
         battlePanel.setBattle(battle);
         battlePanel.setMapLayout(mapLayoutManager.getLayout());
         battlePanel.setBlockset(mapLayoutManager.getBlockset());
+        battlePanel.setMapsprites(battleManager.getMapsprites());
+        battlePanel.setEnemySpriteIds(battleManager.getEnemySpriteIds());
         battlePanel.setDrawExplorationFlags(jCheckBox1.isSelected());
         battlePanel.setDrawGrid(jCheckBox2.isSelected());
         battlePanel.setDrawTerrain(jCheckBox3.isSelected());
@@ -1613,6 +1645,22 @@ public class MainEditor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTabbedPane2StateChanged
 
+    private void jTextField32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField32ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField32ActionPerformed
+
+    private void jButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton38ActionPerformed
+        int returnVal = jFileChooser1.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser1.getSelectedFile();
+            /*Path basePath = Paths.get(jTextField24.getText()).toAbsolutePath();
+            Path filePath = Paths.get(file.getAbsolutePath());
+            Path relativePath = basePath.relativize(filePath);
+            jTextField19.setText(relativePath.toString());*/
+            jTextField32.setText(file.getAbsolutePath());
+        }
+    }//GEN-LAST:event_jButton38ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1672,6 +1720,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JButton jButton35;
     private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton37;
+    private javax.swing.JButton jButton38;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
@@ -1697,6 +1746,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1766,6 +1816,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField30;
     private javax.swing.JTextField jTextField31;
+    private javax.swing.JTextField jTextField32;
     // End of variables declaration//GEN-END:variables
 
 

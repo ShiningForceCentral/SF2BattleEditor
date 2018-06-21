@@ -5,11 +5,15 @@
  */
 package com.sfc.sf2.battle.gui;
 
+import com.sfc.sf2.battle.Ally;
 import com.sfc.sf2.battle.Battle;
+import com.sfc.sf2.battle.Enemy;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.gui.BlockSlotPanel;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.layout.MapLayout;
+import com.sfc.sf2.mapsprite.MapSprite;
+import com.sfc.sf2.mapsprite.layout.MapSpriteLayout;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,9 +54,14 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     public static final int MODE_TERRAIN = 1;
     public static final int MODE_SPRITE = 2;
     
-    BlockSlotPanel leftSlot = null;
-    
     private int currentMode = 0;
+    
+    public static final int SPRITESETMODE_ALLY = 0;
+    public static final int SPRITESETMODE_ENEMY = 1;
+    public static final int SPRITESETMODE_AIREGION = 2;
+    public static final int SPRITESETMODE_AIPOINT = 3;
+    
+    private int currentSpritesetEntry = 0;
     
     private MapBlock selectedBlock0;
     MapBlock[][] copiedBlocks;
@@ -63,6 +72,8 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private Battle battle;
     private MapLayout layout;
     private MapBlock[] blockset;
+    private MapSprite[] mapsprites;
+    private byte[] enemySpriteIds;
     private int currentDisplaySize = 1;
     
     private BufferedImage currentImage;
@@ -83,6 +94,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage leftUpstairsImage;
     private BufferedImage rightUpstairsImage;
     private BufferedImage spritesImage;
+    private BufferedImage[] mapspriteImages = new BufferedImage[256];
 
     public BattlePanel() {
         addMouseListener(this);
@@ -244,11 +256,35 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage getSpritesImage(){
         if(spritesImage==null){
             spritesImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) spritesImage.getGraphics(); 
-            g2.setColor(Color.BLACK);
-            for(int i=0;i<64;i++){
-                g2.drawLine(3*8+i*3*8, 0, 3*8+i*3*8, 3*8*64-1);
-                g2.drawLine(0, 3*8+i*3*8, 3*8*64-1, 3*8+i*3*8);
+            Graphics2D g2 = (Graphics2D) spritesImage.getGraphics();
+            int x = battle.getMapCoords().getX();
+            int y = battle.getMapCoords().getY();            
+            Ally[] allies = battle.getSpriteset().getAllies();
+            for(int i=0;i<allies.length;i++){
+                Ally ally = allies[i];
+                Font font = new Font("Courier", Font.BOLD, 16);
+                g2.setFont(font);
+                int targetX = (x+ally.getX())*3*8+16-8;
+                int targetY = (y+ally.getY())*3*8+16;
+                String val = String.valueOf(ally.getIndex()+1);
+                g2.setColor(Color.black);
+                g2.drawString(val, targetX-1, targetY-1);
+                g2.drawString(val, targetX-1, targetY+1);
+                g2.drawString(val, targetX+1, targetY-1);
+                g2.drawString(val, targetX+1, targetY+1);
+                g2.setColor(Color.yellow);
+                g2.drawString(val, targetX, targetY);                
+            }
+            Enemy[] enemies = battle.getSpriteset().getEnemies();
+            for(int i=0;i<enemies.length;i++){
+                Enemy enemy = enemies[i];
+                int targetX = (x+enemy.getX())*3*8;
+                int targetY = (y+enemy.getY())*3*8;                
+                int spriteId = enemySpriteIds[enemy.getIndex()];
+                if(mapspriteImages[spriteId]==null){
+                    mapspriteImages[spriteId] = MapSpriteLayout.buildImage(mapsprites[spriteId*3+2].getTiles(), 6).getSubimage(0, 0, 3*8, 3*8);
+                }
+                g2.drawImage(mapspriteImages[spriteId], targetX, targetY, null);
             }
         }
         return spritesImage;
@@ -377,13 +413,13 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
             case MODE_TERRAIN :
                 switch (e.getButton()) {
                     case MouseEvent.BUTTON1:
-                        battle.getTerrain().getData()[(startY+y)*48+startX+x]++;
+                        battle.getTerrain().getData()[(y-startY)*48+(x-startX)]++;
                         break;
                     case MouseEvent.BUTTON2:
 
                         break;
                     case MouseEvent.BUTTON3:
-                        battle.getTerrain().getData()[(startY+y)*48+startX+x]--;
+                        battle.getTerrain().getData()[(y-startY)*48+(x-startX)]--;
                         break;
                     default:
                         break;
@@ -638,7 +674,25 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     public void updateCoordsDisplay(){
         coordsImage = null;
         terrainImage = null;
+        spritesImage = null;
         this.redraw = true;
     }
+
+    public MapSprite[] getMapsprites() {
+        return mapsprites;
+    }
+
+    public void setMapsprites(MapSprite[] mapsprites) {
+        this.mapsprites = mapsprites;
+    }
+
+    public byte[] getEnemySpriteIds() {
+        return enemySpriteIds;
+    }
+
+    public void setEnemySpriteIds(byte[] enemySpriteIds) {
+        this.enemySpriteIds = enemySpriteIds;
+    }
+    
     
 }

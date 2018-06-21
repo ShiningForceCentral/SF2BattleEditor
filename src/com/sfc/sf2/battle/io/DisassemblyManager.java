@@ -197,6 +197,17 @@ public class DisassemblyManager {
         return spritesetBytes;
     }
     
- 
+    public static byte[] importEnemySriteIDs(String filepath){
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemySriteIDs() - Importing disassembly ...");
+        byte[] data = null;
+        try {
+            Path filePath = Paths.get(filepath);
+            data = Files.readAllBytes(filePath);            
+        } catch (IOException ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemySriteIDs() - Disassembly imported.");  
+        return data;        
+    }
     
 }
