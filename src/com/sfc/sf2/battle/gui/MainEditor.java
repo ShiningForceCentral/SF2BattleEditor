@@ -107,6 +107,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel21 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel24 = new javax.swing.JPanel();
@@ -226,7 +227,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -385,7 +386,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jSpinner8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addContainerGap(446, Short.MAX_VALUE))
+                .addContainerGap(464, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Map Coords", jPanel4);
@@ -419,15 +420,25 @@ public class MainEditor extends javax.swing.JFrame {
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane6.setViewportView(jTable1);
 
+        jLabel12.setText("<html>Table above to ignore at the moment.<br>Will display the Land Effect / Move Cost table :<br>disasm\\data\\battles\\global\\movetypeterraincosts.txt<br><br>Map controls when this tab is active :<br>Left click : decrement block's terrain type index.<br>Right click : increment<br>That's all for the moment.<br>Better ergonomics to find and implement.</html>");
+
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
         jTabbedPane2.addTab("Terrain", jPanel21);
@@ -467,7 +478,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("Allies", jPanel24);
@@ -501,7 +512,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("Enemies", jPanel25);
@@ -535,7 +546,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("AI Regions", jPanel26);
@@ -569,7 +580,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("AI Points", jPanel31);
@@ -578,7 +589,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel22.setLayout(jPanel22Layout);
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3)
+            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1027,7 +1038,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton18)
-                    .addContainerGap(228, Short.MAX_VALUE))
+                    .addContainerGap(246, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Import", jPanel3);
@@ -1142,7 +1153,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton2)
-                    .addContainerGap(305, Short.MAX_VALUE))
+                    .addContainerGap(323, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Export", jPanel5);
@@ -1155,7 +1166,7 @@ public class MainEditor extends javax.swing.JFrame {
             );
             jPanel9Layout.setVerticalGroup(
                 jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
             );
 
             jSplitPane4.setLeftComponent(jPanel9);
@@ -1186,7 +1197,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jSplitPane1.setLeftComponent(jPanel15);
 
-            jSplitPane3.setDividerLocation(200);
+            jSplitPane3.setDividerLocation(0);
             jSplitPane3.setOneTouchExpandable(true);
 
             jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Console"));
@@ -1229,7 +1240,7 @@ public class MainEditor extends javax.swing.JFrame {
             jPanel20.setLayout(jPanel20Layout);
             jPanel20Layout.setHorizontalGroup(
                 jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
             );
             jPanel20Layout.setVerticalGroup(
                 jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1384,7 +1395,7 @@ public class MainEditor extends javax.swing.JFrame {
         
         jTable2.setModel(new AllyPropertiesTableModel(battle, battlePanel));
         jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            private int selectedRow;
+            private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
                 if(selectedRow!=jTable2.getSelectedRow()){
@@ -1401,7 +1412,7 @@ public class MainEditor extends javax.swing.JFrame {
         enemyTableModel = new EnemyPropertiesTableModel(battle, battlePanel);
         jTable3.setModel(enemyTableModel);
         jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            private int selectedRow;
+            private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
                 if(selectedRow!=jTable3.getSelectedRow()){
@@ -1417,10 +1428,36 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel24.repaint();
         aiRegionTableModel = new AIRegionPropertiesTableModel(battle, battlePanel);
         jTable4.setModel(aiRegionTableModel);
+        jTable4.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            private int selectedRow = -1;
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                if(selectedRow!=jTable4.getSelectedRow()){
+                    selectedRow = jTable4.getSelectedRow();
+                    battlePanel.setSelectedAIRegion(selectedRow);
+                    battlePanel.updateAIRegionDisplay();
+                    jPanel2.revalidate();
+                    jPanel2.repaint();
+                }
+            }
+        });  
         jPanel25.validate();
         jPanel25.repaint();
         aiPointTableModel = new AIPointPropertiesTableModel(battle, battlePanel);
         jTable9.setModel(aiPointTableModel);
+        jTable9.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            private int selectedRow = -1;
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                if(selectedRow!=jTable9.getSelectedRow()){
+                    selectedRow = jTable9.getSelectedRow();
+                    battlePanel.setSelectedAIPoint(selectedRow);
+                    battlePanel.updateAIPointDisplay();
+                    jPanel2.revalidate();
+                    jPanel2.repaint();
+                }
+            }
+        });  
         jPanel26.validate();
         jPanel26.repaint();
     }//GEN-LAST:event_jButton18ActionPerformed
@@ -1607,6 +1644,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
         int newMapIndex = (int)jSpinner1.getModel().getValue();
+        battle.getMapCoords().setMap(newMapIndex);
         String[][] mapEntries = battleManager.getMapEntries();
         final MapLayoutManager mapLayoutManager = new MapLayoutManager();
         mapLayoutManager.importDisassembly(jTextField21.getText(), jTextField22.getText(), mapEntries[newMapIndex][0], mapEntries[newMapIndex][1], mapEntries[newMapIndex][2]);     
@@ -1786,6 +1824,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;

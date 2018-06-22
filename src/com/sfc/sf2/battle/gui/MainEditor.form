@@ -141,7 +141,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" alignment="0" pref="711" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="712" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -327,7 +327,7 @@
                                                       <Component id="jSpinner8" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace pref="446" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="464" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -452,12 +452,22 @@
                                       <Layout>
                                         <DimensionLayout dim="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jScrollPane6" alignment="1" pref="278" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane6" alignment="1" pref="0" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                              </Group>
                                           </Group>
                                         </DimensionLayout>
                                         <DimensionLayout dim="1">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jScrollPane6" alignment="0" pref="555" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jScrollPane6" min="-2" pref="400" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                         </DimensionLayout>
                                       </Layout>
@@ -493,6 +503,11 @@
                                             </Component>
                                           </SubComponents>
                                         </Container>
+                                        <Component class="javax.swing.JLabel" name="jLabel12">
+                                          <Properties>
+                                            <Property name="text" type="java.lang.String" value="&lt;html&gt;Table above to ignore at the moment.&lt;br&gt;Will display the Land Effect / Move Cost table :&lt;br&gt;disasm\u005cdata\u005cbattles\u005cglobal\u005cmovetypeterraincosts.txt&lt;br&gt;&lt;br&gt;Map controls when this tab is active :&lt;br&gt;Left click : decrement block&apos;s terrain type index.&lt;br&gt;Right click : increment&lt;br&gt;That&apos;s all for the moment.&lt;br&gt;Better ergonomics to find and implement.&lt;/html&gt;" containsInvalidXMLChars="true"/>
+                                          </Properties>
+                                        </Component>
                                       </SubComponents>
                                     </Container>
                                     <Container class="javax.swing.JPanel" name="jPanel22">
@@ -507,7 +522,7 @@
                                       <Layout>
                                         <DimensionLayout dim="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jTabbedPane3" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jTabbedPane3" alignment="0" pref="278" max="32767" attributes="0"/>
                                           </Group>
                                         </DimensionLayout>
                                         <DimensionLayout dim="1">
@@ -541,7 +556,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane7" alignment="0" pref="527" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane7" alignment="0" pref="545" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -586,7 +601,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane8" alignment="1" pref="527" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane8" alignment="1" pref="545" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -639,7 +654,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane9" alignment="1" pref="527" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane9" alignment="1" pref="545" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -690,7 +705,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane14" alignment="1" pref="527" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane14" alignment="1" pref="545" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -855,7 +870,7 @@
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTabbedPane1" alignment="1" pref="715" max="32767" attributes="0"/>
+                                      <Component id="jTabbedPane1" alignment="1" pref="733" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -1065,7 +1080,7 @@
                                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton18" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="228" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="246" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -1406,7 +1421,7 @@
                                                   <Component id="jLabel1" min="-2" pref="23" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="305" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="323" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -1504,7 +1519,7 @@
             </Container>
             <Container class="javax.swing.JSplitPane" name="jSplitPane3">
               <Properties>
-                <Property name="dividerLocation" type="int" value="200"/>
+                <Property name="dividerLocation" type="int" value="0"/>
                 <Property name="oneTouchExpandable" type="boolean" value="true"/>
               </Properties>
               <Constraints>
@@ -1582,7 +1597,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane4" alignment="0" pref="187" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="0" pref="23" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">

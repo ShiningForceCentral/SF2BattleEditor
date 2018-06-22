@@ -5,6 +5,8 @@
  */
 package com.sfc.sf2.battle.gui;
 
+import com.sfc.sf2.battle.AIPoint;
+import com.sfc.sf2.battle.AIRegion;
 import com.sfc.sf2.battle.Ally;
 import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.Enemy;
@@ -87,8 +89,10 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private boolean drawGrid = false;
     private boolean drawActionFlags = false;
     private boolean drawCoords = true;
-    private boolean drawTerrain = false;
-    private boolean drawSprites = false;
+    private boolean drawTerrain = true;
+    private boolean drawSprites = true;
+    private boolean drawAiRegions = true;
+    private boolean drawAiPoints = true;
     
     private BufferedImage gridImage;
     private BufferedImage coordsImage;
@@ -97,6 +101,9 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage leftUpstairsImage;
     private BufferedImage rightUpstairsImage;
     private BufferedImage spritesImage;
+    private BufferedImage aiRegionsImage;
+    private BufferedImage aiPointsImage;
+    
     private BufferedImage[] mapspriteImages = new BufferedImage[256];
 
     public BattlePanel() {
@@ -189,6 +196,12 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
             if(drawSprites){
                 graphics.drawImage(getSpritesImage(),0,0,null);
             }
+            if(drawAiRegions){
+                graphics.drawImage(getAiRegionsImage(),0,0,null);
+            }
+            if(drawAiPoints){
+                graphics.drawImage(getAiPointsImage(),0,0,null);
+            }
             redraw = false;
             currentImage = resize(currentImage);
         }
@@ -279,6 +292,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 g2.drawString(val, targetX, targetY);  
                 if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_ALLY && i==selectedAlly){
                     g2.setColor(Color.YELLOW);
+                    g2.setStroke(new BasicStroke(3));
                     g2.drawRect((x+ally.getX())*3*8 + 3, (y+ally.getY())*3*8, 1*24-6, 1*24-6);
                 }
             }
@@ -287,18 +301,80 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 Enemy enemy = enemies[i];
                 int targetX = (x+enemy.getX())*3*8;
                 int targetY = (y+enemy.getY())*3*8;                
-                int spriteId = enemySpriteIds[enemy.getIndex()];
-                if(mapspriteImages[spriteId]==null){
-                    mapspriteImages[spriteId] = MapSpriteLayout.buildImage(mapsprites[spriteId*3+2].getTiles(), 6).getSubimage(0, 0, 3*8, 3*8);
-                }
-                g2.drawImage(mapspriteImages[spriteId], targetX, targetY, null);  
+                int spriteId = (enemySpriteIds[enemy.getIndex()]&0xFF);
+                if(spriteId*3>(mapsprites.length)){
+                    g2.setColor(Color.black);
+                    g2.drawString(String.valueOf(spriteId), targetX-1, targetY+16-1);
+                    g2.drawString(String.valueOf(spriteId), targetX-1, targetY+16+1);
+                    g2.drawString(String.valueOf(spriteId), targetX+1, targetY+16-1);
+                    g2.drawString(String.valueOf(spriteId), targetX+1, targetY+16+1);
+                    g2.setColor(Color.RED);
+                    g2.drawString(String.valueOf(spriteId), targetX, targetY+16);  
+                }else{
+                    if(mapspriteImages[spriteId]==null){
+                        mapspriteImages[spriteId] = MapSpriteLayout.buildImage(mapsprites[spriteId*3+2].getTiles(), 6).getSubimage(0, 0, 3*8, 3*8);
+                    }
+                    g2.drawImage(mapspriteImages[spriteId], targetX, targetY, null); 
+                } 
                 if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_ENEMY && i==selectedEnemy){
                     g2.setColor(Color.YELLOW);
+                    g2.setStroke(new BasicStroke(3));
                     g2.drawRect((x+enemy.getX())*3*8 + 3, (y+enemy.getY())*3*8, 1*24-6, 1*24-6);
                 }
             }
         }
         return spritesImage;
+    }
+    
+    private BufferedImage getAiRegionsImage(){
+        if(aiRegionsImage==null){
+            aiRegionsImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D) aiRegionsImage.getGraphics();
+            int x = battle.getMapCoords().getX();
+            int y = battle.getMapCoords().getY();            
+            AIRegion[] regions = battle.getSpriteset().getAiRegions();
+            for(int i=0;i<regions.length;i++){ 
+                if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_AIREGION && i==selectedAIRegion){
+                    AIRegion r = regions[i];
+                    int x1 = x + r.getX1();
+                    int y1 = y + r.getY1();
+                    int x2 = x + r.getX2();
+                    int y2 = y + r.getY2();
+                    int x3 = x + r.getX3();
+                    int y3 = y + r.getY3();
+                    int x4 = x + r.getX4();
+                    int y4 = y + r.getY4();
+                    g2.setColor(Color.GREEN);
+                    g2.setStroke(new BasicStroke(3));
+                    g2.drawLine(x1*3*8+12, y1*3*8+12, x2*3*8+12, y2*3*8+12);
+                    g2.drawLine(x2*3*8+12, y2*3*8+12, x3*3*8+12, y3*3*8+12);
+                    g2.drawLine(x3*3*8+12, y3*3*8+12, x4*3*8+12, y4*3*8+12);
+                    g2.drawLine(x4*3*8+12, y4*3*8+12, x1*3*8+12, y1*3*8+12);
+                }
+            }
+        }
+        return aiRegionsImage;
+    }
+    
+    private BufferedImage getAiPointsImage(){
+        if(aiPointsImage==null){
+            aiPointsImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D) aiPointsImage.getGraphics();
+            int x = battle.getMapCoords().getX();
+            int y = battle.getMapCoords().getY();            
+            AIPoint[] points = battle.getSpriteset().getAiPoints();
+            for(int i=0;i<points.length;i++){ 
+                if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_AIPOINT && i==selectedAIPoint){
+                    AIPoint p = points[i];
+                    int px = x + p.getX();
+                    int py = y + p.getY();
+                    g2.setColor(Color.GREEN);
+                    g2.setStroke(new BasicStroke(3));
+                    g2.drawRect(px*3*8, py*3*8, 3*8, 3*8);
+                }
+            }
+        }
+        return aiPointsImage;
     }
     
     private BufferedImage getObstructedImage(){
@@ -566,11 +642,23 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         coordsImage = null;
         terrainImage = null;
         spritesImage = null;
+        aiRegionsImage = null;
+        aiPointsImage = null;
         this.redraw = true;
     }
     
     public void updateSpriteDisplay(){
         spritesImage = null;
+        this.redraw = true;
+    }
+    
+    public void updateAIRegionDisplay(){
+        aiRegionsImage = null;
+        this.redraw = true;
+    }
+    
+    public void updateAIPointDisplay(){
+        aiPointsImage = null;
         this.redraw = true;
     }
 
@@ -628,6 +716,22 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void setCurrentSpritesetMode(int currentSpritesetMode) {
         this.currentSpritesetMode = currentSpritesetMode;
+    }
+
+    public boolean isDrawAiRegions() {
+        return drawAiRegions;
+    }
+
+    public void setDrawAiRegions(boolean drawAiRegions) {
+        this.drawAiRegions = drawAiRegions;
+    }
+
+    public boolean isDrawAiPoints() {
+        return drawAiPoints;
+    }
+
+    public void setDrawAiPoints(boolean drawAiPoints) {
+        this.drawAiPoints = drawAiPoints;
     }
     
     
