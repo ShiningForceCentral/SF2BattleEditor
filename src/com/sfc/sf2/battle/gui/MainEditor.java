@@ -163,9 +163,6 @@ public class MainEditor extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jTextField30 = new javax.swing.JTextField();
         jButton27 = new javax.swing.JButton();
-        jLabel32 = new javax.swing.JLabel();
-        jTextField31 = new javax.swing.JTextField();
-        jButton37 = new javax.swing.JButton();
         jLabel33 = new javax.swing.JLabel();
         jTextField32 = new javax.swing.JTextField();
         jButton38 = new javax.swing.JButton();
@@ -589,7 +586,7 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel22.setLayout(jPanel22Layout);
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3)
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -712,7 +709,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel23.setText("Palettes path :");
 
-        jTextField21.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\graphics\\maps\\mappalettes\\mappalette");
+        jTextField21.setText("..\\graphics\\maps\\mappalettes\\mappalette");
         jTextField21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField21ActionPerformed(evt);
@@ -728,7 +725,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel24.setText("Tilesets path :");
 
-        jTextField22.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\graphics\\maps\\maptilesets\\maptileset");
+        jTextField22.setText("..\\graphics\\maps\\maptilesets\\maptileset");
         jTextField22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField22ActionPerformed(evt);
@@ -751,7 +748,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel21.setText("Map Coords :");
 
-        jTextField20.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\global\\battlemapcoords.bin");
+        jTextField20.setText(".\\global\\battlemapcoords.bin");
         jTextField20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField20ActionPerformed(evt);
@@ -760,7 +757,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel10.setText("Battle index :");
 
-        jTextField19.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\maps\\entries.asm");
+        jTextField19.setText("..\\maps\\entries.asm");
         jTextField19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField19ActionPerformed(evt);
@@ -785,7 +782,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel20.setText("Map entries :");
 
-        jTextField23.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\");
+        jTextField23.setText("..\\..\\");
             jTextField23.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField23ActionPerformed(evt);
@@ -794,7 +791,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel26.setText("Terrain :");
 
-            jTextField24.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\entries\\battle01\\terrain.bin");
+            jTextField24.setText(".\\entries\\battle01\\terrain.bin");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -812,7 +809,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel27.setText("Spriteset :");
 
-            jTextField25.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\entries\\battle01\\spriteset.bin");
+            jTextField25.setText(".\\entries\\battle01\\spriteset.bin");
             jTextField25.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField25ActionPerformed(evt);
@@ -828,7 +825,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel31.setText("Enemy sprites :");
 
-            jTextField29.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\stats\\enemies\\enemyspriteids.bin");
+            jTextField29.setText("..\\stats\\enemies\\enemyspriteids.bin");
             jTextField29.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField29ActionPerformed(evt);
@@ -844,7 +841,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel22.setText("Mapsprite entries :");
 
-            jTextField30.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\graphics\\mapsprites\\entries.asm");
+            jTextField30.setText("..\\graphics\\mapsprites\\entries.asm");
             jTextField30.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField30ActionPerformed(evt);
@@ -858,25 +855,9 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jLabel32.setText("Neutral Entities :");
-
-            jTextField31.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\global\\battleneutralentities.asm");
-            jTextField31.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jTextField31ActionPerformed(evt);
-                }
-            });
-
-            jButton37.setText("File...");
-            jButton37.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jButton37ActionPerformed(evt);
-                }
-            });
-
             jLabel33.setText("Base palette :");
 
-            jTextField32.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\graphics\\tech\\basepalette.bin");
+            jTextField32.setText("..\\graphics\\tech\\basepalette.bin");
             jTextField32.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField32ActionPerformed(evt);
@@ -950,12 +931,6 @@ public class MainEditor extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton27))
                 .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addComponent(jLabel32)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jButton37))
-                .addGroup(jPanel3Layout.createSequentialGroup()
                     .addComponent(jLabel27)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
@@ -1015,11 +990,6 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel31)
                         .addComponent(jButton36))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel32)
-                        .addComponent(jButton37))
                     .addGap(18, 18, 18)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1038,7 +1008,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton18)
-                    .addContainerGap(246, Short.MAX_VALUE))
+                    .addContainerGap(275, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Import", jPanel3);
@@ -1064,7 +1034,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel28.setText("Battle Map Coords :");
 
-            jTextField26.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\global\\newbattlemapcoords.bin");
+            jTextField26.setText(".\\global\\newbattlemapcoords.bin");
             jTextField26.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField26ActionPerformed(evt);
@@ -1073,7 +1043,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel29.setText("Battle Terrain :");
 
-            jTextField27.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\entries\\battle01\\newterrain.bin");
+            jTextField27.setText(".\\entries\\battle01\\newterrain.bin");
             jTextField27.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField27ActionPerformed(evt);
@@ -1096,7 +1066,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField28.setText("D:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\entries\\battle01\\newspriteset.bin");
+            jTextField28.setText(".\\entries\\battle01\\newspriteset.bin");
             jTextField28.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField28ActionPerformed(evt);
@@ -1348,12 +1318,11 @@ public class MainEditor extends javax.swing.JFrame {
         String basePalettePath = jTextField32.getText();
         String mapspriteEntriesPath = jTextField30.getText();
         String enemySpritesPath = jTextField29.getText();
-        String neutralEntitiesPath = jTextField31.getText();
         int battleIndex = (int)jSpinner4.getModel().getValue();
         String terrainPath = jTextField24.getText();
         String spritesetPath = jTextField25.getText();
         
-        battleManager.importDisassembly(mapPalettesPath, mapTilesetsPath, incbinPath, mapEntriesPath, mapCoordsPath, basePalettePath, mapspriteEntriesPath, enemySpritesPath, neutralEntitiesPath,
+        battleManager.importDisassembly(mapPalettesPath, mapTilesetsPath, incbinPath, mapEntriesPath, mapCoordsPath, basePalettePath, mapspriteEntriesPath, enemySpritesPath,
                                     battleIndex, terrainPath, spritesetPath);
 
         battle = battleManager.getBattle();
@@ -1618,22 +1587,6 @@ public class MainEditor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton27ActionPerformed
 
-    private void jTextField31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField31ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField31ActionPerformed
-
-    private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
-        int returnVal = jFileChooser1.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = jFileChooser1.getSelectedFile();
-            /*Path basePath = Paths.get(jTextField24.getText()).toAbsolutePath();
-            Path filePath = Paths.get(file.getAbsolutePath());
-            Path relativePath = basePath.relativize(filePath);
-            jTextField19.setText(relativePath.toString());*/
-            jTextField31.setText(file.getAbsolutePath());
-        }
-    }//GEN-LAST:event_jButton37ActionPerformed
-
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         if(battlePanel!=null){
             battlePanel.setDrawSprites(jCheckBox4.isSelected());
@@ -1812,7 +1765,6 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton35;
     private javax.swing.JButton jButton36;
-    private javax.swing.JButton jButton37;
     private javax.swing.JButton jButton38;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
@@ -1839,7 +1791,6 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1909,7 +1860,6 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField28;
     private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField30;
-    private javax.swing.JTextField jTextField31;
     private javax.swing.JTextField jTextField32;
     // End of variables declaration//GEN-END:variables
 

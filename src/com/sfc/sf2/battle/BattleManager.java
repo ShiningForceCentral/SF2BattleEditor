@@ -38,7 +38,7 @@ public class BattleManager {
     private MapSprite[] mapsprites = null;
     private byte[] enemySpriteIds = null;
     
-    public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String basePalettePath, String mapspriteEntriesPath, String enemySpritesPath, String neutralEntitiesPath,
+    public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String basePalettePath, String mapspriteEntriesPath, String enemySpritesPath,
                                     int battleIndex, String terrainPath, String spritesetPath){
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Importing disassembly ...");
         mapCoordsManager.importDisassembly(mapCoordsPath);
@@ -52,8 +52,6 @@ public class BattleManager {
         mapEntries = importMapEntryFile(incbinPath, mapEntriesPath);
         mapsprites = mapspriteManager.importDisassemblyFromEntryFile(basePalettePath, mapspriteEntriesPath, incbinPath);
         enemySpriteIds = DisassemblyManager.importEnemySriteIDs(enemySpritesPath);
-        /* TODO :
-        - Import neutral entities */
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Disassembly imported.");
     }
     
