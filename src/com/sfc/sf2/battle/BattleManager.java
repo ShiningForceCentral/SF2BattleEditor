@@ -38,7 +38,7 @@ public class BattleManager {
     private MapSprite[] mapsprites = null;
     private byte[] enemySpriteIds = null;
     
-    public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String basePalettePath, String mapspriteEntriesPath, String enemySpritesPath,
+    public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String basePalettePath, String mapspriteEntriesPath, String mapspriteEnumPath, String enemySpritesPath,
                                     int battleIndex, String terrainPath, String spritesetPath){
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Importing disassembly ...");
         mapCoordsManager.importDisassembly(mapCoordsPath);
@@ -51,7 +51,7 @@ public class BattleManager {
         battle.setSpriteset(DisassemblyManager.importSpriteset(spritesetPath));
         mapEntries = importMapEntryFile(incbinPath, mapEntriesPath);
         mapsprites = mapspriteManager.importDisassemblyFromEntryFile(basePalettePath, mapspriteEntriesPath, incbinPath);
-        enemySpriteIds = DisassemblyManager.importEnemySriteIDs(enemySpritesPath);
+        enemySpriteIds = DisassemblyManager.importEnemySriteIDs(mapspriteEnumPath, enemySpritesPath);
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Disassembly imported.");
     }
     
@@ -90,7 +90,7 @@ public class BattleManager {
                         while(mapScan.hasNext()){
                             String mapline = mapScan.nextLine();
                             if(mapline.startsWith(mapPointer)){
-                                while(mapScan.hasNext()&&!mapline.contains("incbin")){
+                                while(mapScan.hasNext()&&!mapline.contains("include")){
                                     mapline = mapScan.nextLine();
                                 }
                                 String tilesetsPath = mapline.substring(mapline.indexOf("\"")+1, mapline.lastIndexOf("\""));

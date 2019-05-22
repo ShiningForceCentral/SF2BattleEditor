@@ -10,6 +10,7 @@ import com.sfc.sf2.battle.AIRegion;
 import com.sfc.sf2.battle.Ally;
 import com.sfc.sf2.battle.Enemy;
 import com.sfc.sf2.battle.SpriteSet;
+import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -17,7 +18,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -197,12 +201,61 @@ public class DisassemblyManager {
         return spritesetBytes;
     }
     
-    public static byte[] importEnemySriteIDs(String filepath){
+    public static byte[] importEnemySriteIDs(String mapspriteEnumPath, String filepath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemySriteIDs() - Importing disassembly ...");
         byte[] data = null;
         try {
-            Path filePath = Paths.get(filepath);
-            data = Files.readAllBytes(filePath);            
+            if(filepath.endsWith(".bin")){
+                Path filePath = Paths.get(filepath);
+                data = Files.readAllBytes(filePath); 
+            }else{
+                Map<String, Integer> mapspriteEnum = new HashMap();
+                File enumFile = new File(mapspriteEnumPath);
+                Scanner enumScan = new Scanner(enumFile);
+                while(enumScan.hasNext()){
+                    String line = enumScan.nextLine();
+                    if(line.trim().startsWith("; enum Mapsprites")){
+                        line = enumScan.nextLine();
+                        while(line.startsWith("MAPSPRITE")){
+                            String key = line.substring(0,line.indexOf(":"));
+                            Integer value = Integer.valueOf(line.substring(line.indexOf("$")+1).trim(), 16);
+                            mapspriteEnum.put(key, value);
+                            line = enumScan.nextLine();
+                        }
+                    }
+                } 
+                File file = new File(filepath);
+                Scanner scan = new Scanner(file);
+                List<Integer> values = new ArrayList();
+                while(scan.hasNext()){
+                    String line = scan.nextLine();
+                    if(line.trim().startsWith("EnemyMapSprites:")){
+                        line = scan.nextLine();
+                        while(line.trim().startsWith("mapSprite")){
+                            if(line.contains(";")){
+                                line = line.substring(0,line.indexOf(";"));
+                            }
+                            String value = line.trim().substring("mapSprite".length()).trim();
+                            Integer val;
+                            if(value.contains("$")||value.matches("[0-9]+")){
+                                val = valueOf(value);
+                            }else{
+                                val = mapspriteEnum.get("MAPSPRITE_"+value);
+                            }
+                            values.add(val);
+                            if(scan.hasNext()){
+                                line = scan.nextLine();
+                            }else{
+                                break;
+                            }
+                        }
+                    }
+                } 
+                data = new byte[values.size()];
+                for(int i=0;i<data.length;i++){
+                    data[i] = (byte)(values.get(i)&0xFF);
+                }
+            }           
         } catch (IOException ex) {
             Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -210,4 +263,12 @@ public class DisassemblyManager {
         return data;        
     }
     
+    private static int valueOf(String s){
+        s = s.trim();
+        if(s.startsWith("$")){
+            return Integer.valueOf(s.substring(1),16);
+        }else{
+            return Integer.valueOf(s);
+        }
+    }
 }
