@@ -141,7 +141,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" alignment="0" pref="712" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="702" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -327,7 +327,7 @@
                                                       <Component id="jSpinner8" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace pref="464" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="454" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -463,10 +463,9 @@
                                         <DimensionLayout dim="1">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jScrollPane6" min="-2" pref="400" max="-2" attributes="0"/>
+                                                  <Component id="jScrollPane6" min="-2" pref="99" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                                  <Component id="jLabel12" min="-2" pref="458" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -505,7 +504,7 @@
                                         </Container>
                                         <Component class="javax.swing.JLabel" name="jLabel12">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="&lt;html&gt;Table above to ignore at the moment.&lt;br&gt;Will display the Land Effect / Move Cost table :&lt;br&gt;disasm\u005cdata\u005cbattles\u005cglobal\u005cmovetypeterraincosts.txt&lt;br&gt;&lt;br&gt;Map controls when this tab is active :&lt;br&gt;Left click : decrement block&apos;s terrain type index.&lt;br&gt;Right click : increment&lt;br&gt;That&apos;s all for the moment.&lt;br&gt;Better ergonomics to find and implement.&lt;/html&gt;" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="&lt;html&gt;Table above to ignore at the moment.&lt;br&gt;Will display the Land Effect / Move Cost table :&lt;br&gt;disasm\u005cdata\u005cbattles\u005cglobal\u005cmovetypeterraincosts.txt&lt;br&gt;&lt;br&gt;Map controls when this tab is active :&lt;br&gt;Left click : decrement block&apos;s terrain type index.&lt;br&gt;Right click : increment&lt;br&gt;That&apos;s all for the moment.&lt;br&gt;Better ergonomics to find and implement.&lt;br/&gt;&lt;br/&gt;Quick value defs :&lt;br/&gt;-1 = Obstructed&lt;br&gt;0 = Low Sky&lt;br/&gt;1 = Plains&lt;br/&gt;2 = Path&lt;br/&gt;3 = Grass&lt;br/&gt;4 = Forest&lt;br/&gt;5 = Hills&lt;br/&gt;6 = Desert&lt;br/&gt;7 = High Sky&lt;br/&gt;8 = Water&lt;/html&gt;" containsInvalidXMLChars="true"/>
                                           </Properties>
                                         </Component>
                                       </SubComponents>
@@ -556,7 +555,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane7" alignment="0" pref="545" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane7" alignment="0" pref="535" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -601,7 +600,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane8" alignment="1" pref="545" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane8" alignment="1" pref="535" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -654,7 +653,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane9" alignment="1" pref="545" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane9" alignment="1" pref="535" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -705,7 +704,7 @@
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane14" alignment="1" pref="545" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane14" alignment="1" pref="535" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -870,7 +869,7 @@
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTabbedPane1" alignment="1" pref="733" max="32767" attributes="0"/>
+                                      <Component id="jTabbedPane1" alignment="1" pref="723" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -1080,7 +1079,7 @@
                                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton18" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="258" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="248" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -1106,7 +1105,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField21">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="..\u005cgraphics\u005cmaps\u005cmappalettes\u005cmappalette" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c..\u005cgraphics\u005cmaps\u005cmappalettes\u005cmappalette" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField21ActionPerformed"/>
@@ -1127,7 +1126,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField22">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="..\u005cgraphics\u005cmaps\u005cmaptilesets\u005cmaptileset" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c..\u005cgraphics\u005cmaps\u005cmaptilesets\u005cmaptileset" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField22ActionPerformed"/>
@@ -1156,7 +1155,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField20">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value=".\u005cglobal\u005cbattlemapcoords.asm" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c.\u005cglobal\u005cbattlemapcoords.asm" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField20ActionPerformed"/>
@@ -1169,7 +1168,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField19">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="..\u005cmaps\u005centries.asm" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c..\u005cmaps\u005centries.asm" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField19ActionPerformed"/>
@@ -1203,7 +1202,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField23">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="..\u005c..\u005c" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c..\u005c..\u005c" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField23ActionPerformed"/>
@@ -1216,7 +1215,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField24">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value=".\u005centries\u005cbattle01\u005cterrain.bin" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c.\u005centries\u005cbattle01\u005cterrain.bin" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField24ActionPerformed"/>
@@ -1244,7 +1243,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField25">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value=".\u005centries\u005cbattle01\u005cspriteset.bin" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c.\u005centries\u005cbattle01\u005cspriteset.bin" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField25ActionPerformed"/>
@@ -1265,7 +1264,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField29">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="..\u005cstats\u005cenemies\u005cenemymapsprites.asm" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c..\u005cstats\u005cenemies\u005cenemymapsprites.asm" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField29ActionPerformed"/>
@@ -1286,7 +1285,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField30">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="..\u005cgraphics\u005cmapsprites\u005centries.asm" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c..\u005cgraphics\u005cmapsprites\u005centries.asm" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField30ActionPerformed"/>
@@ -1307,7 +1306,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField32">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="..\u005cgraphics\u005ctech\u005cbasepalette.bin" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c..\u005cgraphics\u005ctech\u005cbasepalette.bin" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField32ActionPerformed"/>
@@ -1328,7 +1327,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField31">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value="..\u005c..\u005csf2enums.asm" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value="C:\u005cSEGADEV\u005cSFFC\u005cSF2DISASM\u005cdisasm\u005cdata\u005cbattles\u005c..\u005c..\u005csf2enums.asm" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField31ActionPerformed"/>
@@ -1421,7 +1420,7 @@
                                                   <Component id="jLabel1" min="-2" pref="23" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="323" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="313" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>

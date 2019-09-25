@@ -232,7 +232,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -391,7 +391,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jSpinner8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addContainerGap(464, Short.MAX_VALUE))
+                .addContainerGap(454, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Map Coords", jPanel4);
@@ -425,7 +425,7 @@ public class MainEditor extends javax.swing.JFrame {
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane6.setViewportView(jTable1);
 
-        jLabel12.setText("<html>Table above to ignore at the moment.<br>Will display the Land Effect / Move Cost table :<br>disasm\\data\\battles\\global\\movetypeterraincosts.txt<br><br>Map controls when this tab is active :<br>Left click : decrement block's terrain type index.<br>Right click : increment<br>That's all for the moment.<br>Better ergonomics to find and implement.</html>");
+        jLabel12.setText("<html>Table above to ignore at the moment.<br>Will display the Land Effect / Move Cost table :<br>disasm\\data\\battles\\global\\movetypeterraincosts.txt<br><br>Map controls when this tab is active :<br>Left click : decrement block's terrain type index.<br>Right click : increment<br>That's all for the moment.<br>Better ergonomics to find and implement.<br/><br/>Quick value defs :<br/>-1 = Obstructed<br>0 = Low Sky<br/>1 = Plains<br/>2 = Path<br/>3 = Grass<br/>4 = Forest<br/>5 = Hills<br/>6 = Desert<br/>7 = High Sky<br/>8 = Water</html>");
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -440,10 +440,9 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane2.addTab("Terrain", jPanel21);
@@ -483,7 +482,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("Allies", jPanel24);
@@ -517,7 +516,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("Enemies", jPanel25);
@@ -551,7 +550,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("AI Regions", jPanel26);
@@ -585,7 +584,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+            .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("AI Points", jPanel31);
@@ -717,7 +716,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel23.setText("Palettes path :");
 
-        jTextField21.setText("..\\graphics\\maps\\mappalettes\\mappalette");
+        jTextField21.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\..\\graphics\\maps\\mappalettes\\mappalette");
         jTextField21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField21ActionPerformed(evt);
@@ -733,7 +732,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel24.setText("Tilesets path :");
 
-        jTextField22.setText("..\\graphics\\maps\\maptilesets\\maptileset");
+        jTextField22.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\..\\graphics\\maps\\maptilesets\\maptileset");
         jTextField22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField22ActionPerformed(evt);
@@ -756,7 +755,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel21.setText("Map Coords :");
 
-        jTextField20.setText(".\\global\\battlemapcoords.asm");
+        jTextField20.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\.\\global\\battlemapcoords.asm");
         jTextField20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField20ActionPerformed(evt);
@@ -765,7 +764,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel10.setText("Battle index :");
 
-        jTextField19.setText("..\\maps\\entries.asm");
+        jTextField19.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\..\\maps\\entries.asm");
         jTextField19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField19ActionPerformed(evt);
@@ -790,7 +789,7 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel20.setText("Map entries :");
 
-        jTextField23.setText("..\\..\\");
+        jTextField23.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\..\\..\\");
             jTextField23.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField23ActionPerformed(evt);
@@ -799,7 +798,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel26.setText("Terrain :");
 
-            jTextField24.setText(".\\entries\\battle01\\terrain.bin");
+            jTextField24.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\.\\entries\\battle01\\terrain.bin");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -817,7 +816,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel27.setText("Spriteset :");
 
-            jTextField25.setText(".\\entries\\battle01\\spriteset.bin");
+            jTextField25.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\.\\entries\\battle01\\spriteset.bin");
             jTextField25.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField25ActionPerformed(evt);
@@ -833,7 +832,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel31.setText("Enemy sprites :");
 
-            jTextField29.setText("..\\stats\\enemies\\enemymapsprites.asm");
+            jTextField29.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\..\\stats\\enemies\\enemymapsprites.asm");
             jTextField29.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField29ActionPerformed(evt);
@@ -849,7 +848,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel22.setText("Mapsprite entries :");
 
-            jTextField30.setText("..\\graphics\\mapsprites\\entries.asm");
+            jTextField30.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\..\\graphics\\mapsprites\\entries.asm");
             jTextField30.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField30ActionPerformed(evt);
@@ -865,7 +864,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel33.setText("Base palette :");
 
-            jTextField32.setText("..\\graphics\\tech\\basepalette.bin");
+            jTextField32.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\..\\graphics\\tech\\basepalette.bin");
             jTextField32.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField32ActionPerformed(evt);
@@ -881,7 +880,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel32.setText("Mapsprite enum :");
 
-            jTextField31.setText("..\\..\\sf2enums.asm");
+            jTextField31.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\..\\..\\sf2enums.asm");
             jTextField31.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField31ActionPerformed(evt);
@@ -1043,7 +1042,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton18)
-                    .addContainerGap(258, Short.MAX_VALUE))
+                    .addContainerGap(248, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Import", jPanel3);
@@ -1158,7 +1157,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton2)
-                    .addContainerGap(323, Short.MAX_VALUE))
+                    .addContainerGap(313, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Export", jPanel5);
@@ -1171,7 +1170,7 @@ public class MainEditor extends javax.swing.JFrame {
             );
             jPanel9Layout.setVerticalGroup(
                 jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
             );
 
             jSplitPane4.setLeftComponent(jPanel9);

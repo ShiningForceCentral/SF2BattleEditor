@@ -230,23 +230,20 @@ public class DisassemblyManager {
                 while(scan.hasNext()){
                     String line = scan.nextLine();
                     if(line.trim().startsWith("EnemyMapSprites:")){
-                        line = scan.nextLine();
-                        while(line.trim().startsWith("mapSprite")){
-                            if(line.contains(";")){
-                                line = line.substring(0,line.indexOf(";"));
-                            }
-                            String value = line.trim().substring("mapSprite".length()).trim();
-                            Integer val;
-                            if(value.contains("$")||value.matches("[0-9]+")){
-                                val = valueOf(value);
-                            }else{
-                                val = mapspriteEnum.get("MAPSPRITE_"+value);
-                            }
-                            values.add(val);
-                            if(scan.hasNext()){
-                                line = scan.nextLine();
-                            }else{
-                                break;
+                        while(scan.hasNext()){
+                            line = scan.nextLine();
+                            if(line.trim().startsWith("mapSprite")){
+                                if(line.contains(";")){
+                                    line = line.substring(0,line.indexOf(";"));
+                                }
+                                String value = line.trim().substring("mapSprite".length()).trim();
+                                Integer val;
+                                if(value.contains("$")||value.matches("[0-9]+")){
+                                    val = valueOf(value);
+                                }else{
+                                    val = mapspriteEnum.get("MAPSPRITE_"+value);
+                                }
+                                values.add(val);
                             }
                         }
                     }
