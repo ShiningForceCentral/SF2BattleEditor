@@ -105,6 +105,13 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage aiPointsImage;
     
     private BufferedImage[] mapspriteImages = new BufferedImage[256];
+    
+    private AllyPropertiesTableModel alliesTable = null;
+    private EnemyPropertiesTableModel enemiesTable = null;
+    
+    
+    
+    
 
     public BattlePanel() {
         addMouseListener(this);
@@ -293,7 +300,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_ALLY && i==selectedAlly){
                     g2.setColor(Color.YELLOW);
                     g2.setStroke(new BasicStroke(3));
-                    g2.drawRect((x+ally.getX())*3*8 + 3, (y+ally.getY())*3*8, 1*24-6, 1*24-6);
+                    g2.drawRect((x+ally.getX())*3*8, (y+ally.getY())*3*8, 1*24, 1*24);
                 }
             }
             Enemy[] enemies = battle.getSpriteset().getEnemies();
@@ -319,7 +326,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_ENEMY && i==selectedEnemy){
                     g2.setColor(Color.YELLOW);
                     g2.setStroke(new BasicStroke(3));
-                    g2.drawRect((x+enemy.getX())*3*8 + 3, (y+enemy.getY())*3*8, 1*24-6, 1*24-6);
+                    g2.drawRect((x+enemy.getX())*3*8, (y+enemy.getY())*3*8, 1*24, 1*24);
                 }
             }
         }
@@ -507,6 +514,32 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                         break;
                     case MouseEvent.BUTTON3:
                         battle.getTerrain().getData()[(y-startY)*48+(x-startX)]--;
+                        break;
+                    default:
+                        break;
+                } 
+                terrainImage = null;
+                redraw = true;
+                this.revalidate();
+                this.repaint();
+                break;
+                
+            case MODE_SPRITE:
+                switch (e.getButton()) {
+                    case MouseEvent.BUTTON1:
+                        if(currentSpritesetMode==SPRITESETMODE_ALLY && selectedAlly>=0){
+                            alliesTable.setValueAt(x, selectedAlly, 1);
+                            alliesTable.setValueAt(y, selectedAlly, 2);
+                        }
+                        if(currentSpritesetMode==SPRITESETMODE_ENEMY && selectedEnemy>=0){
+                            enemiesTable.setValueAt(x, selectedEnemy, 1);
+                            enemiesTable.setValueAt(y, selectedEnemy, 2);
+                        }
+                        break;
+                    case MouseEvent.BUTTON2:
+
+                        break;
+                    case MouseEvent.BUTTON3:
                         break;
                     default:
                         break;
@@ -732,6 +765,22 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void setDrawAiPoints(boolean drawAiPoints) {
         this.drawAiPoints = drawAiPoints;
+    }
+
+    public AllyPropertiesTableModel getAlliesTable() {
+        return alliesTable;
+    }
+
+    public void setAlliesTable(AllyPropertiesTableModel alliesTable) {
+        this.alliesTable = alliesTable;
+    }
+
+    public EnemyPropertiesTableModel getEnemiesTable() {
+        return enemiesTable;
+    }
+
+    public void setEnemiesTable(EnemyPropertiesTableModel enemiesTable) {
+        this.enemiesTable = enemiesTable;
     }
     
     

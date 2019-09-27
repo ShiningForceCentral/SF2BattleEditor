@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class EnemyPropertiesTableModel extends AbstractTableModel {
     
-    private final Integer[][] tableData;
+    private Integer[][] tableData;
     private final String[] columns = {"Index", "X", "Y", "AI", "Item", "Order", "Region", "Byte8", "Byte9", "Byte10", "Spawn"};
     private Battle battle;
     private BattlePanel battlePanel;
@@ -26,9 +26,9 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
         super();
         this.battle = battle;
         this.battlePanel = battlePanel;
-        tableData = new Integer[64][];
-        int i = 0;
         Enemy[] enemies = battle.getSpriteset().getEnemies();
+        tableData = new Integer[enemies.length][];
+        int i = 0;
         if(enemies!=null){
             while(i<enemies.length){
                 tableData[i] = new Integer[11];
@@ -78,6 +78,44 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
         }
         Enemy[] enemies = new Enemy[entries.size()];
         battle.getSpriteset().setEnemies(entries.toArray(enemies));
+    }
+    
+    public void addRow(){
+        Integer[][] newTable = new Integer[tableData.length+1][];
+        for(int i=0;i<tableData.length;i++){
+            newTable[i] = tableData[i];
+        }
+        newTable[newTable.length-1] = new Integer[11];
+        newTable[newTable.length-1][0] = tableData[tableData.length-1][0];
+        newTable[newTable.length-1][1] = 0;
+        newTable[newTable.length-1][2] = 0;
+        newTable[newTable.length-1][3] = tableData[tableData.length-1][3];
+        newTable[newTable.length-1][4] = tableData[tableData.length-1][4];
+        newTable[newTable.length-1][5] = tableData[tableData.length-1][5];
+        newTable[newTable.length-1][6] = tableData[tableData.length-1][6];
+        newTable[newTable.length-1][7] = tableData[tableData.length-1][7];
+        newTable[newTable.length-1][8] = tableData[tableData.length-1][8];
+        newTable[newTable.length-1][9] = tableData[tableData.length-1][9];
+        newTable[newTable.length-1][10] = tableData[tableData.length-1][10];
+        tableData = newTable;
+        updateProperties();
+        battlePanel.updateSpriteDisplay();
+        battlePanel.revalidate();
+        battlePanel.repaint();
+    }
+    
+    public void removeRow(){
+        if(tableData.length>1){
+            Integer[][] newTable = new Integer[tableData.length-1][];
+            for(int i=0;i<newTable.length;i++){
+                newTable[i] = tableData[i];
+            }
+            tableData = newTable;
+            updateProperties();
+            battlePanel.updateSpriteDisplay();
+            battlePanel.revalidate();
+            battlePanel.repaint();
+        }
     }
     
     @Override

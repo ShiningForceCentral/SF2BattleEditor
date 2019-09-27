@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class AllyPropertiesTableModel extends AbstractTableModel {
     
-    private final Integer[][] tableData;
+    private Integer[][] tableData;
     private final String[] columns = {"Index", "X", "Y"};
     private Battle battle;
     private BattlePanel battlePanel;
@@ -26,9 +26,9 @@ public class AllyPropertiesTableModel extends AbstractTableModel {
         super();
         this.battle = battle;
         this.battlePanel = battlePanel;
-        tableData = new Integer[64][];
-        int i = 0;
         Ally[] allies = battle.getSpriteset().getAllies();
+        tableData = new Integer[allies.length][];
+        int i = 0;
         if(allies!=null){
             while(i<allies.length){
                 tableData[i] = new Integer[3];
@@ -82,6 +82,38 @@ public class AllyPropertiesTableModel extends AbstractTableModel {
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return true;
     }    
+    
+    public void addRow(){
+        if(tableData.length<12){
+            Integer[][] newTable = new Integer[tableData.length+1][];
+            for(int i=0;i<tableData.length;i++){
+                newTable[i] = tableData[i];
+            }
+            newTable[newTable.length-1] = new Integer[3];
+            newTable[newTable.length-1][0] = newTable.length-1;
+            newTable[newTable.length-1][1] = 0;
+            newTable[newTable.length-1][2] = 0;
+            tableData = newTable;
+            updateProperties();
+            battlePanel.updateSpriteDisplay();
+            battlePanel.revalidate();
+            battlePanel.repaint();
+        }
+    }
+    
+    public void removeRow(){
+        if(tableData.length>1){
+            Integer[][] newTable = new Integer[tableData.length-1][];
+            for(int i=0;i<newTable.length;i++){
+                newTable[i] = tableData[i];
+            }
+            tableData = newTable;
+            updateProperties();
+            battlePanel.updateSpriteDisplay();
+            battlePanel.revalidate();
+            battlePanel.repaint();
+        }
+    }
     
     @Override
     public int getRowCount() {
