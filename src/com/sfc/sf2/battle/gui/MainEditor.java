@@ -114,6 +114,8 @@ public class MainEditor extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
+        jSpinner9 = new javax.swing.JSpinner();
+        jLabel13 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel24 = new javax.swing.JPanel();
@@ -455,24 +457,41 @@ public class MainEditor extends javax.swing.JFrame {
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane6.setViewportView(jTable1);
 
-        jLabel12.setText("<html>Table above to ignore at the moment.<br>Will display the Land Effect / Move Cost table :<br>disasm\\data\\battles\\global\\movetypeterraincosts.txt<br><br>Map controls when this tab is active :<br>Left click : decrement block's terrain type index.<br>Right click : increment<br>That's all for the moment.<br>Better ergonomics to find and implement.<br/><br/>Quick value defs :<br/>-1 = Obstructed<br>0 = Low Sky<br/>1 = Plains<br/>2 = Path<br/>3 = Grass<br/>4 = Forest<br/>5 = Hills<br/>6 = Desert<br/>7 = High Sky<br/>8 = Water</html>");
+        jLabel12.setText("<html>Table above to ignore at the moment.<br>Will display the Land Effect / Move Cost table :<br>disasm\\data\\battles\\global\\movetypeterraincosts.txt<br><br>Map controls when this tab is active :<br>Left click : decrement block's terrain type index.<br>Right click : increment<br>Middle-click drag'n'drop : apply value on zone.<br>(see value to apply in spinner below)<br/><br/>Quick value defs :<br/>-1 = Obstructed<br>0 = Low Sky<br/>1 = Plains<br/>2 = Path<br/>3 = Grass<br/>4 = Forest<br/>5 = Hills<br/>6 = Desert<br/>7 = High Sky<br/>8 = Water</html>");
+
+        jSpinner9.setModel(new javax.swing.SpinnerNumberModel(-1, -1, 8, 1));
+        jSpinner9.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinner9StateChanged(evt);
+            }
+        });
+
+        jLabel13.setText("<html>Applied value on selected zone :<br/>(Middle-click drag'n'drop)</html>");
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jLabel12)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSpinner9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSpinner9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Terrain", jPanel21);
@@ -1124,7 +1143,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel26.setText("Terrain :");
 
-            jTextField24.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\.\\entries\\sffc-battle01\\terrain.bin");
+            jTextField24.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\.\\entries\\sffc-battle03\\terrain.bin");
             jTextField24.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField24ActionPerformed(evt);
@@ -1142,7 +1161,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel27.setText("Spriteset :");
 
-            jTextField25.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\.\\entries\\sffc-battle01\\spriteset.bin");
+            jTextField25.setText("C:\\SEGADEV\\SFFC\\SF2DISASM\\disasm\\data\\battles\\.\\entries\\sffc-battle03\\spriteset.bin");
             jTextField25.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField25ActionPerformed(evt);
@@ -2155,6 +2174,11 @@ public class MainEditor extends javax.swing.JFrame {
         jTable3.repaint();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jSpinner9StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner9StateChanged
+        int newApplicableTerrainValue = (int)jSpinner9.getModel().getValue();
+        battlePanel.setApplicableTerrainValue(newApplicableTerrainValue);
+    }//GEN-LAST:event_jSpinner9StateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -2230,6 +2254,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -2313,6 +2338,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner6;
     private javax.swing.JSpinner jSpinner7;
     private javax.swing.JSpinner jSpinner8;
+    private javax.swing.JSpinner jSpinner9;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;

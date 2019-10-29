@@ -81,6 +81,8 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private byte[] enemySpriteIds;
     private int currentDisplaySize = 1;
     
+    private int applicableTerrainValue = -1;
+    
     private BufferedImage currentImage;
     private boolean redraw = true;
     private int renderCounter = 0;
@@ -504,26 +506,32 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         int width = battle.getMapCoords().getWidth();
         int height = battle.getMapCoords().getHeight();  
         switch (currentMode) {
-            case MODE_TERRAIN :
+            
+            case MODE_TERRAIN : 
                 switch (e.getButton()) {
                     case MouseEvent.BUTTON1:
                         battle.getTerrain().getData()[(y-startY)*48+(x-startX)]++;
+                        terrainImage = null;
+                        redraw = true;
+                        this.revalidate();
+                        this.repaint();
                         break;
                     case MouseEvent.BUTTON2:
-
+                        lastMapX = x;
+                        lastMapY = y;
                         break;
                     case MouseEvent.BUTTON3:
                         battle.getTerrain().getData()[(y-startY)*48+(x-startX)]--;
+                        terrainImage = null;
+                        redraw = true;
+                        this.revalidate();
+                        this.repaint();
                         break;
                     default:
                         break;
-                } 
-                terrainImage = null;
-                redraw = true;
-                this.revalidate();
-                this.repaint();
+                }           
                 break;
-                
+               
             case MODE_SPRITE:
                 switch (e.getButton()) {
                     case MouseEvent.BUTTON1:
@@ -559,7 +567,56 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     }
     @Override
     public void mouseReleased(MouseEvent e) {
-       
+        int endX = e.getX() / (currentDisplaySize * 3 * 8);
+        int endY = e.getY() / (currentDisplaySize * 3 * 8);
+        int startX = battle.getMapCoords().getX();
+        int startY = battle.getMapCoords().getY();
+        switch (currentMode) {
+            
+            case MODE_TERRAIN :           
+                switch (e.getButton()) {
+                    case MouseEvent.BUTTON2:
+                        /* Zone change */
+                        int xStart;
+                        int xEnd;
+                        int yStart;
+                        int yEnd;
+                        if(endX>lastMapX){
+                            xStart = lastMapX;
+                            xEnd = endX;
+                        }else{
+                            xStart = endX;
+                            xEnd = lastMapX;
+                        }
+                        if(endY>lastMapY){
+                            yStart = lastMapY;
+                            yEnd = endY;
+                        }else{
+                            yStart = endY;
+                            yEnd = lastMapY;
+                        }           
+                        System.out.println(xStart+":"+yStart+".."+xEnd+":"+yEnd+":"+applicableTerrainValue);
+                        for(int y=yStart;y<=yEnd;y++){
+                            for(int x=xStart;x<=xEnd;x++){
+                                battle.getTerrain().getData()[(y-startY)*48+(x-startX)] = (byte)(applicableTerrainValue&0xFF);
+                            }
+                        }
+                        terrainImage = null;
+                        this.redraw=true;
+                        this.repaint();
+                        break;
+                    default:
+                        break;
+                } 
+                //terrainImage = null;
+                //redraw = true;
+                //this.revalidate();
+                //this.repaint();
+                break;        
+        
+            default:
+                break;
+        }
     }
     
     @Override
@@ -781,6 +838,14 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void setEnemiesTable(EnemyPropertiesTableModel enemiesTable) {
         this.enemiesTable = enemiesTable;
+    }
+
+    public int getApplicableTerrainValue() {
+        return applicableTerrainValue;
+    }
+
+    public void setApplicableTerrainValue(int applicableTerrainValue) {
+        this.applicableTerrainValue = applicableTerrainValue;
     }
     
     
