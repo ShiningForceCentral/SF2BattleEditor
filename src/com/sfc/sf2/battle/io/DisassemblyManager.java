@@ -216,10 +216,12 @@ public class DisassemblyManager {
                     String line = enumScan.nextLine();
                     if(line.trim().startsWith("; enum Mapsprites")){
                         line = enumScan.nextLine();
-                        while(line.startsWith("MAPSPRITE")){
-                            String key = line.substring(0,line.indexOf(":"));
-                            Integer value = Integer.valueOf(line.substring(line.indexOf("$")+1).trim(), 16);
-                            mapspriteEnum.put(key, value);
+                        while(!line.startsWith("; enum")){
+                            if(line.startsWith("MAPSPRITE")){
+                                String key = line.substring(0,line.indexOf(":"));
+                                Integer value = Integer.valueOf(line.substring(line.indexOf("$")+1).trim(), 16);
+                                mapspriteEnum.put(key, value);
+                            }
                             line = enumScan.nextLine();
                         }
                     }
