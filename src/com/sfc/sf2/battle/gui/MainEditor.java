@@ -1726,6 +1726,8 @@ public class MainEditor extends javax.swing.JFrame {
             private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
+                battlePanel.setCurrentMode(BattlePanel.MODE_SPRITE);
+                battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_ALLY);
                 if(selectedRow!=jTable2.getSelectedRow()){
                     selectedRow = jTable2.getSelectedRow();
                     battlePanel.setSelectedAlly(selectedRow);
@@ -1744,6 +1746,8 @@ public class MainEditor extends javax.swing.JFrame {
             private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
+                battlePanel.setCurrentMode(BattlePanel.MODE_SPRITE);
+                battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_ENEMY);
                 if(selectedRow!=jTable3.getSelectedRow()){
                     selectedRow = jTable3.getSelectedRow();
                     battlePanel.setSelectedEnemy(selectedRow);
@@ -1762,6 +1766,8 @@ public class MainEditor extends javax.swing.JFrame {
             private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
+                battlePanel.setCurrentMode(BattlePanel.MODE_SPRITE);
+                battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_AIREGION);
                 if(selectedRow!=jTable4.getSelectedRow()){
                     selectedRow = jTable4.getSelectedRow();
                     battlePanel.setSelectedAIRegion(selectedRow);
@@ -1779,6 +1785,8 @@ public class MainEditor extends javax.swing.JFrame {
             private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
+                battlePanel.setCurrentMode(BattlePanel.MODE_SPRITE);
+                battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_AIPOINT);
                 if(selectedRow!=jTable9.getSelectedRow()){
                     selectedRow = jTable9.getSelectedRow();
                     battlePanel.setSelectedAIPoint(selectedRow);
