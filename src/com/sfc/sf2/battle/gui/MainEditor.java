@@ -33,8 +33,8 @@ import javax.swing.event.TableModelEvent;
  */
 public class MainEditor extends javax.swing.JFrame {
     
-    //private static final String PATH_TEST_PREFIX = "";
-    private static final String PATH_TEST_PREFIX = "C:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\";
+    private static final String PATH_TEST_PREFIX = "";
+    //private static final String PATH_TEST_PREFIX = "C:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\";
     
     BattleManager battleManager = new BattleManager();
     Battle battle = null;
@@ -1798,6 +1798,7 @@ public class MainEditor extends javax.swing.JFrame {
         });  
         jPanel26.validate();
         jPanel26.repaint();
+        battlePanel.setTitledPanel(jPanel1);
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed

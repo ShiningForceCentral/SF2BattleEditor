@@ -36,6 +36,7 @@ import java.awt.image.IndexColorModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -51,6 +52,11 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     
     int lastMapX = 0;
     int lastMapY = 0;
+    
+    private int lastMouseX = 0;
+    private int lastMouseY = 0;
+    private TitledBorder titledBorder = null;
+    private JPanel titledPanel = null;
     
     public static final int MODE_NONE = 0;
     public static final int MODE_TERRAIN = 1;
@@ -626,6 +632,19 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void mouseMoved(MouseEvent e) {
         
+        int x = e.getX() / (currentDisplaySize * 3*8);
+        int y = e.getY() / (currentDisplaySize * 3*8);
+        
+        if(x!=lastMouseX||y!=lastMouseY){
+            lastMouseX=x;
+            lastMouseY=y;
+            titledBorder = (TitledBorder)(titledPanel.getBorder());
+            titledBorder.setTitle("Cursor : "+x+","+y);
+            titledPanel.revalidate();
+            titledPanel.repaint();
+            //System.out.println("New cursor pos : "+x+","+y);
+        }
+        
     }
 
     public MapBlock[] getBlockset() {
@@ -846,6 +865,22 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void setApplicableTerrainValue(int applicableTerrainValue) {
         this.applicableTerrainValue = applicableTerrainValue;
+    }
+
+    public TitledBorder getTitledBorder() {
+        return titledBorder;
+    }
+
+    public void setTitledBorder(TitledBorder titledBorder) {
+        this.titledBorder = titledBorder;
+    }
+
+    public JPanel getTitledPanel() {
+        return titledPanel;
+    }
+
+    public void setTitledPanel(JPanel titledPanel) {
+        this.titledPanel = titledPanel;
     }
     
     
