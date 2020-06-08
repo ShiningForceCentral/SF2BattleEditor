@@ -231,7 +231,7 @@ public class DisassemblyManager {
                 List<Integer> values = new ArrayList();
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("EnemyMapSprites:")){
+                    if(line.trim().startsWith("tbl_EnemyMapSprites:")){
                         while(scan.hasNext()){
                             line = scan.nextLine();
                             if(line.trim().startsWith("mapSprite")){
