@@ -584,7 +584,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Index", "X", "Y", "AI", "Item", "Order 1", "Trig. Region", "Byte8", "Byte9", "Byte10", "Spawn Params"
+                "Index", "X", "Y", "AI", "Item", "Order 1", "Region 1", "Order 2", "Region 2", "Byte10", "Spawn Params"
             }
         ) {
             Class[] types = new Class [] {

@@ -18,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
 public class EnemyPropertiesTableModel extends AbstractTableModel {
     
     private Integer[][] tableData;
-    private final String[] columns = {"Index", "X", "Y", "AI", "Item", "Order", "Region", "Byte8", "Byte9", "Byte10", "Spawn"};
+    private final String[] columns = {"Index", "X", "Y", "AI", "Item", "Order 1", "Region 1", "Order 2", "Region 2", "Byte10", "Spawn"};
     private Battle battle;
     private BattlePanel battlePanel;
     

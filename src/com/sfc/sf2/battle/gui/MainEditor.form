@@ -712,9 +712,9 @@
                                                             <Column editable="true" title="AI" type="java.lang.Integer"/>
                                                             <Column editable="true" title="Item" type="java.lang.Integer"/>
                                                             <Column editable="true" title="Order 1" type="java.lang.Integer"/>
-                                                            <Column editable="true" title="Trig. Region" type="java.lang.Integer"/>
-                                                            <Column editable="true" title="Byte8" type="java.lang.Integer"/>
-                                                            <Column editable="true" title="Byte9" type="java.lang.Integer"/>
+                                                            <Column editable="true" title="Region 1" type="java.lang.Integer"/>
+                                                            <Column editable="true" title="Order 2" type="java.lang.Integer"/>
+                                                            <Column editable="true" title="Region 2" type="java.lang.Integer"/>
                                                             <Column editable="true" title="Byte10" type="java.lang.Integer"/>
                                                             <Column editable="true" title="Spawn Params" type="java.lang.Integer"/>
                                                           </Table>
