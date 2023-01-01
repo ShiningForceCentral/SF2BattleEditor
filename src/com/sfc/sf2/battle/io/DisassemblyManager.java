@@ -60,7 +60,7 @@ public class DisassemblyManager {
             List<Enemy> enemyList = new ArrayList();
             for(int i=0;i<enemiesNumber;i++){
                 Enemy newEnemy = new Enemy();
-                newEnemy.setIndex(data[4+alliesNumber*12+i*12+0]);
+                newEnemy.setIndex(data[4+alliesNumber*12+i*12+0]&0xFF);
                 newEnemy.setX(data[4+alliesNumber*12+i*12+1]);
                 newEnemy.setY(data[4+alliesNumber*12+i*12+2]);
                 newEnemy.setAi(data[4+alliesNumber*12+i*12+3]);
