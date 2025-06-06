@@ -55,6 +55,8 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     
     private int lastMouseX = 0;
     private int lastMouseY = 0;
+    private int battleCoordsOffsetX = 0;
+    private int battleCoordsOffsetY = 0;    
     private TitledBorder titledBorder = null;
     private JPanel titledPanel = null;
     
@@ -145,6 +147,9 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         renderCounter++;
         System.out.println("Map render "+renderCounter);
         this.battle = battle;
+        battleCoordsOffsetX = battle.getMapCoords().getX();
+        battleCoordsOffsetY = battle.getMapCoords().getY();
+            
         if(redraw){
             MapBlock[] blocks = layout.getBlocks();
             int imageHeight = 64*3*8;
@@ -639,7 +644,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
             lastMouseX=x;
             lastMouseY=y;
             titledBorder = (TitledBorder)(titledPanel.getBorder());
-            titledBorder.setTitle("Cursor : "+x+","+y);
+            titledBorder.setTitle("Cursor : "+x+","+y+"\t (battle : "+(x-battleCoordsOffsetX)+", "+(y-battleCoordsOffsetY)+")");
             titledPanel.revalidate();
             titledPanel.repaint();
             //System.out.println("New cursor pos : "+x+","+y);
