@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +37,7 @@ public class BattleManager {
     private String[][] mapEntries = null;
     private BattleMapCoords[] coordsArray = null;
     private EnemyData[] enemyData = null;
+    private EnemyEnums enemyEnums = null;
     
     public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String basePalettePath, String mapspriteEntriesPath, String mapspriteEnumPath, String enemySpritesPath,
                                     int battleIndex, String terrainPath, String spritesetPath){
@@ -49,8 +51,9 @@ public class BattleManager {
         battle.setTerrain(mapTerrainManager.getTerrain());
         mapEntries = importMapEntryFile(incbinPath, mapEntriesPath);
         MapSprite[] mapsprites = mapspriteManager.importDisassemblyFromEntryFile(basePalettePath, mapspriteEntriesPath, incbinPath);
+        enemyEnums = DisassemblyManager.importEnemyEnums(mapspriteEnumPath);
         enemyData = DisassemblyManager.importEnemyData(mapspriteEnumPath, enemySpritesPath, mapsprites);
-        battle.setSpriteset(DisassemblyManager.importSpriteset(spritesetPath, enemyData));
+        battle.setSpriteset(DisassemblyManager.importSpriteset(spritesetPath, enemyData, enemyEnums));
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Disassembly imported.");
     }
     

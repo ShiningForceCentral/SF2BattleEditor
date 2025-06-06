@@ -41,9 +41,9 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
                 tableData[i][3] = enemies[i].getAi();
                 tableData[i][4] = enemies[i].getItem();
                 tableData[i][5] = enemies[i].getMoveOrder1();
-                tableData[i][6] = enemies[i].getTriggerRegion();
-                tableData[i][7] = enemies[i].getByte8();
-                tableData[i][8] = enemies[i].getByte9();
+                tableData[i][6] = enemies[i].getTriggerRegion1();
+                tableData[i][7] = enemies[i].getMoveOrder2();
+                tableData[i][8] = enemies[i].getTriggerRegion2();
                 tableData[i][9] = enemies[i].getByte10();
                 tableData[i][10] = enemies[i].getSpawnParams();
                 i++;
@@ -84,9 +84,9 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
                 enemy.setAi((int)entry[3]);
                 enemy.setItem((int)entry[4]);
                 enemy.setMoveOrder1((int)entry[5]);
-                enemy.setTriggerRegion((int)entry[6]);
-                enemy.setByte8((int)entry[7]);
-                enemy.setByte9((int)entry[8]);
+                enemy.setTriggerRegion1((int)entry[6]);
+                enemy.setMoveOrder2((int)entry[7]);
+                enemy.setTriggerRegion2((int)entry[8]);
                 enemy.setByte10((int)entry[9]);
                 enemy.setSpawnParams((int)entry[10]);
                 entries.add(enemy);

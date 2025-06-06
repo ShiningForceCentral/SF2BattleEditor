@@ -5,22 +5,26 @@
  */
 package com.sfc.sf2.battle;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author wiz
  */
 public class Enemy {
+        
     private EnemyData data;
     private int x;
     private int y;
-    private int ai;
-    private int item;
-    private int moveOrder1;
-    private int triggerRegion;
-    private int byte8;
-    private int byte9;
+    private String ai;
+    private String item;
+    private String moveOrder1;
+    private int triggerRegion1;
+    private String moveOrder2;
+    private int triggerRegion2;
     private int byte10;
-    private int spawnParams;
+    private String spawnParams;
 
     public EnemyData getEnemyData() {
         return data;
@@ -46,52 +50,52 @@ public class Enemy {
         this.y = y;
     }
 
-    public int getAi() {
+    public String getAi() {
         return ai;
     }
 
-    public void setAi(int ai) {
+    public void setAi(String ai) {
         this.ai = ai;
     }
 
-    public int getItem() {
+    public String getItem() {
         return item;
     }
 
-    public void setItem(int item) {
+    public void setItem(String item) {
         this.item = item;
     }
 
-    public int getMoveOrder1() {
+    public String getMoveOrder1() {
         return moveOrder1;
     }
 
-    public void setMoveOrder1(int moveOrder1) {
+    public void setMoveOrder1(String moveOrder1) {
         this.moveOrder1 = moveOrder1;
     }
 
-    public int getTriggerRegion() {
-        return triggerRegion;
+    public int getTriggerRegion1() {
+        return triggerRegion1;
     }
 
-    public void setTriggerRegion(int triggerRegion) {
-        this.triggerRegion = triggerRegion;
+    public void setTriggerRegion1(int triggerRegion1) {
+        this.triggerRegion1 = triggerRegion1;
     }
 
-    public int getByte8() {
-        return byte8;
+    public String getMoveOrder2() {
+        return moveOrder2;
     }
 
-    public void setByte8(int byte8) {
-        this.byte8 = byte8;
+    public void setMoveOrder2(String moveOrder2) {
+        this.moveOrder2 = moveOrder2;
     }
 
-    public int getByte9() {
-        return byte9;
+    public int getTriggerRegion2() {
+        return triggerRegion2;
     }
 
-    public void setByte9(int byte9) {
-        this.byte9 = byte9;
+    public void setTriggerRegion2(int triggerRegion2) {
+        this.triggerRegion2 = triggerRegion2;
     }
 
     public int getByte10() {
@@ -102,13 +106,11 @@ public class Enemy {
         this.byte10 = byte10;
     }
 
-    public int getSpawnParams() {
+    public String getSpawnParams() {
         return spawnParams;
     }
 
-    public void setSpawnParams(int spawnParams) {
+    public void setSpawnParams(String spawnParams) {
         this.spawnParams = spawnParams;
     }
-    
-    
 }
