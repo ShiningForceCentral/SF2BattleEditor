@@ -35,8 +35,7 @@ public class BattleManager {
     private Battle battle;
     private String[][] mapEntries = null;
     private BattleMapCoords[] coordsArray = null;
-    private MapSprite[] mapsprites = null;
-    private byte[] enemySpriteIds = null;
+    private EnemyData[] enemyData = null;
     
     public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String basePalettePath, String mapspriteEntriesPath, String mapspriteEnumPath, String enemySpritesPath,
                                     int battleIndex, String terrainPath, String spritesetPath){
@@ -48,10 +47,10 @@ public class BattleManager {
         battle.setMapCoords(coordsArray[battleIndex]);
         mapTerrainManager.importDisassembly(terrainPath);
         battle.setTerrain(mapTerrainManager.getTerrain());
-        battle.setSpriteset(DisassemblyManager.importSpriteset(spritesetPath));
         mapEntries = importMapEntryFile(incbinPath, mapEntriesPath);
-        mapsprites = mapspriteManager.importDisassemblyFromEntryFile(basePalettePath, mapspriteEntriesPath, incbinPath);
-        enemySpriteIds = DisassemblyManager.importEnemySriteIDs(mapspriteEnumPath, enemySpritesPath);
+        MapSprite[] mapsprites = mapspriteManager.importDisassemblyFromEntryFile(basePalettePath, mapspriteEntriesPath, incbinPath);
+        enemyData = DisassemblyManager.importEnemyData(mapspriteEnumPath, enemySpritesPath, mapsprites);
+        battle.setSpriteset(DisassemblyManager.importSpriteset(spritesetPath, enemyData));
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Disassembly imported.");
     }
     
@@ -170,22 +169,11 @@ public class BattleManager {
         this.battle = battle;
     }
 
-    public MapSprite[] getMapsprites() {
-        return mapsprites;
+    public EnemyData[] getEnemyData() {
+        return enemyData;
     }
 
-    public void setMapsprites(MapSprite[] mapsprites) {
-        this.mapsprites = mapsprites;
-    }
-
-    public byte[] getEnemySpriteIds() {
-        return enemySpriteIds;
-    }
-
-    public void setEnemySpriteIds(byte[] enemySpriteIds) {
-        this.enemySpriteIds = enemySpriteIds;
-    }
-    
-    
-    
+    public void setEnemyData(EnemyData[] enemyData) {
+        this.enemyData = enemyData;
+    }    
 }

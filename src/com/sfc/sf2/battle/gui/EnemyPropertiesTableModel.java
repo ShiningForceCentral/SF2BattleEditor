@@ -7,6 +7,7 @@ package com.sfc.sf2.battle.gui;
 
 import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.Enemy;
+import com.sfc.sf2.battle.EnemyData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -17,22 +18,24 @@ import javax.swing.table.AbstractTableModel;
  */
 public class EnemyPropertiesTableModel extends AbstractTableModel {
     
-    private Integer[][] tableData;
-    private final String[] columns = {"Index", "X", "Y", "AI", "Item", "Order 1", "Region 1", "Order 2", "Region 2", "Byte10", "Spawn"};
+    private Object[][] tableData;
+    private final String[] columns = {"Name", "X", "Y", "AI", "Item", "Order 1", "Region 1", "Order 2", "Region 2", "Byte10", "Spawn"};
     private Battle battle;
     private BattlePanel battlePanel;
+    private EnemyData[] enemyData;
     
-    public EnemyPropertiesTableModel(Battle battle, BattlePanel battlePanel) {
+    public EnemyPropertiesTableModel(Battle battle, BattlePanel battlePanel, EnemyData[] enemyData) {
         super();
         this.battle = battle;
         this.battlePanel = battlePanel;
+        this.enemyData = enemyData;
         Enemy[] enemies = battle.getSpriteset().getEnemies();
-        tableData = new Integer[enemies.length][];
+        tableData = new Object[enemies.length][];
         int i = 0;
         if(enemies!=null){
             while(i<enemies.length){
-                tableData[i] = new Integer[11];
-                tableData[i][0] = enemies[i].getIndex();
+                tableData[i] = new Object[11];
+                tableData[i][0] = enemies[i].getEnemyData().getName();
                 tableData[i][1] = enemies[i].getX();
                 tableData[i][2] = enemies[i].getY();
                 tableData[i][3] = enemies[i].getAi();
@@ -47,14 +50,14 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
             }
         }
         while(i<tableData.length){
-            tableData[i] = new Integer[11];
+            tableData[i] = new Object[11];
             i++;
         }
     }
     
     public void updateProperties() {
         List<Enemy> entries = new ArrayList<>();
-        for(Integer[] entry : tableData){
+        for(Object[] entry : tableData){
             if(entry[0] != null && entry[1] != null
                     && entry[2] != null && entry[3] != null
                     && entry[4] != null && entry[5] != null
@@ -62,17 +65,30 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
                     && entry[8] != null && entry[9] != null
                     && entry[10] != null){
                 Enemy enemy = new Enemy();
-                enemy.setIndex(entry[0]);
-                enemy.setX(entry[1]);
-                enemy.setY(entry[2]);
-                enemy.setAi(entry[3]); 
-                enemy.setItem(entry[4]);
-                enemy.setMoveOrder1(entry[5]);
-                enemy.setTriggerRegion(entry[6]);
-                enemy.setByte8(entry[7]); 
-                enemy.setByte9(entry[8]);
-                enemy.setByte10(entry[9]);
-                enemy.setSpawnParams(entry[10]);         
+                boolean matchFound = false;
+                for (int i = 0; i < enemyData.length; i++) {
+                    if (enemyData[i] != null && enemyData[i].getName().equals(entry[0])){
+                        enemy.setEnemyData(enemyData[i]);
+                        matchFound = true;
+                        break;
+                    }
+                }
+                if (!matchFound){
+                    EnemyData data = new EnemyData();
+                    data.setName(String.valueOf(entry[0]));
+                    enemy.setEnemyData(data);
+                }
+                
+                enemy.setX((int)entry[1]);
+                enemy.setY((int)entry[2]);
+                enemy.setAi((int)entry[3]);
+                enemy.setItem((int)entry[4]);
+                enemy.setMoveOrder1((int)entry[5]);
+                enemy.setTriggerRegion((int)entry[6]);
+                enemy.setByte8((int)entry[7]);
+                enemy.setByte9((int)entry[8]);
+                enemy.setByte10((int)entry[9]);
+                enemy.setSpawnParams((int)entry[10]);
                 entries.add(enemy);
             }
         }
@@ -81,7 +97,7 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
     }
     
     public void addRow(){
-        Integer[][] newTable = new Integer[tableData.length+1][];
+        Object[][] newTable = new Object[tableData.length+1][];
         for(int i=0;i<tableData.length;i++){
             newTable[i] = tableData[i];
         }
@@ -106,7 +122,7 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
     
     public void removeRow(){
         if(tableData.length>1){
-            Integer[][] newTable = new Integer[tableData.length-1][];
+            Object[][] newTable = new Object[tableData.length-1][];
             for(int i=0;i<newTable.length;i++){
                 newTable[i] = tableData[i];
             }
@@ -162,6 +178,14 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
 
     public void setBattle(Battle battle) {
         this.battle = battle;
+    }
+
+    public EnemyData[] getEnemyData() {
+        return enemyData;
+    }
+
+    public void setEnemyData(EnemyData[] enemyData) {
+        this.enemyData = enemyData;
     }
     
 }

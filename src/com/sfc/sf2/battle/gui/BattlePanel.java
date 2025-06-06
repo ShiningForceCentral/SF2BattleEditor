@@ -10,6 +10,7 @@ import com.sfc.sf2.battle.AIRegion;
 import com.sfc.sf2.battle.Ally;
 import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.Enemy;
+import com.sfc.sf2.battle.EnemyData;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.block.gui.BlockSlotPanel;
 import com.sfc.sf2.map.block.layout.MapBlockLayout;
@@ -83,8 +84,6 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private Battle battle;
     private MapLayout layout;
     private MapBlock[] blockset;
-    private MapSprite[] mapsprites;
-    private byte[] enemySpriteIds;
     private int currentDisplaySize = 1;
     
     private int applicableTerrainValue = -1;
@@ -315,21 +314,22 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
             for(int i=0;i<enemies.length;i++){
                 Enemy enemy = enemies[i];
                 int targetX = (x+enemy.getX())*3*8;
-                int targetY = (y+enemy.getY())*3*8;                
-                int spriteId = (enemySpriteIds[enemy.getIndex()]&0xFF);
-                if(spriteId*3>(mapsprites.length)){
+                int targetY = (y+enemy.getY())*3*8;
+                int id = enemy.getEnemyData().getID();
+                MapSprite sprite = enemy.getEnemyData().getMapSprite();
+                if(sprite == null){
                     g2.setColor(Color.black);
-                    g2.drawString(String.valueOf(spriteId), targetX-1, targetY+16-1);
-                    g2.drawString(String.valueOf(spriteId), targetX-1, targetY+16+1);
-                    g2.drawString(String.valueOf(spriteId), targetX+1, targetY+16-1);
-                    g2.drawString(String.valueOf(spriteId), targetX+1, targetY+16+1);
+                    g2.drawString(String.valueOf(id), targetX-1, targetY+16-1);
+                    g2.drawString(String.valueOf(id), targetX-1, targetY+16+1);
+                    g2.drawString(String.valueOf(id), targetX+1, targetY+16-1);
+                    g2.drawString(String.valueOf(id), targetX+1, targetY+16+1);
                     g2.setColor(Color.RED);
-                    g2.drawString(String.valueOf(spriteId), targetX, targetY+16);  
+                    g2.drawString(String.valueOf(id), targetX, targetY+16);
                 }else{
-                    if(mapspriteImages[spriteId]==null){
-                        mapspriteImages[spriteId] = MapSpriteLayout.buildImage(mapsprites[spriteId*3+2].getTiles(), 6).getSubimage(0, 0, 3*8, 3*8);
+                    if(mapspriteImages[id] == null){
+                        mapspriteImages[id] = MapSpriteLayout.buildImage(sprite.getTiles(), 6).getSubimage(0, 0, 3*8, 3*8);
                     }
-                    g2.drawImage(mapspriteImages[spriteId], targetX, targetY, null); 
+                    g2.drawImage(mapspriteImages[id], targetX, targetY, null);
                 } 
                 if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_ENEMY && i==selectedEnemy){
                     g2.setColor(Color.YELLOW);
@@ -769,22 +769,6 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     public void updateAIPointDisplay(){
         aiPointsImage = null;
         this.redraw = true;
-    }
-
-    public MapSprite[] getMapsprites() {
-        return mapsprites;
-    }
-
-    public void setMapsprites(MapSprite[] mapsprites) {
-        this.mapsprites = mapsprites;
-    }
-
-    public byte[] getEnemySpriteIds() {
-        return enemySpriteIds;
-    }
-
-    public void setEnemySpriteIds(byte[] enemySpriteIds) {
-        this.enemySpriteIds = enemySpriteIds;
     }
 
     public int getSelectedAlly() {

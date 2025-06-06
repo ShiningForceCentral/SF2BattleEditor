@@ -10,7 +10,7 @@ package com.sfc.sf2.battle;
  * @author wiz
  */
 public class Enemy {
-    private int index;
+    private EnemyData data;
     private int x;
     private int y;
     private int ai;
@@ -22,12 +22,12 @@ public class Enemy {
     private int byte10;
     private int spawnParams;
 
-    public int getIndex() {
-        return index;
+    public EnemyData getEnemyData() {
+        return data;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setEnemyData(EnemyData data) {
+        this.data = data;
     }
 
     public int getX() {

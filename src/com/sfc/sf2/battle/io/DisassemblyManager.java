@@ -9,7 +9,9 @@ import com.sfc.sf2.battle.AIPoint;
 import com.sfc.sf2.battle.AIRegion;
 import com.sfc.sf2.battle.Ally;
 import com.sfc.sf2.battle.Enemy;
+import com.sfc.sf2.battle.EnemyData;
 import com.sfc.sf2.battle.SpriteSet;
+import com.sfc.sf2.mapsprite.MapSprite;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -41,19 +43,19 @@ public class DisassemblyManager {
     
     private static String header;
     
-    public static SpriteSet importSpriteset(String spritesetPath){
+    public static SpriteSet importSpriteset(String spritesetPath, EnemyData[] enemyData){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
         SpriteSet spriteset = null;
         if(spritesetPath.endsWith(".asm")){
-            spriteset = importSpritesetAsm(spritesetPath);
+            spriteset = importSpritesetAsm(spritesetPath, enemyData);
         }else{
-            spriteset = importSpritesetBin(spritesetPath);
+            spriteset = importSpritesetBin(spritesetPath, enemyData);
         }
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Disassembly imported.");  
         return spriteset;
     }    
 
-    public static SpriteSet importSpritesetAsm(String spritesetPath){
+    public static SpriteSet importSpritesetAsm(String spritesetPath, EnemyData[] enemyData){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
         SpriteSet spriteset = new SpriteSet();
         
@@ -82,25 +84,29 @@ public class DisassemblyManager {
                         if (scan.hasNext()){ scan.nextLine(); }
                         //Line 3
                         if (scan.hasNext()){
-                            scan.nextLine();
+                            line = scan.nextLine();
+                            params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
                             newAIRegion.setX1(Integer.valueOf(params[0].trim()));
                             newAIRegion.setY1(Integer.valueOf(params[1].trim()));
                         }
                         //Line 4
                         if (scan.hasNext()){
-                            scan.nextLine();
+                            line = scan.nextLine();
+                            params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
                             newAIRegion.setX2(Integer.valueOf(params[0].trim()));
                             newAIRegion.setY2(Integer.valueOf(params[1].trim()));
                         }
                         //Line 5
                         if (scan.hasNext()){
-                            scan.nextLine();
+                            line = scan.nextLine();
+                            params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
                             newAIRegion.setX3(Integer.valueOf(params[0].trim()));
                             newAIRegion.setY3(Integer.valueOf(params[1].trim()));
                         }
                         //Line 6
                         if (scan.hasNext()){
-                            scan.nextLine();
+                            line = scan.nextLine();
+                            params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
                             newAIRegion.setX4(Integer.valueOf(params[0].trim()));
                             newAIRegion.setY4(Integer.valueOf(params[1].trim()));
                         }
@@ -156,12 +162,12 @@ public class DisassemblyManager {
                     */
                     
                     String[] params = line.trim().substring(MACRO_ENEMIES.length()).trim().split(",");
-                    int index, x, y;
-                    int aiIndex = 0, item = 0;
+                    String name;
+                    int x = 0, y = 0, aiIndex = 0, item = 0;
                     int moveOrder1 = 0, region1 = 0, moveOrder2 = 0, region2 = 0, unknownParam = 0, spawnParams = 0;
                       
                     //Line 1
-                    index = 0;//Integer.valueOf(params[0].trim());
+                    name = params[0].trim();
                     x = Integer.valueOf(params[1].trim());
                     y = Integer.valueOf(params[2].trim());
                     
@@ -169,9 +175,10 @@ public class DisassemblyManager {
                     if (scan.hasNext()){
                         scan.nextLine();
                         
+                        //TODO new datatype
                         params = line.trim().substring("MACRO_ENEMY_LINE2".length()).trim().split(",");
-                        /*aiIndex = params[0].trim();
-                        item = params[1].trim();*/
+                        aiIndex = 0;//params[0].trim();
+                        item = 0;//params[1].trim();
                     }
                           
                     //Line 3
@@ -189,7 +196,22 @@ public class DisassemblyManager {
                     }
                     
                     Enemy newEnemy = new Enemy();
-                    newEnemy.setIndex(index);
+                    
+                    boolean matchFound = false;
+                    for (int e = 0; e < enemyData.length; e++) {
+                        if (enemyData[e] != null && enemyData[e].getName().equals(name)){
+                            newEnemy.setEnemyData(enemyData[e]);
+                            matchFound = true;
+                            break;
+                        }
+                    }
+                    if (!matchFound){
+                        EnemyData placeholder = new EnemyData();
+                        placeholder.setName(name);
+                        placeholder.setID(-1);
+                        newEnemy.setEnemyData(placeholder);
+                    }
+                    
                     newEnemy.setX(x);
                     newEnemy.setY(y);
                     newEnemy.setAi(aiIndex);
@@ -239,7 +261,7 @@ public class DisassemblyManager {
         return spriteset;
     }
 
-    public static SpriteSet importSpritesetBin(String spritesetPath){
+    public static SpriteSet importSpritesetBin(String spritesetPath, EnemyData[] enemyData){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
         SpriteSet spriteset = new SpriteSet();
         try {
@@ -267,7 +289,10 @@ public class DisassemblyManager {
             List<Enemy> enemyList = new ArrayList();
             for(int i=0;i<enemiesNumber;i++){
                 Enemy newEnemy = new Enemy();
-                newEnemy.setIndex(data[4+alliesNumber*12+i*12+0]&0xFF);
+                
+                Integer id = Integer.valueOf(data[4+alliesNumber*12+i*12+0]&0xFF);
+                if (enemyData[id] != null)
+                    newEnemy.setEnemyData(enemyData[id]);                
                 newEnemy.setX(data[4+alliesNumber*12+i*12+1]);
                 newEnemy.setY(data[4+alliesNumber*12+i*12+2]);
                 newEnemy.setAi(data[4+alliesNumber*12+i*12+3]);
@@ -328,7 +353,8 @@ public class DisassemblyManager {
         short s = bb.getShort(0);
         //System.out.println("Next input word = $"+Integer.toString(s, 16)+" / "+Integer.toString(s, 2));
         return s;
-    }    
+    }
+    
     public static void exportSpriteSet(SpriteSet spriteset, String spritesetPath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.exportSpriteSet() - Exporting disassembly ...");
         try { 
@@ -387,7 +413,7 @@ public class DisassemblyManager {
         asm.append("                ; Enemies");
         for(int i=0;i<enemies.length;i++){
             Enemy enemy = enemies[i];
-            asm.append("                "+MACRO_ENEMIES+" "+enemy.getIndex()+", "+enemy.getX()+", "+enemy.getY()+"\n");
+            asm.append("                "+MACRO_ENEMIES+" "+enemy.getEnemyData().getName()+", "+enemy.getX()+", "+enemy.getY()+"\n");
             asm.append("                "+MACRO_ENEMY_LINE2+" HEALER1, NOTHING");
             asm.append("                "+MACRO_ENEMY_LINE3+" NONE, 0, NONE, 0, 0, STARTING");
         }
@@ -447,7 +473,7 @@ public class DisassemblyManager {
         
         for(int i=0;i<enemiesNumber;i++){
             Enemy enemy = enemies[i];
-            spritesetBytes[4+alliesNumber*12+i*12+0] = (byte)enemy.getIndex();
+            spritesetBytes[4+alliesNumber*12+i*12+0] = (byte)(enemy.getEnemyData().getID()&0xFF);
             spritesetBytes[4+alliesNumber*12+i*12+1] = (byte)enemy.getX();
             spritesetBytes[4+alliesNumber*12+i*12+2] = (byte)enemy.getY();
             spritesetBytes[4+alliesNumber*12+i*12+3] = (byte)enemy.getAi();
@@ -483,15 +509,59 @@ public class DisassemblyManager {
         return spritesetBytes;
     }
     
-    public static byte[] importEnemySriteIDs(String mapspriteEnumPath, String filepath){
+    public static EnemyData[] importEnemyData(String mapspriteEnumPath, String filepath, MapSprite[] mapsprites){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemySriteIDs() - Importing disassembly ...");
-        byte[] data = null;
+        List<EnemyData> enemyDataList = new ArrayList();
+            
         try {
+
             if(filepath.endsWith(".bin")){
+        
                 Path filePath = Paths.get(filepath);
-                data = Files.readAllBytes(filePath); 
-            }else{
-                Map<String, Integer> mapspriteEnum = new HashMap();
+                byte[] data = Files.readAllBytes(filePath);
+                
+                for (int i = 0; i < data.length; i++) {                        
+                    EnemyData enemy = new EnemyData();
+                    enemy.setName("enemy_"+String.format("%03x", i));
+                    enemy.setID(Integer.valueOf(data[i]));
+                    if (data[i]*3 < mapsprites.length)
+                        enemy.setMapSprite(mapsprites[data[i]*3+2]);
+                    else
+                        enemy.setMapSprite(null);
+                    
+                    while (enemyDataList.size() < data[i]){
+                        enemyDataList.add(null);
+                    }
+                    enemyDataList.set(data[i], enemy);
+                }
+                
+            }else{ 
+                Map<String, Integer> map = new HashMap<String, Integer>();
+                
+                File file = new File(filepath);
+                Scanner scan = new Scanner(file);
+                while(scan.hasNext()){
+                    String line = scan.nextLine();
+                    if(line.trim().startsWith("mapsprite")){
+                        if(line.contains(";")){
+                            line = line.substring(0,line.indexOf(";"));
+                        }
+                        String key = line.trim().substring("mapsprite".length()).trim();
+                        Integer value;
+                        if(key.contains("$")||key.matches("[0-9]+")){
+                            value = valueOf(key);
+                        }else{
+                            value = enemyDataList.size();
+                        }    
+                        
+                        map.put(key, value);
+                        EnemyData enemy = new EnemyData();
+                        enemy.setName(key);
+                        enemy.setID(value);
+                        enemyDataList.add(enemy);
+                    }
+                }
+                
                 File enumFile = new File(mapspriteEnumPath);
                 Scanner enumScan = new Scanner(enumFile);
                 while(enumScan.hasNext()){
@@ -500,58 +570,40 @@ public class DisassemblyManager {
                         line = enumScan.nextLine();
                         while(!line.startsWith("; enum")){
                             if(line.startsWith("MAPSPRITE")){
-                                String key = line.substring(0,line.indexOf(":"));
+                                String key = line.substring(10,line.indexOf(":"));
                                 Integer value = line.indexOf("$")+1;
                                 if (value <= 0){
                                     value = line.indexOf("equ")+4;
                                 }
                                 Integer comment = line.indexOf(";");
                                 if (comment == -1){
-                                    value = Integer.valueOf(line.substring(value).trim(), 16);
+                                    value = Integer.valueOf(line.substring(value).trim());
                                 }
                                 else{
-                                    value = Integer.valueOf(line.substring(value, comment).trim(), 16);
+                                    value = Integer.valueOf(line.substring(value, comment).trim());
                                 }
-                                mapspriteEnum.put(key, value);
+                                
+                                if (map.containsKey(key)){
+                                    Integer index = map.get(key);
+                                    if (index < enemyDataList.size() && enemyDataList.get(index) != null && value*3 < mapsprites.length){
+                                        enemyDataList.get(index).setMapSprite(mapsprites[value*3+2]);
+                                    }
+                                }                                    
                             }
                             line = enumScan.nextLine();
                         }
                     }
-                } 
-                File file = new File(filepath);
-                Scanner scan = new Scanner(file);
-                List<Integer> values = new ArrayList();
-                while(scan.hasNext()){
-                    String line = scan.nextLine();
-                    if(line.trim().startsWith("tbl_EnemyMapSprites:")){
-                        while(scan.hasNext()){
-                            line = scan.nextLine();
-                            if(line.trim().startsWith("mapSprite")){
-                                if(line.contains(";")){
-                                    line = line.substring(0,line.indexOf(";"));
-                                }
-                                String value = line.trim().substring("mapSprite".length()).trim();
-                                Integer val;
-                                if(value.contains("$")||value.matches("[0-9]+")){
-                                    val = valueOf(value);
-                                }else{
-                                    val = mapspriteEnum.get("MAPSPRITE_"+value);
-                                }
-                                values.add(val);
-                            }
-                        }
-                    }
-                } 
-                data = new byte[values.size()];
-                for(int i=0;i<data.length;i++){
-                    data[i] = (byte)(values.get(i)&0xFF);
                 }
-            }           
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemySriteIDs() - Disassembly imported.");  
-        return data;        
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemySriteIDs() - Disassembly imported.");
+        
+        EnemyData[] enemyData = new EnemyData[enemyDataList.size()];
+        enemyData = enemyDataList.toArray(enemyData);
+        return enemyData;
     }
     
     private static int valueOf(String s){

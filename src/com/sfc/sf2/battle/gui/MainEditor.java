@@ -7,6 +7,7 @@ package com.sfc.sf2.battle.gui;
 
 import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.BattleManager;
+import com.sfc.sf2.battle.EnemyData;
 import com.sfc.sf2.battle.mapcoords.gui.BattleMapCoordsTableModel;
 import com.sfc.sf2.map.layout.MapLayoutManager;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDynamic.map;
@@ -1700,8 +1701,6 @@ public class MainEditor extends javax.swing.JFrame {
         battlePanel.setBattle(battle);
         battlePanel.setMapLayout(mapLayoutManager.getLayout());
         battlePanel.setBlockset(mapLayoutManager.getBlockset());
-        battlePanel.setMapsprites(battleManager.getMapsprites());
-        battlePanel.setEnemySpriteIds(battleManager.getEnemySpriteIds());
         battlePanel.setDrawExplorationFlags(jCheckBox1.isSelected());
         battlePanel.setDrawGrid(jCheckBox2.isSelected());
         battlePanel.setDrawTerrain(jCheckBox3.isSelected());
@@ -1737,10 +1736,13 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             }
         });    
+        
+        EnemyData[] enemyData = battleManager.getEnemyData();
+        
         battlePanel.setAlliesTable(allyTableModel);
         jPanel21.validate();
         jPanel21.repaint();
-        enemyTableModel = new EnemyPropertiesTableModel(battle, battlePanel);
+        enemyTableModel = new EnemyPropertiesTableModel(battle, battlePanel, enemyData);
         jTable3.setModel(enemyTableModel);
         jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             private int selectedRow = -1;
