@@ -1321,7 +1321,7 @@
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jTextField21" pref="86" max="32767" attributes="0"/>
+                                                  <Component id="jTextField21" pref="0" max="32767" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton28" min="-2" max="-2" attributes="0"/>
                                               </Group>
@@ -1349,7 +1349,7 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jTextField23" pref="70" max="32767" attributes="0"/>
+                                                  <Component id="jTextField23" max="32767" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton30" min="-2" max="-2" attributes="0"/>
                                               </Group>
@@ -1654,7 +1654,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField25">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value=".\u005centries\u005cbattle01\u005cspriteset.bin" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value=".\u005cspritesets\u005cspriteset01.asm" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField25ActionPerformed"/>
