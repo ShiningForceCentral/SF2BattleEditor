@@ -31,8 +31,215 @@ import java.util.logging.Logger;
  */
 public class DisassemblyManager {
     
-
+    private static final String MACRO_HEADER = "BattleSpriteset";
+    private static final String MACRO_ALLIES = "allyCombatant";
+    private static final String MACRO_ENEMIES = "enemyCombatant";
+    private static final String MACRO_DCB = "dc.b";
+    private static final String MACRO_REGIONS = "; AI Regions";
+    private static final String MACRO_ENEMY_LINE2 = "combatantAiAndItem";
+    private static final String MACRO_ENEMY_LINE3 = "combatantBehavior";
+    
+    private static String header;
+    
     public static SpriteSet importSpriteset(String spritesetPath){
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
+        SpriteSet spriteset = null;
+        if(spritesetPath.endsWith(".asm")){
+            spriteset = importSpritesetAsm(spritesetPath);
+        }else{
+            spriteset = importSpritesetBin(spritesetPath);
+        }
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Disassembly imported.");  
+        return spriteset;
+    }    
+
+    public static SpriteSet importSpritesetAsm(String spritesetPath){
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
+        SpriteSet spriteset = new SpriteSet();
+        
+        List<Ally> allyList = new ArrayList();            
+        List<Enemy> enemyList = new ArrayList();
+        List<AIRegion> aiRegionList = new ArrayList();
+        List<AIPoint> aiPointList = new ArrayList();
+        
+        try{
+            File file = new File(spritesetPath);
+            Scanner scan = new Scanner(file);
+            boolean inHeader = true;
+            boolean parsedSizes = false;
+            boolean parsingRegions = false;
+            header = "";
+            while(scan.hasNext()){
+                String line = scan.nextLine();
+                if(parsedSizes && line.trim().startsWith(MACRO_DCB)){
+                    if (parsingRegions){
+                        String[] params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
+                        
+                        AIRegion newAIRegion = new AIRegion();
+                        //Line 1
+                        newAIRegion.setType(Integer.valueOf(params[0].trim()));
+                        //Line 2 (Ignore)
+                        if (scan.hasNext()){ scan.nextLine(); }
+                        //Line 3
+                        if (scan.hasNext()){
+                            scan.nextLine();
+                            newAIRegion.setX1(Integer.valueOf(params[0].trim()));
+                            newAIRegion.setY1(Integer.valueOf(params[1].trim()));
+                        }
+                        //Line 4
+                        if (scan.hasNext()){
+                            scan.nextLine();
+                            newAIRegion.setX2(Integer.valueOf(params[0].trim()));
+                            newAIRegion.setY2(Integer.valueOf(params[1].trim()));
+                        }
+                        //Line 5
+                        if (scan.hasNext()){
+                            scan.nextLine();
+                            newAIRegion.setX3(Integer.valueOf(params[0].trim()));
+                            newAIRegion.setY3(Integer.valueOf(params[1].trim()));
+                        }
+                        //Line 6
+                        if (scan.hasNext()){
+                            scan.nextLine();
+                            newAIRegion.setX4(Integer.valueOf(params[0].trim()));
+                            newAIRegion.setY4(Integer.valueOf(params[1].trim()));
+                        }
+                        //Line 7 & 8 (Ignore)
+                        if (scan.hasNext()){ scan.nextLine(); }
+                        if (scan.hasNext()){ scan.nextLine(); }
+                        
+                        aiRegionList.add(newAIRegion);
+                    }
+                    else
+                    {
+                        String[] params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
+                        if (params.length == 2){
+                            AIPoint newPoint = new AIPoint();
+                            newPoint.setX(Integer.valueOf(params[0].trim()));
+                            newPoint.setY(Integer.valueOf(params[1].trim()));
+                            aiPointList.add(newPoint);
+                        }
+                    }
+                }
+                else if(line.trim().startsWith(MACRO_ALLIES)){
+                    inHeader = false;
+                    parsedSizes = true;
+                    
+                    /*
+                    index (0 to $B), X, Y
+                    Unused, Unused, Unused
+                    Unused, Unused, Unused, Unused, Unused, Unused, Unused
+                    */
+                    
+                    String[] params = line.trim().substring(MACRO_ALLIES.length()).trim().split(",");
+                    int index = Integer.valueOf(params[0].trim());
+                    int x = Integer.valueOf(params[1].trim());
+                    int y = Integer.valueOf(params[2].trim());
+                    Ally newAlly = new Ally();
+                    newAlly.setIndex(index);
+                    newAlly.setX(x);
+                    newAlly.setY(y);
+                    allyList.add(newAlly);
+                    
+                    //AI and behaviour lines not relevant for allies, so skip them
+                    if (scan.hasNext()){ scan.nextLine(); }
+                    if (scan.hasNext()){ scan.nextLine(); }
+                }
+                else if(line.trim().startsWith(MACRO_ENEMIES)){
+                    inHeader = false;
+                    parsedSizes = true;
+                    
+                    /*
+                    index, X, Y
+                    aiType, extraItem
+                    moveOrder1, region1, moveOrder2, region2, unknown, spawnParams
+                    */
+                    
+                    String[] params = line.trim().substring(MACRO_ENEMIES.length()).trim().split(",");
+                    int index, x, y;
+                    int aiIndex = 0, item = 0;
+                    int moveOrder1 = 0, region1 = 0, moveOrder2 = 0, region2 = 0, unknownParam = 0, spawnParams = 0;
+                      
+                    //Line 1
+                    index = 0;//Integer.valueOf(params[0].trim());
+                    x = Integer.valueOf(params[1].trim());
+                    y = Integer.valueOf(params[2].trim());
+                    
+                    //Line 2
+                    if (scan.hasNext()){
+                        scan.nextLine();
+                        
+                        params = line.trim().substring("MACRO_ENEMY_LINE2".length()).trim().split(",");
+                        /*aiIndex = params[0].trim();
+                        item = params[1].trim();*/
+                    }
+                          
+                    //Line 3
+                    if (scan.hasNext()){
+                        scan.nextLine();
+                        
+                        //TODO new datatype
+                        params = line.trim().substring("MACRO_ENEMY_LINE3".length()).trim().split(",");
+                        moveOrder1 = 0;//Integer.valueOf(params[0].trim());
+                        region1 = 0;//Integer.valueOf(params[1].trim());
+                        moveOrder2 = 0;//Integer.valueOf(params[2].trim());
+                        region2 = 0;//Integer.valueOf(params[3].trim());
+                        unknownParam = 0;//Integer.valueOf(params[4].trim());
+                        spawnParams = 0;//Integer.valueOf(params[5].trim());
+                    }
+                    
+                    Enemy newEnemy = new Enemy();
+                    newEnemy.setIndex(index);
+                    newEnemy.setX(x);
+                    newEnemy.setY(y);
+                    newEnemy.setAi(aiIndex);
+                    newEnemy.setItem(item);
+                    newEnemy.setMoveOrder1(moveOrder1);
+                    newEnemy.setTriggerRegion(region1);
+                    newEnemy.setByte8(moveOrder2);
+                    newEnemy.setByte9(region2);
+                    newEnemy.setByte10(unknownParam);
+                    newEnemy.setSpawnParams(spawnParams);
+                    enemyList.add(newEnemy);
+                }
+                else if(inHeader){
+                    header+=line;
+                    header+="\n";
+
+                    if (line.trim().startsWith(MACRO_HEADER))
+                        inHeader = false;
+                }
+                else if(line.trim().startsWith(";")){
+                    parsingRegions = (line.trim().equals(MACRO_REGIONS));
+                }
+            }
+            
+            Ally[] allies = new Ally[allyList.size()];
+            allies = allyList.toArray(allies);
+            spriteset.setAllies(allies);
+            
+            Enemy[] enemies = new Enemy[enemyList.size()];
+            enemies = enemyList.toArray(enemies);
+            spriteset.setEnemies(enemies);
+            
+            AIRegion[] aiRegions = new AIRegion[aiRegionList.size()];
+            aiRegions = aiRegionList.toArray(aiRegions);
+            spriteset.setAiRegions(aiRegions);
+            
+            AIPoint[] aiPoints = new AIPoint[aiPointList.size()];
+            aiPoints = aiPointList.toArray(aiPoints);
+            spriteset.setAiPoints(aiPoints);
+            
+        }catch(Exception e){
+             System.err.println("com.sfc.sf2.battle.mapcoords.io.DisassemblyManager.importDisassembly() - Error while parsing graphics data : "+e);
+             e.printStackTrace();
+        }
+        
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Disassembly imported.");  
+        return spriteset;
+    }
+
+    public static SpriteSet importSpritesetBin(String spritesetPath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
         SpriteSet spriteset = new SpriteSet();
         try {
@@ -122,23 +329,98 @@ public class DisassemblyManager {
         //System.out.println("Next input word = $"+Integer.toString(s, 16)+" / "+Integer.toString(s, 2));
         return s;
     }    
-    
     public static void exportSpriteSet(SpriteSet spriteset, String spritesetPath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.exportSpriteSet() - Exporting disassembly ...");
         try { 
-            byte[] spritesetBytes = produceSpriteSetBytes(spriteset);
-            Path spritesetFilepath = Paths.get(spritesetPath);
-            Files.write(spritesetFilepath,spritesetBytes);
-            System.out.println(spritesetBytes.length + " bytes into " + spritesetFilepath);
+            if(spritesetPath.endsWith(".asm")){
+                StringBuilder asm = new StringBuilder();
+                asm.append(header);
+                asm.append(produceSpriteSetBytesAsm(spriteset));
+                Path spritesetFilepath = Paths.get(spritesetPath);
+                Files.write(spritesetFilepath, asm.toString().getBytes());
+                System.out.println(asm);
+            }else{
+                byte[] spritesetBytes = produceSpriteSetBytesBin(spriteset);
+                Path spritesetFilepath = Paths.get(spritesetPath);
+                Files.write(spritesetFilepath, spritesetBytes);
+                System.out.println(spritesetBytes.length + " bytes into " + spritesetFilepath);
+            }
         } catch (Exception ex) {
-            Logger.getLogger(com.sfc.sf2.battle.io.DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
             System.out.println(ex);
         }            
-        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.exportSpriteSet() - Disassembly exported.");     
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.exportSpriteSet() - Disassembly exported.");         
     }
     
-    private static byte[] produceSpriteSetBytes(SpriteSet spriteset){
+    private static String produceSpriteSetBytesAsm(SpriteSet spriteset){
+                
+        Ally[] allies = spriteset.getAllies();
+        Enemy[] enemies = spriteset.getEnemies();
+        AIRegion[] aiRegions = spriteset.getAiRegions();
+        AIPoint[] aiPoints = spriteset.getAiPoints();
+        
+        StringBuilder asm = new StringBuilder();
+        
+        //Sizes
+        asm.append("                ; # Allies");
+        asm.append("                "+MACRO_DCB+" "+allies.length+"\n");
+        asm.append("                ; # Enemies");
+        asm.append("                "+MACRO_DCB+" "+enemies.length+"\n");
+        asm.append("                ; # AI Regions");
+        asm.append("                "+MACRO_DCB+" "+aiRegions.length+"\n");
+        asm.append("                ; # AI Points");
+        asm.append("                "+MACRO_DCB+" "+aiPoints.length+"\n");
+        asm.append("\n");
+        
+        //Allies
+        asm.append("                ; Allies");
+        for(int i=0;i<allies.length;i++){
+            Ally ally = allies[i];
+            asm.append("                "+MACRO_ALLIES+" "+ally.getIndex()+", "+ally.getX()+", "+ally.getY()+"\n");
+            asm.append("                "+MACRO_ENEMY_LINE2+" HEALER1, NOTHING");
+            asm.append("                "+MACRO_ENEMY_LINE3+" NONE, 0, NONE, 0, 0, STARTING");
+        }
+        asm.append("\n");
+        
+        //Enemies
+        asm.append("                ; Enemies");
+        for(int i=0;i<enemies.length;i++){
+            Enemy enemy = enemies[i];
+            asm.append("                "+MACRO_ENEMIES+" "+enemy.getIndex()+", "+enemy.getX()+", "+enemy.getY()+"\n");
+            asm.append("                "+MACRO_ENEMY_LINE2+" HEALER1, NOTHING");
+            asm.append("                "+MACRO_ENEMY_LINE3+" NONE, 0, NONE, 0, 0, STARTING");
+        }
+        asm.append("\n");
+        
+        //Regions
+        asm.append("                ; AI Regions");
+        for(int i=0;i<aiRegions.length;i++){
+            AIRegion region = aiRegions[i];
+            asm.append("                "+MACRO_DCB+" "+region.getType()+"\n");
+            asm.append("                "+MACRO_DCB+" 0\n");
+            asm.append("                "+MACRO_DCB+" "+region.getX1()+", "+region.getY1()+"\n");
+            asm.append("                "+MACRO_DCB+" "+region.getX2()+", "+region.getY2()+"\n");
+            asm.append("                "+MACRO_DCB+" "+region.getX3()+", "+region.getY3()+"\n");
+            asm.append("                "+MACRO_DCB+" "+region.getX4()+", "+region.getY4()+"\n");
+            asm.append("                "+MACRO_DCB+" 0\n");
+            asm.append("                "+MACRO_DCB+" 0\n");
+        }
+        asm.append("\n");
+        
+        //AI Points
+        asm.append("                ; AI Points");
+        for(int i=0;i<aiPoints.length;i++){
+            AIPoint point = aiPoints[i];
+            asm.append("                "+MACRO_DCB+" "+point.getX()+", "+point.getY()+"\n");
+        }
+        asm.append("\n");
+        
+        return asm.toString();
+    }
+    
+    //Lagacy? Do spritesets need binary format anymore?
+    private static byte[] produceSpriteSetBytesBin(SpriteSet spriteset){
         Ally[] allies = spriteset.getAllies();
         Enemy[] enemies = spriteset.getEnemies();
         AIRegion[] aiRegions = spriteset.getAiRegions();
@@ -219,7 +501,17 @@ public class DisassemblyManager {
                         while(!line.startsWith("; enum")){
                             if(line.startsWith("MAPSPRITE")){
                                 String key = line.substring(0,line.indexOf(":"));
-                                Integer value = Integer.valueOf(line.substring(line.indexOf("$")+1).trim(), 16);
+                                Integer value = line.indexOf("$")+1;
+                                if (value <= 0){
+                                    value = line.indexOf("equ")+4;
+                                }
+                                Integer comment = line.indexOf(";");
+                                if (comment == -1){
+                                    value = Integer.valueOf(line.substring(value).trim(), 16);
+                                }
+                                else{
+                                    value = Integer.valueOf(line.substring(value, comment).trim(), 16);
+                                }
                                 mapspriteEnum.put(key, value);
                             }
                             line = enumScan.nextLine();
