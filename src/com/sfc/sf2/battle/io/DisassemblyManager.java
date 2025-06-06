@@ -219,7 +219,17 @@ public class DisassemblyManager {
                         while(!line.startsWith("; enum")){
                             if(line.startsWith("MAPSPRITE")){
                                 String key = line.substring(0,line.indexOf(":"));
-                                Integer value = Integer.valueOf(line.substring(line.indexOf("$")+1).trim(), 16);
+                                Integer value = line.indexOf("$")+1;
+                                if (value <= 0){
+                                    value = line.indexOf("equ")+4;
+                                }
+                                Integer comment = line.indexOf(";");
+                                if (comment == -1){
+                                    value = Integer.valueOf(line.substring(value).trim(), 16);
+                                }
+                                else{
+                                    value = Integer.valueOf(line.substring(value, comment).trim(), 16);
+                                }
                                 mapspriteEnum.put(key, value);
                             }
                             line = enumScan.nextLine();
