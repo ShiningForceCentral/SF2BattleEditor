@@ -80,36 +80,36 @@ public class DisassemblyManager {
                         
                         AIRegion newAIRegion = new AIRegion();
                         //Line 1
-                        newAIRegion.setType(Integer.valueOf(params[0].trim()));
+                        newAIRegion.setType(Integer.parseInt(params[0].trim()));
                         //Line 2 (Ignore)
                         if (scan.hasNext()){ scan.nextLine(); }
                         //Line 3
                         if (scan.hasNext()){
                             line = scan.nextLine();
                             params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
-                            newAIRegion.setX1(Integer.valueOf(params[0].trim()));
-                            newAIRegion.setY1(Integer.valueOf(params[1].trim()));
+                            newAIRegion.setX1(Integer.parseInt(params[0].trim()));
+                            newAIRegion.setY1(Integer.parseInt(params[1].trim()));
                         }
                         //Line 4
                         if (scan.hasNext()){
                             line = scan.nextLine();
                             params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
-                            newAIRegion.setX2(Integer.valueOf(params[0].trim()));
-                            newAIRegion.setY2(Integer.valueOf(params[1].trim()));
+                            newAIRegion.setX2(Integer.parseInt(params[0].trim()));
+                            newAIRegion.setY2(Integer.parseInt(params[1].trim()));
                         }
                         //Line 5
                         if (scan.hasNext()){
                             line = scan.nextLine();
                             params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
-                            newAIRegion.setX3(Integer.valueOf(params[0].trim()));
-                            newAIRegion.setY3(Integer.valueOf(params[1].trim()));
+                            newAIRegion.setX3(Integer.parseInt(params[0].trim()));
+                            newAIRegion.setY3(Integer.parseInt(params[1].trim()));
                         }
                         //Line 6
                         if (scan.hasNext()){
                             line = scan.nextLine();
                             params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
-                            newAIRegion.setX4(Integer.valueOf(params[0].trim()));
-                            newAIRegion.setY4(Integer.valueOf(params[1].trim()));
+                            newAIRegion.setX4(Integer.parseInt(params[0].trim()));
+                            newAIRegion.setY4(Integer.parseInt(params[1].trim()));
                         }
                         //Line 7 & 8 (Ignore)
                         if (scan.hasNext()){ scan.nextLine(); }
@@ -122,8 +122,8 @@ public class DisassemblyManager {
                         String[] params = line.trim().substring(MACRO_DCB.length()).trim().split(",");
                         if (params.length == 2){
                             AIPoint newPoint = new AIPoint();
-                            newPoint.setX(Integer.valueOf(params[0].trim()));
-                            newPoint.setY(Integer.valueOf(params[1].trim()));
+                            newPoint.setX(Integer.parseInt(params[0].trim()));
+                            newPoint.setY(Integer.parseInt(params[1].trim()));
                             aiPointList.add(newPoint);
                         }
                     }
@@ -139,9 +139,9 @@ public class DisassemblyManager {
                     */
                     
                     String[] params = line.trim().substring(MACRO_ALLIES.length()).trim().split(",");
-                    int index = Integer.valueOf(params[0].trim());
-                    int x = Integer.valueOf(params[1].trim());
-                    int y = Integer.valueOf(params[2].trim());
+                    int index = Integer.parseInt(params[0].trim());
+                    int x = Integer.parseInt(params[1].trim());
+                    int y = Integer.parseInt(params[2].trim());
                     Ally newAlly = new Ally();
                     newAlly.setIndex(index);
                     newAlly.setX(x);
@@ -168,12 +168,12 @@ public class DisassemblyManager {
                                           
                     //Line 1
                     name = params[0].trim();
-                    x = Integer.valueOf(params[1].trim());
-                    y = Integer.valueOf(params[2].trim());
+                    x = Integer.parseInt(params[1].trim());
+                    y = Integer.parseInt(params[2].trim());
                     
                     //Line 2
                     if (scan.hasNext()){
-                        scan.nextLine();
+                        line = scan.nextLine();
                         
                         //TODO new datatype
                         params = line.trim().substring("MACRO_ENEMY_LINE2".length()).trim().split(",");
@@ -183,15 +183,15 @@ public class DisassemblyManager {
                           
                     //Line 3
                     if (scan.hasNext()){
-                        scan.nextLine();
+                        line = scan.nextLine();
                         
                         //TODO new datatype
                         params = line.trim().substring("MACRO_ENEMY_LINE3".length()).trim().split(",");
                         moveOrder1 = EnemyEnums.stringToAiOrderString(params[0].trim(), enemyEnums.getOrders());
-                        region1 = Integer.valueOf(params[1].trim());
+                        region1 = Integer.parseInt(params[1].trim());
                         moveOrder2 = EnemyEnums.stringToAiOrderString(params[2].trim(), enemyEnums.getOrders());
-                        region2 = Integer.valueOf(params[3].trim());
-                        unknownParam = Integer.valueOf(params[4].trim());
+                        region2 = Integer.parseInt(params[3].trim());
+                        unknownParam = Integer.parseInt(params[4].trim());
                         spawnParams = EnemyEnums.toEnumString(params[5].trim(), enemyEnums.getSpawnParams());
                     }
                     
@@ -290,19 +290,19 @@ public class DisassemblyManager {
             for(int i=0;i<enemiesNumber;i++){
                 Enemy newEnemy = new Enemy();
                 
-                Integer id = Integer.valueOf(data[4+alliesNumber*12+i*12+0]&0xFF);
+                Integer id = data[4+alliesNumber*12+i*12+0]&0xFF;
                 if (enemyData[id] != null)
                     newEnemy.setEnemyData(enemyData[id]);                
                 newEnemy.setX(data[4+alliesNumber*12+i*12+1]);
                 newEnemy.setY(data[4+alliesNumber*12+i*12+2]);
-                newEnemy.setAi(enemyEnums.toEnumString(data[4+alliesNumber*12+i*12+3], enemyEnums.getCommandSets()));
+                newEnemy.setAi(EnemyEnums.toEnumString(data[4+alliesNumber*12+i*12+3], enemyEnums.getCommandSets()));
                 newEnemy.setItem(EnemyEnums.itemNumToString(getNextWord(data,4+alliesNumber*12+i*12+4), enemyEnums.getItems()));
                 newEnemy.setMoveOrder1(EnemyEnums.aiOrderNumToString(data[4+alliesNumber*12+i*12+6], enemyEnums.getOrders()));
                 newEnemy.setTriggerRegion1(data[4+alliesNumber*12+i*12+7]);
                 newEnemy.setMoveOrder2(EnemyEnums.aiOrderNumToString(data[4+alliesNumber*12+i*12+8], enemyEnums.getOrders()));
                 newEnemy.setTriggerRegion2(data[4+alliesNumber*12+i*12+9]);
                 newEnemy.setByte10(data[4+alliesNumber*12+i*12+10]);
-                newEnemy.setSpawnParams(enemyEnums.toEnumString(data[4+alliesNumber*12+i*12+11], enemyEnums.getSpawnParams()));
+                newEnemy.setSpawnParams(EnemyEnums.toEnumString(data[4+alliesNumber*12+i*12+11], enemyEnums.getSpawnParams()));
                 enemyList.add(newEnemy);
             }
             Enemy[] enemies = new Enemy[enemyList.size()];
@@ -389,23 +389,23 @@ public class DisassemblyManager {
         StringBuilder asm = new StringBuilder();
         
         //Sizes
-        asm.append("                ; # Allies\n");
-        asm.append("                "+MACRO_DCB+" "+allies.length+"\n");
-        asm.append("                ; # Enemies\n");
-        asm.append("                "+MACRO_DCB+" "+enemies.length+"\n");
-        asm.append("                ; # AI Regions\n");
-        asm.append("                "+MACRO_DCB+" "+aiRegions.length+"\n");
-        asm.append("                ; # AI Points\n");
-        asm.append("                "+MACRO_DCB+" "+aiPoints.length+"\n");
+        asm.append(String.format("                ; # Allies\n"));
+        asm.append(String.format("                %s %d\n", MACRO_DCB, allies.length));
+        asm.append(String.format("                ; # Enemies\n"));
+        asm.append(String.format("                %s %d\n", MACRO_DCB, enemies.length));
+        asm.append(String.format("                ; # AI Regions\n"));
+        asm.append(String.format("                %s %d\n", MACRO_DCB, aiRegions.length));
+        asm.append(String.format("                ; # AI Points\n"));
+        asm.append(String.format("                %s %d\n", MACRO_DCB, aiPoints.length));
         asm.append("\n");
         
         //Allies
         asm.append("                ; Allies\n");
         for(int i=0;i<allies.length;i++){
             Ally ally = allies[i];
-            asm.append("                "+MACRO_ALLIES+" "+ally.getIndex()+", "+ally.getX()+", "+ally.getY()+"\n");
-            asm.append("                "+MACRO_ENEMY_LINE2+" HEALER1, NOTHING\n");
-            asm.append("                "+MACRO_ENEMY_LINE3+" NONE, 0, NONE, 0, 0, STARTING\n");
+            asm.append(String.format("                %s %d, %d, %d\n", MACRO_ALLIES, ally.getIndex(), ally.getX(), ally.getY()));
+            asm.append(String.format("                %s HEALER1, NOTHING\n", MACRO_ENEMY_LINE2));
+            asm.append(String.format("                %s NONE, 15, NONE, 15, 0, STARTING\n\n", MACRO_ENEMY_LINE3));
         }
         asm.append("\n");
         
@@ -421,10 +421,10 @@ public class DisassemblyManager {
             String moveOrder2 = EnemyEnums.stringToAiOrderString(enemy.getMoveOrder2(), enemyEnums.getOrders());
             String spawnParams = EnemyEnums.toEnumString(enemy.getSpawnParams(), enemyEnums.getSpawnParams());
             
-            asm.append("                "+MACRO_ENEMIES+" "+name+", "+enemy.getX()+", "+enemy.getY()+"\n");
-            asm.append("                "+MACRO_ENEMY_LINE2+" "+command+", "+item+"\n");
-            asm.append("                "+MACRO_ENEMY_LINE3+" "+moveOrder1+", "+enemy.getTriggerRegion1()+", "+moveOrder2+", "
-                                         +enemy.getTriggerRegion2()+", "+enemy.getByte10()+", "+spawnParams+"\n");
+            asm.append(String.format("                "+MACRO_ENEMIES+" "+name+", "+enemy.getX()+", "+enemy.getY()+"\n"));
+            asm.append(String.format("                "+MACRO_ENEMY_LINE2+" "+command+", "+item+"\n"));
+            asm.append(String.format("                "+MACRO_ENEMY_LINE3+" "+moveOrder1+", "+enemy.getTriggerRegion1()+", "+moveOrder2+", "
+                                                        +enemy.getTriggerRegion2()+", "+enemy.getByte10()+", "+spawnParams+"\n\n"));
         }
         asm.append("\n");
         
@@ -432,14 +432,14 @@ public class DisassemblyManager {
         asm.append("                ; AI Regions\n");
         for(int i=0;i<aiRegions.length;i++){
             AIRegion region = aiRegions[i];
-            asm.append("                "+MACRO_DCB+" "+region.getType()+"\n");
-            asm.append("                "+MACRO_DCB+" 0\n");
-            asm.append("                "+MACRO_DCB+" "+region.getX1()+", "+region.getY1()+"\n");
-            asm.append("                "+MACRO_DCB+" "+region.getX2()+", "+region.getY2()+"\n");
-            asm.append("                "+MACRO_DCB+" "+region.getX3()+", "+region.getY3()+"\n");
-            asm.append("                "+MACRO_DCB+" "+region.getX4()+", "+region.getY4()+"\n");
-            asm.append("                "+MACRO_DCB+" 0\n");
-            asm.append("                "+MACRO_DCB+" 0\n");
+            asm.append(String.format("                %s %d\n", MACRO_DCB, region.getType()));
+            asm.append(String.format("                %s 0\n", MACRO_DCB));
+            asm.append(String.format("                %s %d, %d\n", MACRO_DCB, region.getX1(), region.getY1()));
+            asm.append(String.format("                %s %d, %d\n", MACRO_DCB, region.getX2(), region.getY2()));
+            asm.append(String.format("                %s %d, %d\n", MACRO_DCB, region.getX3(), region.getY3()));
+            asm.append(String.format("                %s %d, %d\n", MACRO_DCB, region.getX4(), region.getY4()));
+            asm.append(String.format("                %s 0\n", MACRO_DCB));
+            asm.append(String.format("                %s 0\n", MACRO_DCB));
         }
         asm.append("\n");
         
@@ -447,7 +447,7 @@ public class DisassemblyManager {
         asm.append("                ; AI Points\n");
         for(int i=0;i<aiPoints.length;i++){
             AIPoint point = aiPoints[i];
-            asm.append("                "+MACRO_DCB+" "+point.getX()+", "+point.getY()+"\n");
+            asm.append(String.format("                %s %d, %d\n", MACRO_DCB, point.getX(), point.getY()));
         }
         asm.append("\n");
         
@@ -546,7 +546,7 @@ public class DisassemblyManager {
                 }
                 
             }else{ 
-                Map<String, Integer> map = new HashMap<String, Integer>();
+                Map<String, Integer> map = new HashMap<>();
                 
                 File file = new File(filepath);
                 Scanner scan = new Scanner(file);
@@ -624,15 +624,16 @@ public class DisassemblyManager {
         Map<String, Integer> aiCommandSets = new HashMap<>();
         Map<String, Integer> aiOrders = new HashMap<>();
         Map<String, Integer> spawnParams = new HashMap<>();
+        
+        int itemEquippedValue = 0;
+        int itemNothingValue = 0;
             
         try {
             if(mapspriteEnumPath.endsWith(".bin")){
         
                 //TODO Handle .bin enums (is this necessary?)
                 
-            }else{ 
-                Map<String, Integer> map = new HashMap<String, Integer>();
-                
+            }else{                                
                 File file = new File(mapspriteEnumPath);
                 Scanner scan = new Scanner(file);
                 while(scan.hasNext()){
@@ -689,8 +690,22 @@ public class DisassemblyManager {
                             if(line.startsWith("ITEM_")){
                                 line = line.substring(line.indexOf("_")+1);
                                 String item = line.substring(0, line.indexOf(":"));
-                                int value = valueOf(line.substring(line.indexOf("equ")+4));
+                                int value = 0;
+                                if (item.equals("NOTHING"))
+                                    value = itemNothingValue;
+                                else if (item.equals("EQUIPPED"))
+                                    value = itemEquippedValue;
+                                else
+                                    value = valueOf(line.substring(line.indexOf("equ")+4));
                                 items.put(item, value);
+                            }
+                            else if (line.startsWith("item")){
+                                //Get the ITEM_NOTHING & ITEM
+                                //TODO .asm will store as string so the value doesn't matter. .bin will store value which will only support expanded item values
+                                if (line.startsWith("itemNothing"))
+                                    itemNothingValue = valueOf(line.substring(line.indexOf("=")+1));
+                                else if (line.startsWith("itemEquipped"))
+                                    itemEquippedValue = valueOf(line.substring(line.indexOf("=")+1));
                             }
                             else if (line.startsWith("; --")){
                                 break;
@@ -703,14 +718,19 @@ public class DisassemblyManager {
         } catch (IOException ex) {
             Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyEnums() - Disassembly imported.");
         
+        System.out.println("Items imported: " + items.size() + " entries.");
+        System.out.println("AI Commands imported: " + aiCommandSets.size() + " entries.");
+        System.out.println("AI Orders imported: " + aiOrders.size() + " entries.");
+        System.out.println("Spawn Params imported: " + spawnParams.size() + " entries.");
             
         EnemyEnums enemyEnums = new EnemyEnums();
         enemyEnums.setItems(items);
         enemyEnums.setCommandSets(aiCommandSets);
         enemyEnums.setOrders(aiOrders);
         enemyEnums.setSpawnParams(spawnParams);
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyEnums() - Disassembly imported.");
+        
         return enemyEnums;
     }
     
