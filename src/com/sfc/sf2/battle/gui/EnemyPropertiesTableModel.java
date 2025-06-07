@@ -101,7 +101,7 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
         for(int i=0;i<tableData.length;i++){
             newTable[i] = tableData[i];
         }
-        newTable[newTable.length-1] = new Integer[11];
+        newTable[newTable.length-1] = new Object[11];
         newTable[newTable.length-1][0] = tableData[tableData.length-1][0];
         newTable[newTable.length-1][1] = 0;
         newTable[newTable.length-1][2] = 0;
@@ -136,7 +136,7 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
     
     @Override
     public Class getColumnClass(int column) {
-        return Integer.class;
+        return Object.class;
     }    
     
     @Override
@@ -145,7 +145,7 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
     }
     @Override
     public void setValueAt(Object value, int row, int col) {
-        tableData[row][col] = (Integer)value;
+        tableData[row][col] = value;
         updateProperties();
         battlePanel.updateSpriteDisplay();
         battlePanel.revalidate();
