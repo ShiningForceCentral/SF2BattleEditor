@@ -176,7 +176,6 @@ public class DisassemblyManager {
                     if (scan.hasNext()){
                         line = scan.nextLine();
                         
-                        //TODO new datatype
                         params = line.trim().substring(MACRO_ENEMY_LINE2.length()).trim().split(",");
                         aiCommand = EnemyEnums.toEnumString(params[0].trim(), enemyEnums.getCommandSets());
                         item = EnemyEnums.stringToItemString(params[1].trim(), enemyEnums.getItems());
@@ -186,7 +185,6 @@ public class DisassemblyManager {
                     if (scan.hasNext()){
                         line = scan.nextLine();
                         
-                        //TODO new datatype
                         params = line.trim().substring(MACRO_ENEMY_LINE3.length()).trim().split(",");
                         moveOrder1 = EnemyEnums.stringToAiOrderString(params[0].trim(), enemyEnums.getOrders());
                         region1 = Integer.parseInt(params[1].trim());
