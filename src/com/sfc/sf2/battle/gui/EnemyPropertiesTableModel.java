@@ -81,14 +81,14 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
                 
                 enemy.setX((int)entry[1]);
                 enemy.setY((int)entry[2]);
-                enemy.setAi((int)entry[3]);
-                enemy.setItem((int)entry[4]);
-                enemy.setMoveOrder1((int)entry[5]);
+                enemy.setAi((String)entry[3]);
+                enemy.setItem((String)entry[4]);
+                enemy.setMoveOrder1((String)entry[5]);
                 enemy.setTriggerRegion1((int)entry[6]);
-                enemy.setMoveOrder2((int)entry[7]);
+                enemy.setMoveOrder2((String)entry[7]);
                 enemy.setTriggerRegion2((int)entry[8]);
                 enemy.setByte10((int)entry[9]);
-                enemy.setSpawnParams((int)entry[10]);
+                enemy.setSpawnParams((String)entry[10]);
                 entries.add(enemy);
             }
         }

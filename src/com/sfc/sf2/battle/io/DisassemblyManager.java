@@ -361,12 +361,12 @@ public class DisassemblyManager {
             if(spritesetPath.endsWith(".asm")){
                 StringBuilder asm = new StringBuilder();
                 asm.append(header);
-                asm.append(produceSpriteSetBytesAsm(spriteset, enemyEnums));
+                asm.append(produceSpriteSetAsm(spriteset, enemyEnums));
                 Path spritesetFilepath = Paths.get(spritesetPath);
                 Files.write(spritesetFilepath, asm.toString().getBytes());
                 System.out.println(asm);
             }else{
-                byte[] spritesetBytes = produceSpriteSetBytesBin(spriteset, enemyEnums);
+                byte[] spritesetBytes = produceSpriteSetBin(spriteset, enemyEnums);
                 Path spritesetFilepath = Paths.get(spritesetPath);
                 Files.write(spritesetFilepath, spritesetBytes);
                 System.out.println(spritesetBytes.length + " bytes into " + spritesetFilepath);
@@ -379,7 +379,7 @@ public class DisassemblyManager {
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.exportSpriteSet() - Disassembly exported.");         
     }
     
-    private static String produceSpriteSetBytesAsm(SpriteSet spriteset, EnemyEnums enemyEnums){
+    private static String produceSpriteSetAsm(SpriteSet spriteset, EnemyEnums enemyEnums){
                 
         Ally[] allies = spriteset.getAllies();
         Enemy[] enemies = spriteset.getEnemies();
@@ -389,18 +389,18 @@ public class DisassemblyManager {
         StringBuilder asm = new StringBuilder();
         
         //Sizes
-        asm.append("                ; # Allies");
+        asm.append("                ; # Allies\n");
         asm.append("                "+MACRO_DCB+" "+allies.length+"\n");
-        asm.append("                ; # Enemies");
+        asm.append("                ; # Enemies\n");
         asm.append("                "+MACRO_DCB+" "+enemies.length+"\n");
-        asm.append("                ; # AI Regions");
+        asm.append("                ; # AI Regions\n");
         asm.append("                "+MACRO_DCB+" "+aiRegions.length+"\n");
-        asm.append("                ; # AI Points");
+        asm.append("                ; # AI Points\n");
         asm.append("                "+MACRO_DCB+" "+aiPoints.length+"\n");
         asm.append("\n");
         
         //Allies
-        asm.append("                ; Allies");
+        asm.append("                ; Allies\n");
         for(int i=0;i<allies.length;i++){
             Ally ally = allies[i];
             asm.append("                "+MACRO_ALLIES+" "+ally.getIndex()+", "+ally.getX()+", "+ally.getY()+"\n");
@@ -410,7 +410,7 @@ public class DisassemblyManager {
         asm.append("\n");
         
         //Enemies
-        asm.append("                ; Enemies");
+        asm.append("                ; Enemies\n");
         for(int i=0;i<enemies.length;i++){
             Enemy enemy = enemies[i];
             
@@ -424,12 +424,12 @@ public class DisassemblyManager {
             asm.append("                "+MACRO_ENEMIES+" "+name+", "+enemy.getX()+", "+enemy.getY()+"\n");
             asm.append("                "+MACRO_ENEMY_LINE2+" "+command+", "+item+"\n");
             asm.append("                "+MACRO_ENEMY_LINE3+" "+moveOrder1+", "+enemy.getTriggerRegion1()+", "+moveOrder2+", "
-                    +enemy.getTriggerRegion2()+", "+enemy.getByte10()+", "+spawnParams+"\n");
+                                         +enemy.getTriggerRegion2()+", "+enemy.getByte10()+", "+spawnParams+"\n");
         }
         asm.append("\n");
         
         //Regions
-        asm.append("                ; AI Regions");
+        asm.append("                ; AI Regions\n");
         for(int i=0;i<aiRegions.length;i++){
             AIRegion region = aiRegions[i];
             asm.append("                "+MACRO_DCB+" "+region.getType()+"\n");
@@ -444,7 +444,7 @@ public class DisassemblyManager {
         asm.append("\n");
         
         //AI Points
-        asm.append("                ; AI Points");
+        asm.append("                ; AI Points\n");
         for(int i=0;i<aiPoints.length;i++){
             AIPoint point = aiPoints[i];
             asm.append("                "+MACRO_DCB+" "+point.getX()+", "+point.getY()+"\n");
@@ -455,7 +455,7 @@ public class DisassemblyManager {
     }
     
     //Lagacy? Do spritesets need binary format anymore?
-    private static byte[] produceSpriteSetBytesBin(SpriteSet spriteset, EnemyEnums enemyEnums){
+    private static byte[] produceSpriteSetBin(SpriteSet spriteset, EnemyEnums enemyEnums){
         Ally[] allies = spriteset.getAllies();
         Enemy[] enemies = spriteset.getEnemies();
         AIRegion[] aiRegions = spriteset.getAiRegions();

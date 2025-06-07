@@ -63,7 +63,7 @@ public class BattleManager {
         mapCoordsManager.exportDisassembly(coordsArray, mapcoordsPath);
         mapTerrainManager.setTerrain(battle.getTerrain());
         mapTerrainManager.exportDisassembly(terrainPath);
-        DisassemblyManager.exportSpriteSet(battle.getSpriteset(), spritesetPath);
+        DisassemblyManager.exportSpriteSet(battle.getSpriteset(), spritesetPath, enemyEnums);
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Disassembly exported.");        
     }      
     

@@ -1424,7 +1424,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField28.setText(".\\entries\\battle01\\spriteset.bin");
+            jTextField28.setText(".\\spritesets\\spriteset01.asm");
             jTextField28.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField28ActionPerformed(evt);

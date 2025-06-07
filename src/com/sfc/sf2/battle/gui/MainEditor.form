@@ -1907,7 +1907,7 @@
                                         </Component>
                                         <Component class="javax.swing.JTextField" name="jTextField28">
                                           <Properties>
-                                            <Property name="text" type="java.lang.String" value=".\u005centries\u005cbattle01\u005cspriteset.bin" containsInvalidXMLChars="true"/>
+                                            <Property name="text" type="java.lang.String" value=".\u005cspritesets\u005cspriteset01.asm" containsInvalidXMLChars="true"/>
                                           </Properties>
                                           <Events>
                                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField28ActionPerformed"/>
