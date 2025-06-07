@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -524,7 +525,7 @@ public class DisassemblyManager {
         List<EnemyData> enemyDataList = new ArrayList(enemyEnums.getEnemies().size());
             
         try {
-            Map<String, Integer> enemies = enemyEnums.getEnemies();
+            LinkedHashMap<String, Integer> enemies = enemyEnums.getEnemies();
             for (Map.Entry<String, Integer> entry : enemies.entrySet()) {
                 EnemyData enemy = new EnemyData();
                 enemy.setName(entry.getKey());
@@ -585,11 +586,11 @@ public class DisassemblyManager {
     
     public static EnemyEnums importEnemyEnums(String mapspriteEnumPath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyEnums() - Importing disassembly ...");
-        Map<String, Integer> enemies = new HashMap<>();
-        Map<String, Integer> items = new HashMap<>();
-        Map<String, Integer> aiCommandSets = new HashMap<>();
-        Map<String, Integer> aiOrders = new HashMap<>();
-        Map<String, Integer> spawnParams = new HashMap<>();
+        LinkedHashMap<String, Integer> enemies = new LinkedHashMap<>();
+        LinkedHashMap<String, Integer> items = new LinkedHashMap<>();
+        LinkedHashMap<String, Integer> aiCommandSets = new LinkedHashMap<>();
+        LinkedHashMap<String, Integer> aiOrders = new LinkedHashMap<>();
+        LinkedHashMap<String, Integer> spawnParams = new LinkedHashMap<>();
             
         EnemyEnums enemyEnums = new EnemyEnums();
         int itemEquippedValue = 0;

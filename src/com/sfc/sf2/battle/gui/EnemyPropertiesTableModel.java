@@ -79,15 +79,15 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
                     enemy.setEnemyData(data);
                 }
                 
-                enemy.setX((int)entry[1]);
-                enemy.setY((int)entry[2]);
+                enemy.setX((entry[1] instanceof String) ? Integer.parseInt((String)entry[1]) : (int)entry[1]);
+                enemy.setY((entry[2] instanceof String) ? Integer.parseInt((String)entry[2]) : (int)entry[2]);
                 enemy.setAi((String)entry[3]);
                 enemy.setItem((String)entry[4]);
                 enemy.setMoveOrder1((String)entry[5]);
-                enemy.setTriggerRegion1((int)entry[6]);
+                enemy.setTriggerRegion1((entry[6] instanceof String) ? Integer.parseInt((String)entry[6]) : (int)entry[6]);
                 enemy.setMoveOrder2((String)entry[7]);
-                enemy.setTriggerRegion2((int)entry[8]);
-                enemy.setByte10((int)entry[9]);
+                enemy.setTriggerRegion2((entry[8] instanceof String) ? Integer.parseInt((String)entry[8]) : (int)entry[8]);
+                enemy.setByte10((entry[9] instanceof String) ? Integer.parseInt((String)entry[9]) : (int)entry[9]);
                 enemy.setSpawnParams((String)entry[10]);
                 entries.add(enemy);
             }
@@ -150,7 +150,8 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
         battlePanel.updateSpriteDisplay();
         battlePanel.revalidate();
         battlePanel.repaint();
-    }    
+        this.fireTableCellUpdated(row, col);
+    }
  
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {

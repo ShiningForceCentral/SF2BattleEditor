@@ -5,7 +5,7 @@
  */
 package com.sfc.sf2.battle;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -13,50 +13,50 @@ import java.util.Map;
  * @author TiMMy
  */
 public class EnemyEnums {
-    
-    private Map<String, Integer> enemies;
-    private Map<String, Integer> items;
-    private Map<String, Integer> aiCommandSets;
-    private Map<String, Integer> aiOrders;
-    private Map<String, Integer> spawnParams;
+        
+    private LinkedHashMap<String, Integer> enemies;
+    private LinkedHashMap<String, Integer> items;
+    private LinkedHashMap<String, Integer> aiCommandSets;
+    private LinkedHashMap<String, Integer> aiOrders;
+    private LinkedHashMap<String, Integer> spawnParams;
 
-    public Map<String, Integer> getEnemies() {
+    public LinkedHashMap<String, Integer> getEnemies() {
         return enemies;
     }
 
-    public void setEemies(Map<String, Integer> enemies) {
+    public void setEemies(LinkedHashMap<String, Integer> enemies) {
         this.enemies = enemies;
     }
 
-    public Map<String, Integer> getItems() {
+    public LinkedHashMap<String, Integer> getItems() {
         return items;
     }
 
-    public void setItems(Map<String, Integer> items) {
+    public void setItems(LinkedHashMap<String, Integer> items) {
         this.items = items;
     }
 
-    public Map<String, Integer> getCommandSets() {
+    public LinkedHashMap<String, Integer> getCommandSets() {
         return aiCommandSets;
     }
 
-    public void setCommandSets(Map<String, Integer> aiCommandSets) {
+    public void setCommandSets(LinkedHashMap<String, Integer> aiCommandSets) {
         this.aiCommandSets = aiCommandSets;
     }
 
-    public Map<String, Integer> getOrders() {
+    public LinkedHashMap<String, Integer> getOrders() {
         return aiOrders;
     }
 
-    public void setOrders(Map<String, Integer> aiOrders) {
+    public void setOrders(LinkedHashMap<String, Integer> aiOrders) {
         this.aiOrders = aiOrders;
     }
 
-    public Map<String, Integer> getSpawnParams() {
+    public LinkedHashMap<String, Integer> getSpawnParams() {
         return spawnParams;
     }
 
-    public void setSpawnParams(Map<String, Integer> spawnParams) {
+    public void setSpawnParams(LinkedHashMap<String, Integer> spawnParams) {
         this.spawnParams = spawnParams;
     }
     

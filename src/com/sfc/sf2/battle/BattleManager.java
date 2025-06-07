@@ -174,9 +174,9 @@ public class BattleManager {
 
     public EnemyData[] getEnemyData() {
         return enemyData;
-    }
-
-    public void setEnemyData(EnemyData[] enemyData) {
-        this.enemyData = enemyData;
     }    
+
+    public EnemyEnums getEnemyEnums() {
+        return enemyEnums;
+    }
 }
