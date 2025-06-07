@@ -14,10 +14,19 @@ import java.util.Map;
  */
 public class EnemyEnums {
     
+    private Map<String, Integer> enemies;
     private Map<String, Integer> items;
     private Map<String, Integer> aiCommandSets;
     private Map<String, Integer> aiOrders;
     private Map<String, Integer> spawnParams;
+
+    public Map<String, Integer> getEnemies() {
+        return enemies;
+    }
+
+    public void setEemies(Map<String, Integer> enemies) {
+        this.enemies = enemies;
+    }
 
     public Map<String, Integer> getItems() {
         return items;
@@ -91,7 +100,7 @@ public class EnemyEnums {
             //Not a number
         }
         
-        String[] split = data.split("|");
+        String[] split = data.split("\\|");
         short value = 0;
         for (int i = 0; i < split.length; i++) {
             if (en.containsKey(split[i]))
@@ -117,17 +126,17 @@ public class EnemyEnums {
         
         if (data >= 0x1000){  //If flags
             for (Map.Entry<String, Integer> entry : items.entrySet()) {
-                if ((data&entry.getValue()) != 0){
+                if (entry.getValue() > 0x1000 && (data&entry.getValue()) != 0){
                     s = appendItem(s, entry.getKey());
                     data = (short)(data&(~entry.getValue()));
                 }
             }
+        }
 
-            for (Map.Entry<String, Integer> entry : items.entrySet()) {
-                if ((data == entry.getValue())){
-                    s = prependItem(s, entry.getKey());
-                    return s;
-                }
+        for (Map.Entry<String, Integer> entry : items.entrySet()) {
+            if ((data == entry.getValue())){
+                s = prependItem(s, entry.getKey());
+                return s;
             }
         }
 
@@ -135,7 +144,7 @@ public class EnemyEnums {
     }
     
     public static short itemStringToNum(String data, Map<String, Integer> items) {
-        String[] split = data.split("|");
+        String[] split = data.split("\\|");
                 
         short value = 0;
         for (int i = 0; i < split.length; i++) {
@@ -185,7 +194,7 @@ public class EnemyEnums {
     }
     
     public static byte aiOrderStringToNum(String data, Map<String, Integer> orders) {
-        String[] split = data.split("|");
+        String[] split = data.split("\\|");
         if (split.length < 2)
             return toEnumByte(split[0], orders);
         

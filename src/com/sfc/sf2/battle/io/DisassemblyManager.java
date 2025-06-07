@@ -176,7 +176,7 @@ public class DisassemblyManager {
                         line = scan.nextLine();
                         
                         //TODO new datatype
-                        params = line.trim().substring("MACRO_ENEMY_LINE2".length()).trim().split(",");
+                        params = line.trim().substring(MACRO_ENEMY_LINE2.length()).trim().split(",");
                         aiCommand = EnemyEnums.toEnumString(params[0].trim(), enemyEnums.getCommandSets());
                         item = EnemyEnums.stringToItemString(params[1].trim(), enemyEnums.getItems());
                     }
@@ -186,7 +186,7 @@ public class DisassemblyManager {
                         line = scan.nextLine();
                         
                         //TODO new datatype
-                        params = line.trim().substring("MACRO_ENEMY_LINE3".length()).trim().split(",");
+                        params = line.trim().substring(MACRO_ENEMY_LINE3.length()).trim().split(",");
                         moveOrder1 = EnemyEnums.stringToAiOrderString(params[0].trim(), enemyEnums.getOrders());
                         region1 = Integer.parseInt(params[1].trim());
                         moveOrder2 = EnemyEnums.stringToAiOrderString(params[2].trim(), enemyEnums.getOrders());
@@ -291,8 +291,8 @@ public class DisassemblyManager {
                 Enemy newEnemy = new Enemy();
                 
                 Integer id = data[4+alliesNumber*12+i*12+0]&0xFF;
-                if (enemyData[id] != null)
-                    newEnemy.setEnemyData(enemyData[id]);                
+                if (id < enemyData.length && enemyData[id] != null)
+                    newEnemy.setEnemyData(enemyData[id]);
                 newEnemy.setX(data[4+alliesNumber*12+i*12+1]);
                 newEnemy.setY(data[4+alliesNumber*12+i*12+2]);
                 newEnemy.setAi(EnemyEnums.toEnumString(data[4+alliesNumber*12+i*12+3], enemyEnums.getCommandSets()));
@@ -482,7 +482,7 @@ public class DisassemblyManager {
         
         for(int i=0;i<enemiesNumber;i++){
             Enemy enemy = enemies[i];
-            short item = EnemyEnums.itemStringToNum(header, enemyEnums.getItems());
+            short item = EnemyEnums.itemStringToNum(enemy.getItem(), enemyEnums.getItems());
             spritesetBytes[4+alliesNumber*12+i*12+0] = (byte)(enemy.getEnemyData().getID()&0xFF);
             spritesetBytes[4+alliesNumber*12+i*12+1] = (byte)enemy.getX();
             spritesetBytes[4+alliesNumber*12+i*12+2] = (byte)enemy.getY();
@@ -519,94 +519,61 @@ public class DisassemblyManager {
         return spritesetBytes;
     }
     
-    public static EnemyData[] importEnemyData(String mapspriteEnumPath, String filepath, MapSprite[] mapsprites){
+    public static EnemyData[] importEnemyData(EnemyEnums enemyEnums, MapSprite[] mapsprites, String mapspriteEnumPath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyData() - Importing disassembly ...");
-        List<EnemyData> enemyDataList = new ArrayList();
+        List<EnemyData> enemyDataList = new ArrayList(enemyEnums.getEnemies().size());
             
         try {
+            Map<String, Integer> enemies = enemyEnums.getEnemies();
+            for (Map.Entry<String, Integer> entry : enemies.entrySet()) {
+                EnemyData enemy = new EnemyData();
+                enemy.setName(entry.getKey());
+                enemy.setID(entry.getValue());
 
-            if(filepath.endsWith(".bin")){
-        
-                Path filePath = Paths.get(filepath);
-                byte[] data = Files.readAllBytes(filePath);
-                
-                for (int i = 0; i < data.length; i++) {                        
-                    EnemyData enemy = new EnemyData();
-                    enemy.setName("enemy_"+String.format("%03x", i));
-                    enemy.setID(Integer.valueOf(data[i]));
-                    if (data[i]*3 < mapsprites.length)
-                        enemy.setMapSprite(mapsprites[data[i]*3+2]);
-                    else
-                        enemy.setMapSprite(null);
-                    
-                    while (enemyDataList.size() < data[i]){
-                        enemyDataList.add(null);
-                    }
-                    enemyDataList.set(data[i], enemy);
+                if (enemy.getMapSprite() == null && entry.getValue()*3 < mapsprites.length){
+                    enemy.setMapSprite(mapsprites[entry.getValue()*3+2]);
                 }
                 
-            }else{ 
-                Map<String, Integer> map = new HashMap<>();
-                
-                File file = new File(filepath);
-                Scanner scan = new Scanner(file);
-                while(scan.hasNext()){
-                    String line = scan.nextLine();
-                    if(line.trim().startsWith("mapsprite")){
-                        if(line.contains(";")){
-                            line = line.substring(0,line.indexOf(";"));
-                        }
-                        String key = line.trim().substring("mapsprite".length()).trim();
-                        Integer value;
-                        if(key.contains("$")||key.matches("[0-9]+")){
-                            value = valueOf(key);
-                        }else{
-                            value = enemyDataList.size();
-                        }    
-                        
-                        map.put(key, value);
-                        EnemyData enemy = new EnemyData();
-                        enemy.setName(key);
-                        enemy.setID(value);
-                        enemyDataList.add(enemy);
-                    }
-                }
-                
-                File enumFile = new File(mapspriteEnumPath);
-                Scanner enumScan = new Scanner(enumFile);
-                while(enumScan.hasNext()){
-                    String line = enumScan.nextLine();
-                    if(line.trim().startsWith("; enum Mapsprites")){
-                        line = enumScan.nextLine();
-                        while(!line.startsWith("; enum")){
-                            if(line.startsWith("MAPSPRITE")){
-                                String key = line.substring(10,line.indexOf(":"));
-                                Integer value = line.indexOf("$")+1;
-                                if (value <= 0){
-                                    value = line.indexOf("equ")+4;
-                                }
-                                Integer comment = line.indexOf(";");
-                                if (comment == -1){
-                                    value = valueOf(line.substring(value).trim());
-                                }
-                                else{
-                                    value = valueOf(line.substring(value, comment).trim());
-                                }
-                                
-                                if (map.containsKey(key)){
-                                    Integer index = map.get(key);
-                                    if (index < enemyDataList.size() && enemyDataList.get(index) != null && value*3 < mapsprites.length){
-                                        enemyDataList.get(index).setMapSprite(mapsprites[value*3+2]);
-                                    }
-                                }                                    
+                while (enemyDataList.size() <= enemy.getID())
+                    enemyDataList.add(null);
+                enemyDataList.set(entry.getValue(), enemy);
+            }
+                 
+            File enumFile = new File(mapspriteEnumPath);
+            Scanner enumScan = new Scanner(enumFile);
+            while(enumScan.hasNext()){
+                String line = enumScan.nextLine();
+                if(line.trim().startsWith("; enum Mapsprites")){
+                    line = enumScan.nextLine();
+                    while(!line.startsWith("; enum")){
+                        if(line.startsWith("MAPSPRITE")){
+                            String key = line.substring(10,line.indexOf(":"));
+                            Integer value = line.indexOf("$")+1;
+                            if (value <= 0){
+                                value = line.indexOf("equ")+4;
                             }
-                            line = enumScan.nextLine();
+                            Integer comment = line.indexOf(";");
+                            if (comment == -1){
+                                value = valueOf(line.substring(value).trim());
+                            }
+                            else{
+                                value = valueOf(line.substring(value, comment).trim());
+                            }
+
+                            //Matches enemy id with mapsprite id. Handles special case of ENEMY_MASTER_MAGE_0, ENEMY_NECROMANCER_0, & ENEMY_BLUE_SHAMAN_0
+                            if (enemies.containsKey(key) || enemies.containsKey(key+"_0")){
+                                int index = enemies.get(key);
+                                if (index < enemyDataList.size() && enemyDataList.get(index) != null && value*3 < mapsprites.length){
+                                    enemyDataList.get(index).setMapSprite(mapsprites[value*3+2]);
+                                }
+                            }
                         }
+                        line = enumScan.nextLine();
                     }
                 }
             }
-
-        } catch (IOException ex) {
+            
+        } catch (Exception ex) {
             Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyData() - Disassembly imported.");
@@ -616,15 +583,15 @@ public class DisassemblyManager {
         return enemyData;
     }
     
-    
-    
     public static EnemyEnums importEnemyEnums(String mapspriteEnumPath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyEnums() - Importing disassembly ...");
+        Map<String, Integer> enemies = new HashMap<>();
         Map<String, Integer> items = new HashMap<>();
         Map<String, Integer> aiCommandSets = new HashMap<>();
         Map<String, Integer> aiOrders = new HashMap<>();
         Map<String, Integer> spawnParams = new HashMap<>();
-        
+            
+        EnemyEnums enemyEnums = new EnemyEnums();
         int itemEquippedValue = 0;
         int itemNothingValue = 0;
             
@@ -638,7 +605,26 @@ public class DisassemblyManager {
                 Scanner scan = new Scanner(file);
                 while(scan.hasNext()){
                     String line = scan.nextLine();
-                    if(line.trim().startsWith("; enum AiCommandsets")){
+                    
+                    if(line.trim().startsWith("; enum Enemies")){
+                        while(scan.hasNext()){
+                            line = scan.nextLine();
+
+                            if(line.startsWith("ENEMY_")){
+                                line = line.substring(line.indexOf("_")+1);
+                                String name = line.substring(0, line.indexOf(":"));
+                                int value = valueOf(line.substring(line.indexOf("equ")+4));
+                                enemies.put(name, value);
+                            }
+                            else if (line.startsWith("; --")){
+                                break;
+                            }
+                        }
+        
+                        System.out.println("Enemies imported: " + enemies.size() + " entries.");
+                        enemyEnums.setEemies(enemies);
+                    }
+                    else if(line.trim().startsWith("; enum AiCommandsets")){
                         while(scan.hasNext()){
                             line = scan.nextLine();
 
@@ -652,6 +638,9 @@ public class DisassemblyManager {
                                 break;
                             }
                         }
+                        
+                        System.out.println("AI Commands imported: " + aiCommandSets.size() + " entries.");
+                        enemyEnums.setCommandSets(aiCommandSets);
                     }
                     else if(line.trim().startsWith("; enum AiOrders")){
                         while(scan.hasNext()){
@@ -667,6 +656,9 @@ public class DisassemblyManager {
                                 break;
                             }
                         }
+                        
+                        System.out.println("AI Orders imported: " + aiOrders.size() + " entries.");
+                        enemyEnums.setOrders(aiOrders);
                     }
                     else if(line.trim().startsWith("; enum SpawnSettings")){
                         while(scan.hasNext()){
@@ -682,6 +674,9 @@ public class DisassemblyManager {
                                 break;
                             }
                         }
+                        
+                        System.out.println("Spawn Params imported: " + spawnParams.size() + " entries.");
+                        enemyEnums.setSpawnParams(spawnParams);
                     }
                     else if(line.trim().startsWith("; enum Items")){
                         while(scan.hasNext()){
@@ -711,6 +706,9 @@ public class DisassemblyManager {
                                 break;
                             }
                         }
+                        
+                        System.out.println("Items imported: " + items.size() + " entries.");
+                        enemyEnums.setItems(items);
                     }
                 }
             }
@@ -719,16 +717,6 @@ public class DisassemblyManager {
             Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println("Items imported: " + items.size() + " entries.");
-        System.out.println("AI Commands imported: " + aiCommandSets.size() + " entries.");
-        System.out.println("AI Orders imported: " + aiOrders.size() + " entries.");
-        System.out.println("Spawn Params imported: " + spawnParams.size() + " entries.");
-            
-        EnemyEnums enemyEnums = new EnemyEnums();
-        enemyEnums.setItems(items);
-        enemyEnums.setCommandSets(aiCommandSets);
-        enemyEnums.setOrders(aiOrders);
-        enemyEnums.setSpawnParams(spawnParams);
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyEnums() - Disassembly imported.");
         
         return enemyEnums;
