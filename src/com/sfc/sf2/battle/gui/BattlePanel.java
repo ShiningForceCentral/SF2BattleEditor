@@ -299,8 +299,8 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 Ally ally = allies[i];
                 Font font = new Font("Courier", Font.BOLD, 16);
                 g2.setFont(font);
-                int offset = ally.getIndex()+1 < 10 ? 0 : -4;
-                int targetX = (x+ally.getX())*3*8+6+offset;
+                int offset = (ally.getIndex()+1 < 10) ? 0 : -4;
+                int targetX = (x+ally.getX())*3*8+8+offset;
                 int targetY = (y+ally.getY())*3*8+18;
                 String val = String.valueOf(ally.getIndex()+1);
                 g2.setColor(Color.black);
@@ -324,7 +324,8 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 int id = enemy.getEnemyData().getID();
                 MapSprite sprite = enemy.getEnemyData().getMapSprite();
                 if(sprite == null){
-                    targetX += enemy.getEnemyData().getID()+1 < 10 ? 0 : -4;
+                    targetX += 8 + ((enemy.getEnemyData().getID()+1 < 10) ? 0 : -4);
+                    targetY += 3;
                     g2.setColor(Color.black);
                     g2.drawString(String.valueOf(id), targetX-1, targetY+16-1);
                     g2.drawString(String.valueOf(id), targetX-1, targetY+16+1);
