@@ -7,6 +7,9 @@ package com.sfc.sf2.battle.gui;
 
 import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.BattleManager;
+import com.sfc.sf2.battle.Enemy;
+import com.sfc.sf2.battle.EnemyData;
+import com.sfc.sf2.battle.EnemyEnums;
 import com.sfc.sf2.battle.mapcoords.gui.BattleMapCoordsTableModel;
 import com.sfc.sf2.map.layout.MapLayoutManager;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDynamic.map;
@@ -21,6 +24,8 @@ import java.nio.file.Paths;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
@@ -134,27 +139,30 @@ public class MainEditor extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jPanel17 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jSpinner12 = new javax.swing.JSpinner();
         jLabel17 = new javax.swing.JLabel();
-        jSpinner13 = new javax.swing.JSpinner();
-        jSpinner14 = new javax.swing.JSpinner();
+        jSpinner_X = new javax.swing.JSpinner();
+        jSpinner_Y = new javax.swing.JSpinner();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jSpinner15 = new javax.swing.JSpinner();
-        jLabel34 = new javax.swing.JLabel();
-        jSpinner16 = new javax.swing.JSpinner();
-        jLabel36 = new javax.swing.JLabel();
-        jSpinner18 = new javax.swing.JSpinner();
-        jLabel37 = new javax.swing.JLabel();
-        jSpinner19 = new javax.swing.JSpinner();
-        jLabel35 = new javax.swing.JLabel();
-        jSpinner17 = new javax.swing.JSpinner();
-        jLabel38 = new javax.swing.JLabel();
-        jSpinner20 = new javax.swing.JSpinner();
-        jLabel39 = new javax.swing.JLabel();
-        jSpinner21 = new javax.swing.JSpinner();
+        jComboBox_Name = new javax.swing.JComboBox<>();
+        jComboBox_AI = new javax.swing.JComboBox<>();
+        jComboBox_Spawn = new javax.swing.JComboBox<>();
         jLabel40 = new javax.swing.JLabel();
-        jSpinner22 = new javax.swing.JSpinner();
+        jLabel34 = new javax.swing.JLabel();
+        jComboBox_Items = new javax.swing.JComboBox<>();
+        jLabel36 = new javax.swing.JLabel();
+        jComboBox_Order1 = new javax.swing.JComboBox<>();
+        jLabel37 = new javax.swing.JLabel();
+        jSpinner_Trigger1 = new javax.swing.JSpinner();
+        jLabel35 = new javax.swing.JLabel();
+        jComboBox_Order2 = new javax.swing.JComboBox<>();
+        jLabel41 = new javax.swing.JLabel();
+        jSpinner_OrderTarget1 = new javax.swing.JSpinner();
+        jLabel42 = new javax.swing.JLabel();
+        jSpinner_OrderTarget2 = new javax.swing.JSpinner();
+        jLabel38 = new javax.swing.JLabel();
+        jSpinner_Trigger2 = new javax.swing.JSpinner();
+        jTextField_ItemFlags = new javax.swing.JTextField();
         jPanel26 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
@@ -196,9 +204,6 @@ public class MainEditor extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jTextField25 = new javax.swing.JTextField();
         jButton32 = new javax.swing.JButton();
-        jLabel31 = new javax.swing.JLabel();
-        jTextField29 = new javax.swing.JTextField();
-        jButton36 = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         jTextField30 = new javax.swing.JTextField();
         jButton27 = new javax.swing.JButton();
@@ -249,11 +254,11 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 858, Short.MAX_VALUE)
+            .addGap(0, 824, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 715, Short.MAX_VALUE)
+            .addGap(0, 739, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(jPanel2);
@@ -262,18 +267,19 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(4, 4, 4))
         );
@@ -425,7 +431,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jSpinner8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addContainerGap(446, Short.MAX_VALUE))
+                .addContainerGap(470, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Map Coords", jPanel4);
@@ -556,7 +562,7 @@ public class MainEditor extends javax.swing.JFrame {
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
@@ -613,31 +619,21 @@ public class MainEditor extends javax.swing.JFrame {
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Selected Enemy :"));
 
-        jLabel16.setText("Index :");
-
-        jSpinner12.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        jSpinner12.setEnabled(false);
-        jSpinner12.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner12StateChanged(evt);
-            }
-        });
+        jLabel16.setText("Name :");
 
         jLabel17.setText("X :");
 
-        jSpinner13.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
-        jSpinner13.setEnabled(false);
-        jSpinner13.addChangeListener(new javax.swing.event.ChangeListener() {
+        jSpinner_X.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
+        jSpinner_X.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner13StateChanged(evt);
+                jSpinner_XStateChanged(evt);
             }
         });
 
-        jSpinner14.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
-        jSpinner14.setEnabled(false);
-        jSpinner14.addChangeListener(new javax.swing.event.ChangeListener() {
+        jSpinner_Y.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
+        jSpinner_Y.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner14StateChanged(evt);
+                jSpinner_YStateChanged(evt);
             }
         });
 
@@ -645,81 +641,96 @@ public class MainEditor extends javax.swing.JFrame {
 
         jLabel19.setText("AI :");
 
-        jSpinner15.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        jSpinner15.setEnabled(false);
-        jSpinner15.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner15StateChanged(evt);
+        jComboBox_Name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_Name.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox_NameItemStateChanged(evt);
             }
         });
+
+        jComboBox_AI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_AI.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox_AIItemStateChanged(evt);
+            }
+        });
+
+        jComboBox_Spawn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_Spawn.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox_SpawnItemStateChanged(evt);
+            }
+        });
+
+        jLabel40.setText("Spawn :");
 
         jLabel34.setText("Item :");
 
-        jSpinner16.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
-        jSpinner16.setEnabled(false);
-        jSpinner16.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner16StateChanged(evt);
+        jComboBox_Items.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_Items.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox_ItemsItemStateChanged(evt);
             }
         });
 
-        jLabel36.setText("Order 1 :");
+        jLabel36.setText("Move Order 1 :");
 
-        jSpinner18.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        jSpinner18.setEnabled(false);
-        jSpinner18.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner18StateChanged(evt);
+        jComboBox_Order1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_Order1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox_Order1ItemStateChanged(evt);
             }
         });
 
-        jLabel37.setText("Trig. Region :");
+        jLabel37.setText("Trig. Reg. 1 :");
 
-        jSpinner19.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
-        jSpinner19.setEnabled(false);
-        jSpinner19.addChangeListener(new javax.swing.event.ChangeListener() {
+        jSpinner_Trigger1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
+        jSpinner_Trigger1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner19StateChanged(evt);
+                jSpinner_Trigger1StateChanged(evt);
             }
         });
 
-        jLabel35.setText("Byte 8 :");
+        jLabel35.setText("Move Order 2 :");
 
-        jSpinner17.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        jSpinner17.setEnabled(false);
-        jSpinner17.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner17StateChanged(evt);
+        jComboBox_Order2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_Order2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox_Order2ItemStateChanged(evt);
             }
         });
 
-        jLabel38.setText("Byte 9 :");
+        jLabel41.setText("Target :");
 
-        jSpinner20.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
-        jSpinner20.setEnabled(false);
-        jSpinner20.addChangeListener(new javax.swing.event.ChangeListener() {
+        jSpinner_OrderTarget1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
+        jSpinner_OrderTarget1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner20StateChanged(evt);
+                jSpinner_OrderTarget1StateChanged(evt);
             }
         });
 
-        jLabel39.setText("Byte 10 :");
+        jLabel42.setText("Target :");
 
-        jSpinner21.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        jSpinner21.setEnabled(false);
-        jSpinner21.addChangeListener(new javax.swing.event.ChangeListener() {
+        jSpinner_OrderTarget2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
+        jSpinner_OrderTarget2.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner21StateChanged(evt);
+                jSpinner_OrderTarget2StateChanged(evt);
             }
         });
 
-        jLabel40.setText("Spawn param :");
+        jLabel38.setText("Trig. Reg. 2 :");
 
-        jSpinner22.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
-        jSpinner22.setEnabled(false);
-        jSpinner22.addChangeListener(new javax.swing.event.ChangeListener() {
+        jSpinner_Trigger2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 63, 1));
+        jSpinner_Trigger2.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner22StateChanged(evt);
+                jSpinner_Trigger2StateChanged(evt);
+            }
+        });
+
+        jTextField_ItemFlags.setText("flags");
+        jTextField_ItemFlags.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_ItemFlagsActionPerformed(evt);
             }
         });
 
@@ -731,90 +742,108 @@ public class MainEditor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addComponent(jLabel39)
+                        .addComponent(jLabel35)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner21, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel40)
+                        .addComponent(jComboBox_Order2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addComponent(jLabel36)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner22, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBox_Order1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
+                            .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jSpinner_Trigger2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
+                            .addComponent(jLabel37)
+                            .addGap(14, 14, 14)
+                            .addComponent(jSpinner_Trigger1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel17Layout.createSequentialGroup()
-                                    .addComponent(jLabel16)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jSpinner12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel17Layout.createSequentialGroup()
-                                    .addComponent(jLabel35)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jSpinner17, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel38))
-                                .addGroup(jPanel17Layout.createSequentialGroup()
-                                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel17Layout.createSequentialGroup()
-                                            .addComponent(jLabel19)
-                                            .addGap(30, 30, 30)
-                                            .addComponent(jSpinner15, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel17Layout.createSequentialGroup()
-                                            .addComponent(jLabel36)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jSpinner18, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addGap(35, 35, 35)
-                                .addComponent(jSpinner13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel34))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSpinner20, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner19, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner16, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 26, Short.MAX_VALUE))
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel17Layout.createSequentialGroup()
+                                .addComponent(jComboBox_AI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(jComboBox_Spawn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel17Layout.createSequentialGroup()
+                                    .addGap(130, 130, 130)
+                                    .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jSpinner_OrderTarget1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel17Layout.createSequentialGroup()
+                                    .addComponent(jComboBox_Items, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField_ItemFlags, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel17Layout.createSequentialGroup()
+                                    .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jSpinner_OrderTarget2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17)
+                        .addGap(4, 4, 4)
+                        .addComponent(jSpinner_X, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner_Y, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(jComboBox_Name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinner_X, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(jLabel18)
-                    .addComponent(jSpinner14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinner_Y, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(jComboBox_AI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40)
+                    .addComponent(jComboBox_Spawn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19)
-                    .addComponent(jSpinner16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel34))
+                    .addComponent(jLabel34)
+                    .addComponent(jComboBox_Items, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_ItemFlags, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel36)
+                            .addComponent(jComboBox_Order1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel37)
+                            .addComponent(jSpinner_Trigger1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel35)
+                            .addComponent(jComboBox_Order2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel42)
+                                .addComponent(jSpinner_OrderTarget2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel41)
+                        .addComponent(jSpinner_OrderTarget1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel36)
-                    .addComponent(jSpinner19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel37))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel35)
-                    .addComponent(jSpinner20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel38))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel39)
-                    .addComponent(jSpinner22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel40))
+                    .addComponent(jLabel38)
+                    .addComponent(jSpinner_Trigger2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -829,7 +858,7 @@ public class MainEditor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 285, Short.MAX_VALUE)
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -875,7 +904,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("AI Regions", jPanel26);
@@ -909,7 +938,7 @@ public class MainEditor extends javax.swing.JFrame {
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
         );
 
         jTabbedPane3.addTab("AI Points", jPanel31);
@@ -1139,7 +1168,7 @@ public class MainEditor extends javax.swing.JFrame {
 
             jLabel27.setText("Spriteset :");
 
-            jTextField25.setText(".\\entries\\battle01\\spriteset.bin");
+            jTextField25.setText(".\\spritesets\\spriteset01.asm");
             jTextField25.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField25ActionPerformed(evt);
@@ -1150,22 +1179,6 @@ public class MainEditor extends javax.swing.JFrame {
             jButton32.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton32ActionPerformed(evt);
-                }
-            });
-
-            jLabel31.setText("Enemy sprites :");
-
-            jTextField29.setText("..\\stats\\enemies\\enemymapsprites.asm");
-            jTextField29.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jTextField29ActionPerformed(evt);
-                }
-            });
-
-            jButton36.setText("File...");
-            jButton36.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jButton36ActionPerformed(evt);
                 }
             });
 
@@ -1224,7 +1237,7 @@ public class MainEditor extends javax.swing.JFrame {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                     .addComponent(jLabel23)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton28))
                 .addGroup(jPanel3Layout.createSequentialGroup()
@@ -1248,7 +1261,7 @@ public class MainEditor extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addComponent(jLabel25)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField23, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(jTextField23)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton30))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -1264,12 +1277,6 @@ public class MainEditor extends javax.swing.JFrame {
                             .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton31))
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addComponent(jLabel31)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jButton36))
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addComponent(jLabel22)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1344,11 +1351,6 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jButton37))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel31)
-                        .addComponent(jButton36))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1365,7 +1367,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton18)
-                    .addContainerGap(240, Short.MAX_VALUE))
+                    .addContainerGap(270, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Import", jPanel3);
@@ -1423,7 +1425,7 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
-            jTextField28.setText(".\\entries\\battle01\\spriteset.bin");
+            jTextField28.setText(".\\spritesets\\spriteset01.asm");
             jTextField28.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jTextField28ActionPerformed(evt);
@@ -1480,7 +1482,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton2)
-                    .addContainerGap(305, Short.MAX_VALUE))
+                    .addContainerGap(342, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Export", jPanel5);
@@ -1489,11 +1491,11 @@ public class MainEditor extends javax.swing.JFrame {
             jPanel9.setLayout(jPanel9Layout);
             jPanel9Layout.setHorizontalGroup(
                 jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, Short.MAX_VALUE)
             );
             jPanel9Layout.setVerticalGroup(
                 jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
             );
 
             jSplitPane4.setLeftComponent(jPanel9);
@@ -1582,7 +1584,7 @@ public class MainEditor extends javax.swing.JFrame {
             jPanel13.setLayout(jPanel13Layout);
             jPanel13Layout.setHorizontalGroup(
                 jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jSplitPane1)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1077, Short.MAX_VALUE)
             );
             jPanel13Layout.setVerticalGroup(
                 jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1600,7 +1602,7 @@ public class MainEditor extends javax.swing.JFrame {
                 .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             );
 
-            setSize(new java.awt.Dimension(1016, 838));
+            setSize(new java.awt.Dimension(1093, 838));
             setLocationRelativeTo(null);
         }// </editor-fold>//GEN-END:initComponents
 
@@ -1675,12 +1677,11 @@ public class MainEditor extends javax.swing.JFrame {
         String basePalettePath = PATH_TEST_PREFIX+jTextField32.getText();
         String mapspriteEntriesPath = PATH_TEST_PREFIX+jTextField30.getText();
         String mapspriteEnumPath = PATH_TEST_PREFIX+jTextField31.getText();
-        String enemySpritesPath = PATH_TEST_PREFIX+jTextField29.getText();
         int battleIndex = (int)jSpinner4.getModel().getValue();
         String terrainPath = PATH_TEST_PREFIX+jTextField24.getText();
         String spritesetPath = PATH_TEST_PREFIX+jTextField25.getText();
         
-        battleManager.importDisassembly(mapPalettesPath, mapTilesetsPath, incbinPath, mapEntriesPath, mapCoordsPath, basePalettePath, mapspriteEntriesPath, mapspriteEnumPath, enemySpritesPath,
+        battleManager.importDisassembly(mapPalettesPath, mapTilesetsPath, incbinPath, mapEntriesPath, mapCoordsPath, basePalettePath, mapspriteEntriesPath, mapspriteEnumPath,
                                     battleIndex, terrainPath, spritesetPath);
 
         battle = battleManager.getBattle();
@@ -1700,8 +1701,6 @@ public class MainEditor extends javax.swing.JFrame {
         battlePanel.setBattle(battle);
         battlePanel.setMapLayout(mapLayoutManager.getLayout());
         battlePanel.setBlockset(mapLayoutManager.getBlockset());
-        battlePanel.setMapsprites(battleManager.getMapsprites());
-        battlePanel.setEnemySpriteIds(battleManager.getEnemySpriteIds());
         battlePanel.setDrawExplorationFlags(jCheckBox1.isSelected());
         battlePanel.setDrawGrid(jCheckBox2.isSelected());
         battlePanel.setDrawTerrain(jCheckBox3.isSelected());
@@ -1737,10 +1736,13 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             }
         });    
+        
+        EnemyData[] enemyData = battleManager.getEnemyData();
+        
         battlePanel.setAlliesTable(allyTableModel);
         jPanel21.validate();
         jPanel21.repaint();
-        enemyTableModel = new EnemyPropertiesTableModel(battle, battlePanel);
+        enemyTableModel = new EnemyPropertiesTableModel(battle, battlePanel, enemyData);
         jTable3.setModel(enemyTableModel);
         jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             private int selectedRow = -1;
@@ -1751,6 +1753,7 @@ public class MainEditor extends javax.swing.JFrame {
                 if(selectedRow!=jTable3.getSelectedRow()){
                     selectedRow = jTable3.getSelectedRow();
                     battlePanel.setSelectedEnemy(selectedRow);
+                    UpdateEnemyControls(selectedRow);
                     battlePanel.updateSpriteDisplay();
                     jPanel2.revalidate();
                     jPanel2.repaint();
@@ -1799,8 +1802,66 @@ public class MainEditor extends javax.swing.JFrame {
         jPanel26.validate();
         jPanel26.repaint();
         battlePanel.setTitledPanel(jPanel1);
+        
+        EnemyEnums enemyEnums = battleManager.getEnemyEnums();
+        jComboBox_Name.setModel(new DefaultComboBoxModel<>(enemyEnums.getEnemies().keySet().toArray(new String[enemyEnums.getEnemies().size()])));
+        jComboBox_AI.setModel(new DefaultComboBoxModel<>(enemyEnums.getCommandSets().keySet().toArray(new String[enemyEnums.getCommandSets().size()])));
+        jComboBox_Spawn.setModel(new DefaultComboBoxModel<>(enemyEnums.getSpawnParams().keySet().toArray(new String[enemyEnums.getSpawnParams().size()])));
+        jComboBox_Order1.setModel(new DefaultComboBoxModel<>(enemyEnums.getOrders().keySet().toArray(new String[enemyEnums.getOrders().size()])));
+        jComboBox_Order2.setModel(new DefaultComboBoxModel<>(enemyEnums.getOrders().keySet().toArray(new String[enemyEnums.getOrders().size()])));
+        jComboBox_Items.setModel(new DefaultComboBoxModel<>(enemyEnums.getItems().keySet().toArray(new String[enemyEnums.getItems().size()])));
+        
+        jPanel17.invalidate();
+        jPanel17.repaint();
     }//GEN-LAST:event_jButton18ActionPerformed
 
+    private void UpdateEnemyControls(int selectedRow)
+    {
+        boolean enabled = selectedRow >= 0;
+        jComboBox_Name.setEnabled(enabled);
+        jSpinner_X.setEnabled(enabled);
+        jSpinner_Y.setEnabled(enabled);
+        jComboBox_AI.setEnabled(enabled);
+        jComboBox_Spawn.setEnabled(enabled);
+        jSpinner_Trigger1.setEnabled(enabled);
+        jSpinner_Trigger2.setEnabled(enabled);
+        jComboBox_Order1.setEnabled(enabled);
+        jComboBox_Order2.setEnabled(enabled);
+        jSpinner_OrderTarget1.setEnabled(enabled);
+        jSpinner_OrderTarget2.setEnabled(enabled);
+        jComboBox_Items.setEnabled(enabled);
+        jTextField_ItemFlags.setEnabled(enabled);
+              
+        if (selectedRow != -1){
+            Enemy enemy = (selectedRow == -1) ? null : battle.getSpriteset().getEnemies()[selectedRow];
+            if (enemy != null) {
+                jComboBox_Name.setSelectedItem(enemy.getEnemyData().getName());
+                jSpinner_X.setValue(enemy.getX());
+                jSpinner_Y.setValue(enemy.getY());
+                jComboBox_AI.setSelectedItem(enemy.getAi());
+                jComboBox_Spawn.setSelectedItem(enemy.getSpawnParams());
+                jSpinner_Trigger1.setValue(enemy.getTriggerRegion1());
+                jSpinner_Trigger2.setValue(enemy.getTriggerRegion2());
+                
+                String[] order = enemy.getMoveOrder1().split("\\|");
+                jComboBox_Order1.setSelectedItem(order[0]);
+                jSpinner_OrderTarget1.setValue(order.length > 1 ? Integer.parseInt(order[1]) : 0);
+                order = enemy.getMoveOrder2().split("\\|");
+                jComboBox_Order2.setSelectedItem(order[0]);
+                jSpinner_OrderTarget2.setValue(order.length > 1 ? Integer.parseInt(order[1]) : 0);
+                
+                String item = enemy.getItem();
+                String flags = "";
+                if (item.contains("|")) {
+                    flags = item.substring(item.indexOf("|")+1);
+                    item = item.substring(0, item.indexOf("|"));
+                }
+                jComboBox_Items.setSelectedItem(item);
+                jTextField_ItemFlags.setText(flags);
+            }
+        }
+    }
+    
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
         int returnVal = jFileChooser1.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -1924,22 +1985,6 @@ public class MainEditor extends javax.swing.JFrame {
     private void jTextField28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField28ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField28ActionPerformed
-
-    private void jTextField29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField29ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField29ActionPerformed
-
-    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
-        int returnVal = jFileChooser1.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = jFileChooser1.getSelectedFile();
-            /*Path basePath = Paths.get(jTextField24.getText()).toAbsolutePath();
-            Path filePath = Paths.get(file.getAbsolutePath());
-            Path relativePath = basePath.relativize(filePath);
-            jTextField19.setText(relativePath.toString());*/
-            jTextField29.setText(file.getAbsolutePath());
-        }
-    }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jTextField30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField30ActionPerformed
         // TODO add your handling code here:
@@ -2089,49 +2134,17 @@ public class MainEditor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton37ActionPerformed
 
-    private void jSpinner19StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner19StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner19StateChanged
+    private void jSpinner_Trigger1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_Trigger1StateChanged
+        OnEnemyDataChanged((int)jSpinner_Y.getValue(), 6);
+    }//GEN-LAST:event_jSpinner_Trigger1StateChanged
 
-    private void jSpinner18StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner18StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner18StateChanged
+    private void jSpinner_YStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_YStateChanged
+        OnEnemyDataChanged((int)jSpinner_Y.getValue(), 2);
+    }//GEN-LAST:event_jSpinner_YStateChanged
 
-    private void jSpinner16StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner16StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner16StateChanged
-
-    private void jSpinner15StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner15StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner15StateChanged
-
-    private void jSpinner14StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner14StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner14StateChanged
-
-    private void jSpinner13StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner13StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner13StateChanged
-
-    private void jSpinner12StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner12StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner12StateChanged
-
-    private void jSpinner17StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner17StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner17StateChanged
-
-    private void jSpinner20StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner20StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner20StateChanged
-
-    private void jSpinner21StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner21StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner21StateChanged
-
-    private void jSpinner22StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner22StateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSpinner22StateChanged
+    private void jSpinner_Trigger2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_Trigger2StateChanged
+        OnEnemyDataChanged((int)jSpinner_Y.getValue(), 8);
+    }//GEN-LAST:event_jSpinner_Trigger2StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         allyTableModel.addRow();
@@ -2166,6 +2179,65 @@ public class MainEditor extends javax.swing.JFrame {
         battlePanel.setApplicableTerrainValue(newApplicableTerrainValue);
     }//GEN-LAST:event_jSpinner9StateChanged
 
+    private void jSpinner_OrderTarget1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_OrderTarget1StateChanged
+        OnEnemyOrderChanged((String)jComboBox_Order1.getSelectedItem(), (int)jSpinner_OrderTarget1.getValue(), true);
+    }//GEN-LAST:event_jSpinner_OrderTarget1StateChanged
+
+    private void jSpinner_OrderTarget2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_OrderTarget2StateChanged
+        OnEnemyOrderChanged((String)jComboBox_Order2.getSelectedItem(), (int)jSpinner_OrderTarget2.getValue(), false);
+    }//GEN-LAST:event_jSpinner_OrderTarget2StateChanged
+
+    private void jTextField_ItemFlagsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_ItemFlagsActionPerformed
+        OnEnemyItemChanged((String)jComboBox_Items.getSelectedItem(), (String)jTextField_ItemFlags.getText());
+    }//GEN-LAST:event_jTextField_ItemFlagsActionPerformed
+
+    private void jComboBox_NameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_NameItemStateChanged
+        OnEnemyDataChanged((String)evt.getItem(), 0);
+    }//GEN-LAST:event_jComboBox_NameItemStateChanged
+
+    private void jSpinner_XStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_XStateChanged
+        OnEnemyDataChanged((int)jSpinner_X.getValue(), 1);
+    }//GEN-LAST:event_jSpinner_XStateChanged
+
+    private void jComboBox_AIItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_AIItemStateChanged
+        OnEnemyDataChanged((String)evt.getItem(), 3);
+    }//GEN-LAST:event_jComboBox_AIItemStateChanged
+
+    private void jComboBox_SpawnItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_SpawnItemStateChanged
+        OnEnemyDataChanged((String)evt.getItem(), 10);
+    }//GEN-LAST:event_jComboBox_SpawnItemStateChanged
+
+    private void jComboBox_ItemsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_ItemsItemStateChanged
+        OnEnemyItemChanged((String)evt.getItem(), jTextField_ItemFlags.getSelectedText());
+    }//GEN-LAST:event_jComboBox_ItemsItemStateChanged
+
+    private void jComboBox_Order1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_Order1ItemStateChanged
+        OnEnemyOrderChanged((String)evt.getItem(), (int)jSpinner_OrderTarget1.getValue(), true);
+    }//GEN-LAST:event_jComboBox_Order1ItemStateChanged
+
+    private void jComboBox_Order2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_Order2ItemStateChanged
+        OnEnemyOrderChanged((String)evt.getItem(), (int)jSpinner_OrderTarget2.getValue(), false);
+    }//GEN-LAST:event_jComboBox_Order2ItemStateChanged
+
+    private void OnEnemyDataChanged(Object data, int column){
+        int selectRow = jTable3.getSelectedRow();
+        if (selectRow == -1)
+            return;
+        
+        jTable3.setValueAt(data, selectRow, column);
+    }
+
+    private void OnEnemyItemChanged(String item, String flags){
+        if (flags == null || flags.length() == 0)
+            OnEnemyDataChanged(item, 4);
+        else
+            OnEnemyDataChanged(item+"|"+flags, 4);
+    }
+
+    private void OnEnemyOrderChanged(String order, int target, boolean order1){
+        OnEnemyDataChanged(order+"|"+target, order1 ? 5 : 7);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -2225,7 +2297,6 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton35;
-    private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton37;
     private javax.swing.JButton jButton38;
     private javax.swing.JButton jButton4;
@@ -2235,6 +2306,12 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox_AI;
+    private javax.swing.JComboBox<String> jComboBox_Items;
+    private javax.swing.JComboBox<String> jComboBox_Name;
+    private javax.swing.JComboBox<String> jComboBox_Order1;
+    private javax.swing.JComboBox<String> jComboBox_Order2;
+    private javax.swing.JComboBox<String> jComboBox_Spawn;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFileChooser jFileChooser2;
     private javax.swing.JLabel jLabel1;
@@ -2259,7 +2336,6 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -2267,9 +2343,10 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2306,18 +2383,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner12;
-    private javax.swing.JSpinner jSpinner13;
-    private javax.swing.JSpinner jSpinner14;
-    private javax.swing.JSpinner jSpinner15;
-    private javax.swing.JSpinner jSpinner16;
-    private javax.swing.JSpinner jSpinner17;
-    private javax.swing.JSpinner jSpinner18;
-    private javax.swing.JSpinner jSpinner19;
     private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner20;
-    private javax.swing.JSpinner jSpinner21;
-    private javax.swing.JSpinner jSpinner22;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JSpinner jSpinner5;
@@ -2325,6 +2391,12 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner7;
     private javax.swing.JSpinner jSpinner8;
     private javax.swing.JSpinner jSpinner9;
+    private javax.swing.JSpinner jSpinner_OrderTarget1;
+    private javax.swing.JSpinner jSpinner_OrderTarget2;
+    private javax.swing.JSpinner jSpinner_Trigger1;
+    private javax.swing.JSpinner jSpinner_Trigger2;
+    private javax.swing.JSpinner jSpinner_X;
+    private javax.swing.JSpinner jSpinner_Y;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
@@ -2349,10 +2421,10 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField26;
     private javax.swing.JTextField jTextField27;
     private javax.swing.JTextField jTextField28;
-    private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField30;
     private javax.swing.JTextField jTextField31;
     private javax.swing.JTextField jTextField32;
+    private javax.swing.JTextField jTextField_ItemFlags;
     // End of variables declaration//GEN-END:variables
 
 
