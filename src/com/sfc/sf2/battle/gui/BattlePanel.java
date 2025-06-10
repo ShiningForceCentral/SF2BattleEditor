@@ -550,12 +550,12 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 switch (e.getButton()) {
                     case MouseEvent.BUTTON1:
                         if(currentSpritesetMode==SPRITESETMODE_ALLY && selectedAlly>=0){
-                            alliesTable.setValueAt(x, selectedAlly, 1);
-                            alliesTable.setValueAt(y, selectedAlly, 2);
+                            alliesTable.setValueAt(x-battleCoordsOffsetX, selectedAlly, 1);
+                            alliesTable.setValueAt(y-battleCoordsOffsetY, selectedAlly, 2);
                         }
                         if(currentSpritesetMode==SPRITESETMODE_ENEMY && selectedEnemy>=0){
-                            enemiesTable.setValueAt(x, selectedEnemy, 1);
-                            enemiesTable.setValueAt(y, selectedEnemy, 2);
+                            enemiesTable.setValueAt(x-battleCoordsOffsetX, selectedEnemy, 1);
+                            enemiesTable.setValueAt(y-battleCoordsOffsetY, selectedEnemy, 2);
                         }
                         break;
                     case MouseEvent.BUTTON2:
