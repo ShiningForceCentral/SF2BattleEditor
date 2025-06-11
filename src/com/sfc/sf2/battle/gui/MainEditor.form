@@ -19,7 +19,7 @@
     <Property name="title" type="java.lang.String" value="SF2BattleEditor"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,70,0,0,4,69"/>
+    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,70,0,0,4,-26"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="0"/>
     <SyntheticProperty name="generateSize" type="boolean" value="true"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
@@ -54,7 +54,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jSplitPane1" alignment="0" pref="1077" max="32767" attributes="0"/>
+              <Component id="jSplitPane1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -95,7 +95,7 @@
               <SubComponents>
                 <Container class="javax.swing.JSplitPane" name="jSplitPane2">
                   <Properties>
-                    <Property name="dividerLocation" type="int" value="540"/>
+                    <Property name="dividerLocation" type="int" value="650"/>
                     <Property name="oneTouchExpandable" type="boolean" value="true"/>
                   </Properties>
 
@@ -137,12 +137,12 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" alignment="0" pref="512" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="563" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" alignment="0" pref="749" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" alignment="0" pref="697" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -160,12 +160,12 @@
                                   <Layout>
                                     <DimensionLayout dim="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <EmptySpace min="0" pref="824" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="770" max="32767" attributes="0"/>
                                       </Group>
                                     </DimensionLayout>
                                     <DimensionLayout dim="1">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <EmptySpace min="0" pref="739" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="745" max="32767" attributes="0"/>
                                       </Group>
                                     </DimensionLayout>
                                   </Layout>
@@ -186,7 +186,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jSplitPane4" max="32767" attributes="0"/>
+                              <Component id="jSplitPane4" pref="650" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -198,13 +198,18 @@
                       <SubComponents>
                         <Container class="javax.swing.JSplitPane" name="jSplitPane4">
                           <Properties>
-                            <Property name="dividerLocation" type="int" value="250"/>
+                            <Property name="dividerLocation" type="int" value="350"/>
                             <Property name="oneTouchExpandable" type="boolean" value="true"/>
                           </Properties>
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
                           <SubComponents>
                             <Container class="javax.swing.JPanel" name="jPanel11">
+                              <Properties>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[395, 600]"/>
+                                </Property>
+                              </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
                                   <JSplitPaneConstraints position="right"/>
@@ -214,17 +219,17 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jTabbedPane2" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jPanel12" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTabbedPane2" alignment="0" pref="283" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jTabbedPane2" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                           <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -292,7 +297,7 @@
                                                           <Component id="jSpinner3" min="-2" pref="40" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
-                                                  <EmptySpace pref="62" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="89" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -325,7 +330,7 @@
                                                       <Component id="jSpinner8" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace pref="470" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="473" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -572,7 +577,7 @@
                                               <Layout>
                                                 <DimensionLayout dim="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane7" pref="273" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane7" pref="311" max="32767" attributes="0"/>
                                                       <Component id="jPanel18" alignment="0" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
@@ -629,7 +634,7 @@
                                                                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                                                                   <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
                                                               </Group>
-                                                              <EmptySpace pref="51" max="32767" attributes="0"/>
+                                                              <EmptySpace pref="54" max="32767" attributes="0"/>
                                                           </Group>
                                                       </Group>
                                                     </DimensionLayout>
@@ -667,7 +672,6 @@
                                               <Layout>
                                                 <DimensionLayout dim="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane8" alignment="0" pref="0" max="32767" attributes="0"/>
                                                       <Group type="102" attributes="0">
                                                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                                           <Component id="jButton4" min="-2" max="-2" attributes="0"/>
@@ -675,20 +679,21 @@
                                                           <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace max="32767" attributes="0"/>
                                                       </Group>
-                                                      <Component id="jPanel17" alignment="0" pref="285" max="32767" attributes="0"/>
+                                                      <Component id="jPanel17" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane8" alignment="0" pref="0" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jScrollPane8" min="-2" pref="252" max="-2" attributes="0"/>
+                                                          <Component id="jScrollPane8" min="-2" pref="240" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="3" attributes="0">
                                                               <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
                                                               <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
                                                           </Group>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="jPanel17" max="32767" attributes="0"/>
+                                                          <Component id="jPanel17" min="-2" pref="278" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
@@ -755,75 +760,49 @@
                                                           <Group type="102" attributes="0">
                                                               <EmptySpace max="-2" attributes="0"/>
                                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <Group type="102" alignment="0" attributes="0">
-                                                                      <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
-                                                                      <EmptySpace max="-2" attributes="0"/>
-                                                                      <Component id="jComboBox_Order2" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                                  <Group type="102" alignment="0" attributes="0">
-                                                                      <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
-                                                                      <EmptySpace max="-2" attributes="0"/>
-                                                                      <Component id="jComboBox_Order1" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                                      <Group type="102" alignment="0" attributes="0">
-                                                                          <Component id="jLabel38" min="-2" pref="72" max="-2" attributes="0"/>
-                                                                          <EmptySpace max="-2" attributes="0"/>
-                                                                          <Component id="jSpinner_Trigger2" pref="0" max="32767" attributes="0"/>
-                                                                      </Group>
-                                                                      <Group type="102" alignment="0" attributes="0">
-                                                                          <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
-                                                                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                                                          <Component id="jSpinner_Trigger1" min="-2" pref="55" max="-2" attributes="0"/>
-                                                                      </Group>
-                                                                  </Group>
-                                                                  <Group type="102" alignment="0" attributes="0">
-                                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                                          <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                          <Component id="jLabel34" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      </Group>
-                                                                      <EmptySpace max="-2" attributes="0"/>
-                                                                      <Group type="103" groupAlignment="1" attributes="0">
-                                                                          <Group type="102" attributes="0">
-                                                                              <Component id="jComboBox_AI" min="-2" max="-2" attributes="0"/>
-                                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                                              <Component id="jLabel40" min="-2" pref="48" max="-2" attributes="0"/>
-                                                                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                                              <Component id="jComboBox_Spawn" min="-2" pref="99" max="-2" attributes="0"/>
-                                                                          </Group>
-                                                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                                              <Group type="102" attributes="0">
-                                                                                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-                                                                                  <Component id="jLabel41" min="-2" pref="48" max="-2" attributes="0"/>
-                                                                                  <EmptySpace max="32767" attributes="0"/>
-                                                                                  <Component id="jSpinner_OrderTarget1" min="-2" pref="55" max="-2" attributes="0"/>
-                                                                              </Group>
-                                                                              <Group type="102" attributes="0">
-                                                                                  <Component id="jComboBox_Items" min="-2" max="-2" attributes="0"/>
-                                                                                  <EmptySpace max="-2" attributes="0"/>
-                                                                                  <Component id="jTextField_ItemFlags" min="-2" pref="149" max="-2" attributes="0"/>
-                                                                              </Group>
-                                                                              <Group type="102" alignment="1" attributes="0">
-                                                                                  <Component id="jLabel42" min="-2" pref="48" max="-2" attributes="0"/>
-                                                                                  <EmptySpace max="-2" attributes="0"/>
-                                                                                  <Component id="jSpinner_OrderTarget2" min="-2" pref="55" max="-2" attributes="0"/>
-                                                                              </Group>
-                                                                          </Group>
-                                                                      </Group>
-                                                                  </Group>
                                                                   <Group type="102" attributes="0">
                                                                       <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                                                       <EmptySpace max="-2" attributes="0"/>
                                                                       <Component id="jComboBox_Name" min="-2" max="-2" attributes="0"/>
                                                                       <EmptySpace max="-2" attributes="0"/>
                                                                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                                                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                                      <Component id="jSpinner_X" min="-2" pref="46" max="-2" attributes="0"/>
-                                                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                                                      <EmptySpace max="-2" attributes="0"/>
+                                                                      <Component id="jSpinner_X" min="-2" pref="52" max="-2" attributes="0"/>
+                                                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                                                       <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                                                                       <EmptySpace max="-2" attributes="0"/>
-                                                                      <Component id="jSpinner_Y" min="-2" pref="49" max="-2" attributes="0"/>
+                                                                      <Component id="jSpinner_Y" min="-2" pref="55" max="-2" attributes="0"/>
                                                                   </Group>
+                                                                  <Group type="102" alignment="0" attributes="0">
+                                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="jLabel34" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      </Group>
+                                                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                                          <Component id="jComboBox_Items" max="32767" attributes="0"/>
+                                                                          <Component id="jComboBox_AI" max="32767" attributes="0"/>
+                                                                      </Group>
+                                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                                          <Group type="102" alignment="0" attributes="0">
+                                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                                              <Component id="jLabel40" min="-2" pref="48" max="-2" attributes="0"/>
+                                                                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                                                              <Component id="jComboBox_Spawn" min="-2" pref="99" max="-2" attributes="0"/>
+                                                                          </Group>
+                                                                          <Group type="102" alignment="1" attributes="0">
+                                                                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                                                              <Component id="jTextField_ItemFlags" min="-2" pref="149" max="-2" attributes="0"/>
+                                                                          </Group>
+                                                                      </Group>
+                                                                  </Group>
+                                                              </Group>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Component id="jPanel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jPanel14" alignment="0" min="-2" max="-2" attributes="0"/>
                                                               </Group>
                                                               <EmptySpace max="32767" attributes="0"/>
                                                           </Group>
@@ -841,7 +820,7 @@
                                                                   <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                                                                   <Component id="jSpinner_Y" alignment="3" min="-2" max="-2" attributes="0"/>
                                                               </Group>
-                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
                                                               <Group type="103" groupAlignment="3" attributes="0">
                                                                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                                                                   <Component id="jComboBox_AI" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -854,38 +833,10 @@
                                                                   <Component id="jComboBox_Items" alignment="3" min="-2" max="-2" attributes="0"/>
                                                                   <Component id="jTextField_ItemFlags" alignment="3" min="-2" max="-2" attributes="0"/>
                                                               </Group>
-                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <Group type="102" attributes="0">
-                                                                      <Group type="103" groupAlignment="3" attributes="0">
-                                                                          <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                          <Component id="jComboBox_Order1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                      </Group>
-                                                                      <EmptySpace max="-2" attributes="0"/>
-                                                                      <Group type="103" groupAlignment="3" attributes="0">
-                                                                          <Component id="jLabel37" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                          <Component id="jSpinner_Trigger1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                      </Group>
-                                                                      <EmptySpace max="-2" attributes="0"/>
-                                                                      <Group type="103" groupAlignment="3" attributes="0">
-                                                                          <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                          <Component id="jComboBox_Order2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                                                                              <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                              <Component id="jSpinner_OrderTarget2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                          </Group>
-                                                                      </Group>
-                                                                  </Group>
-                                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                                      <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="jSpinner_OrderTarget1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                              </Group>
                                                               <EmptySpace max="-2" attributes="0"/>
-                                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                                  <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jSpinner_Trigger2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
+                                                              <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
@@ -1014,112 +965,6 @@
                                                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                                                       </AuxValues>
                                                     </Component>
-                                                    <Component class="javax.swing.JLabel" name="jLabel36">
-                                                      <Properties>
-                                                        <Property name="text" type="java.lang.String" value="Move Order 1 :"/>
-                                                      </Properties>
-                                                    </Component>
-                                                    <Component class="javax.swing.JComboBox" name="jComboBox_Order1">
-                                                      <Properties>
-                                                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                                                          <StringArray count="4">
-                                                            <StringItem index="0" value="Item 1"/>
-                                                            <StringItem index="1" value="Item 2"/>
-                                                            <StringItem index="2" value="Item 3"/>
-                                                            <StringItem index="3" value="Item 4"/>
-                                                          </StringArray>
-                                                        </Property>
-                                                      </Properties>
-                                                      <Events>
-                                                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBox_Order1ItemStateChanged"/>
-                                                      </Events>
-                                                      <AuxValues>
-                                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                                                      </AuxValues>
-                                                    </Component>
-                                                    <Component class="javax.swing.JLabel" name="jLabel37">
-                                                      <Properties>
-                                                        <Property name="text" type="java.lang.String" value="Trig. Reg. 1 :"/>
-                                                      </Properties>
-                                                    </Component>
-                                                    <Component class="javax.swing.JSpinner" name="jSpinner_Trigger1">
-                                                      <Properties>
-                                                        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                                                          <SpinnerModel initial="0" maximum="63" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                                                        </Property>
-                                                      </Properties>
-                                                      <Events>
-                                                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner_Trigger1StateChanged"/>
-                                                      </Events>
-                                                    </Component>
-                                                    <Component class="javax.swing.JLabel" name="jLabel35">
-                                                      <Properties>
-                                                        <Property name="text" type="java.lang.String" value="Move Order 2 :"/>
-                                                      </Properties>
-                                                    </Component>
-                                                    <Component class="javax.swing.JComboBox" name="jComboBox_Order2">
-                                                      <Properties>
-                                                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                                                          <StringArray count="4">
-                                                            <StringItem index="0" value="Item 1"/>
-                                                            <StringItem index="1" value="Item 2"/>
-                                                            <StringItem index="2" value="Item 3"/>
-                                                            <StringItem index="3" value="Item 4"/>
-                                                          </StringArray>
-                                                        </Property>
-                                                      </Properties>
-                                                      <Events>
-                                                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBox_Order2ItemStateChanged"/>
-                                                      </Events>
-                                                      <AuxValues>
-                                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                                                      </AuxValues>
-                                                    </Component>
-                                                    <Component class="javax.swing.JLabel" name="jLabel41">
-                                                      <Properties>
-                                                        <Property name="text" type="java.lang.String" value="Target :"/>
-                                                      </Properties>
-                                                    </Component>
-                                                    <Component class="javax.swing.JSpinner" name="jSpinner_OrderTarget1">
-                                                      <Properties>
-                                                        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                                                          <SpinnerModel initial="0" maximum="63" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                                                        </Property>
-                                                      </Properties>
-                                                      <Events>
-                                                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner_OrderTarget1StateChanged"/>
-                                                      </Events>
-                                                    </Component>
-                                                    <Component class="javax.swing.JLabel" name="jLabel42">
-                                                      <Properties>
-                                                        <Property name="text" type="java.lang.String" value="Target :"/>
-                                                      </Properties>
-                                                    </Component>
-                                                    <Component class="javax.swing.JSpinner" name="jSpinner_OrderTarget2">
-                                                      <Properties>
-                                                        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                                                          <SpinnerModel initial="0" maximum="63" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                                                        </Property>
-                                                      </Properties>
-                                                      <Events>
-                                                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner_OrderTarget2StateChanged"/>
-                                                      </Events>
-                                                    </Component>
-                                                    <Component class="javax.swing.JLabel" name="jLabel38">
-                                                      <Properties>
-                                                        <Property name="text" type="java.lang.String" value="Trig. Reg. 2 :"/>
-                                                      </Properties>
-                                                    </Component>
-                                                    <Component class="javax.swing.JSpinner" name="jSpinner_Trigger2">
-                                                      <Properties>
-                                                        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                                                          <SpinnerModel initial="0" maximum="63" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                                                        </Property>
-                                                      </Properties>
-                                                      <Events>
-                                                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner_Trigger2StateChanged"/>
-                                                      </Events>
-                                                    </Component>
                                                     <Component class="javax.swing.JTextField" name="jTextField_ItemFlags">
                                                       <Properties>
                                                         <Property name="text" type="java.lang.String" value="flags"/>
@@ -1128,6 +973,226 @@
                                                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_ItemFlagsActionPerformed"/>
                                                       </Events>
                                                     </Component>
+                                                    <Container class="javax.swing.JPanel" name="jPanel6">
+                                                      <Properties>
+                                                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                                            <TitledBorder/>
+                                                          </Border>
+                                                        </Property>
+                                                      </Properties>
+
+                                                      <Layout>
+                                                        <DimensionLayout dim="0">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                                      <Group type="102" alignment="0" attributes="0">
+                                                                          <Component id="jLabel37" min="-2" pref="112" max="-2" attributes="0"/>
+                                                                          <EmptySpace max="-2" attributes="0"/>
+                                                                          <Component id="jSpinner_Trigger1" min="-2" max="-2" attributes="0"/>
+                                                                      </Group>
+                                                                      <Group type="102" alignment="0" attributes="0">
+                                                                          <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
+                                                                          <EmptySpace max="-2" attributes="0"/>
+                                                                          <Component id="jComboBox_Order1" min="-2" max="-2" attributes="0"/>
+                                                                          <EmptySpace max="-2" attributes="0"/>
+                                                                          <Component id="jLabel41" min="-2" pref="48" max="-2" attributes="0"/>
+                                                                          <EmptySpace max="-2" attributes="0"/>
+                                                                          <Component id="jSpinner_OrderTarget1" min="-2" pref="61" max="-2" attributes="0"/>
+                                                                      </Group>
+                                                                  </Group>
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                        </DimensionLayout>
+                                                        <DimensionLayout dim="1">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                                  <Group type="103" groupAlignment="2" attributes="0">
+                                                                      <Component id="jSpinner_OrderTarget1" alignment="2" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jLabel41" alignment="2" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jComboBox_Order1" alignment="2" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jLabel36" alignment="2" min="-2" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                                      <Component id="jLabel37" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jSpinner_Trigger1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                        </DimensionLayout>
+                                                      </Layout>
+                                                      <SubComponents>
+                                                        <Component class="javax.swing.JLabel" name="jLabel36">
+                                                          <Properties>
+                                                            <Property name="text" type="java.lang.String" value="Move Order 1 :"/>
+                                                          </Properties>
+                                                        </Component>
+                                                        <Component class="javax.swing.JComboBox" name="jComboBox_Order1">
+                                                          <Properties>
+                                                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                                              <StringArray count="4">
+                                                                <StringItem index="0" value="Item 1"/>
+                                                                <StringItem index="1" value="Item 2"/>
+                                                                <StringItem index="2" value="Item 3"/>
+                                                                <StringItem index="3" value="Item 4"/>
+                                                              </StringArray>
+                                                            </Property>
+                                                          </Properties>
+                                                          <Events>
+                                                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBox_Order1ItemStateChanged"/>
+                                                          </Events>
+                                                          <AuxValues>
+                                                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                                          </AuxValues>
+                                                        </Component>
+                                                        <Component class="javax.swing.JLabel" name="jLabel41">
+                                                          <Properties>
+                                                            <Property name="text" type="java.lang.String" value="Target 1 :"/>
+                                                          </Properties>
+                                                        </Component>
+                                                        <Component class="javax.swing.JSpinner" name="jSpinner_OrderTarget1">
+                                                          <Properties>
+                                                            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                                                              <SpinnerModel initial="0" maximum="63" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                                                            </Property>
+                                                          </Properties>
+                                                          <Events>
+                                                            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner_OrderTarget1StateChanged"/>
+                                                          </Events>
+                                                        </Component>
+                                                        <Component class="javax.swing.JLabel" name="jLabel37">
+                                                          <Properties>
+                                                            <Property name="text" type="java.lang.String" value="Trigger Region 1 :"/>
+                                                          </Properties>
+                                                        </Component>
+                                                        <Component class="javax.swing.JSpinner" name="jSpinner_Trigger1">
+                                                          <Properties>
+                                                            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                                                              <SpinnerModel initial="0" maximum="63" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                                                            </Property>
+                                                          </Properties>
+                                                          <Events>
+                                                            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner_Trigger1StateChanged"/>
+                                                          </Events>
+                                                        </Component>
+                                                      </SubComponents>
+                                                    </Container>
+                                                    <Container class="javax.swing.JPanel" name="jPanel14">
+                                                      <Properties>
+                                                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                                            <TitledBorder/>
+                                                          </Border>
+                                                        </Property>
+                                                      </Properties>
+
+                                                      <Layout>
+                                                        <DimensionLayout dim="0">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                                      <Group type="102" alignment="0" attributes="0">
+                                                                          <Component id="jLabel38" min="-2" pref="110" max="-2" attributes="0"/>
+                                                                          <EmptySpace max="-2" attributes="0"/>
+                                                                          <Component id="jSpinner_Trigger2" min="-2" pref="74" max="-2" attributes="0"/>
+                                                                      </Group>
+                                                                      <Group type="102" alignment="0" attributes="0">
+                                                                          <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                                                                          <EmptySpace max="-2" attributes="0"/>
+                                                                          <Component id="jComboBox_Order2" min="-2" max="-2" attributes="0"/>
+                                                                          <EmptySpace max="-2" attributes="0"/>
+                                                                          <Component id="jLabel42" min="-2" pref="48" max="-2" attributes="0"/>
+                                                                          <EmptySpace max="-2" attributes="0"/>
+                                                                          <Component id="jSpinner_OrderTarget2" min="-2" pref="61" max="-2" attributes="0"/>
+                                                                      </Group>
+                                                                  </Group>
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                        </DimensionLayout>
+                                                        <DimensionLayout dim="1">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                                      <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jSpinner_OrderTarget2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jComboBox_Order2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                                      <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jSpinner_Trigger2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                                  <EmptySpace max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                        </DimensionLayout>
+                                                      </Layout>
+                                                      <SubComponents>
+                                                        <Component class="javax.swing.JLabel" name="jLabel35">
+                                                          <Properties>
+                                                            <Property name="text" type="java.lang.String" value="Move Order 2 :"/>
+                                                          </Properties>
+                                                        </Component>
+                                                        <Component class="javax.swing.JComboBox" name="jComboBox_Order2">
+                                                          <Properties>
+                                                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                                              <StringArray count="4">
+                                                                <StringItem index="0" value="Item 1"/>
+                                                                <StringItem index="1" value="Item 2"/>
+                                                                <StringItem index="2" value="Item 3"/>
+                                                                <StringItem index="3" value="Item 4"/>
+                                                              </StringArray>
+                                                            </Property>
+                                                          </Properties>
+                                                          <Events>
+                                                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBox_Order2ItemStateChanged"/>
+                                                          </Events>
+                                                          <AuxValues>
+                                                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                                          </AuxValues>
+                                                        </Component>
+                                                        <Component class="javax.swing.JLabel" name="jLabel42">
+                                                          <Properties>
+                                                            <Property name="text" type="java.lang.String" value="Target 2 :"/>
+                                                          </Properties>
+                                                        </Component>
+                                                        <Component class="javax.swing.JSpinner" name="jSpinner_OrderTarget2">
+                                                          <Properties>
+                                                            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                                                              <SpinnerModel initial="0" maximum="63" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                                                            </Property>
+                                                          </Properties>
+                                                          <Events>
+                                                            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner_OrderTarget2StateChanged"/>
+                                                          </Events>
+                                                        </Component>
+                                                        <Component class="javax.swing.JSpinner" name="jSpinner_Trigger2">
+                                                          <Properties>
+                                                            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                                                              <SpinnerModel initial="0" maximum="63" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                                                            </Property>
+                                                          </Properties>
+                                                          <Events>
+                                                            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSpinner_Trigger2StateChanged"/>
+                                                          </Events>
+                                                        </Component>
+                                                        <Component class="javax.swing.JLabel" name="jLabel38">
+                                                          <Properties>
+                                                            <Property name="text" type="java.lang.String" value="Trigger Region 2 :"/>
+                                                          </Properties>
+                                                        </Component>
+                                                      </SubComponents>
+                                                    </Container>
                                                   </SubComponents>
                                                 </Container>
                                               </SubComponents>
@@ -1144,12 +1209,12 @@
                                               <Layout>
                                                 <DimensionLayout dim="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane9" alignment="1" pref="273" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane9" alignment="1" pref="311" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane9" alignment="1" pref="563" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane9" alignment="1" pref="566" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -1195,12 +1260,12 @@
                                               <Layout>
                                                 <DimensionLayout dim="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane14" alignment="1" pref="273" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane14" alignment="1" pref="311" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                                 <DimensionLayout dim="1">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jScrollPane14" alignment="1" pref="563" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane14" alignment="1" pref="566" max="32767" attributes="0"/>
                                                   </Group>
                                                 </DimensionLayout>
                                               </Layout>
@@ -1248,41 +1313,39 @@
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" attributes="0">
-                                                      <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="32767" attributes="0"/>
-                                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                                      <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                                      <Component id="jCheckBox4" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" attributes="0">
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jCheckBox3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jCheckBox4" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                      <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="jComboBox1" min="-2" pref="82" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                     </DimensionLayout>
                                     <DimensionLayout dim="1">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="2" attributes="0">
+                                                  <Component id="jComboBox1" alignment="2" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jCheckBox2" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jCheckBox3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jCheckBox4" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="jCheckBox4" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                     </DimensionLayout>
@@ -1360,12 +1423,12 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTabbedPane1" alignment="0" pref="249" max="32767" attributes="0"/>
+                                      <Component id="jTabbedPane1" alignment="0" pref="350" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTabbedPane1" alignment="1" pref="772" max="32767" attributes="0"/>
+                                      <Component id="jTabbedPane1" alignment="1" pref="720" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -1562,7 +1625,7 @@
                                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton18" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="270" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="218" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -1829,7 +1892,7 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="117" max="32767" attributes="0"/>
+                                                  <EmptySpace min="0" pref="221" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1882,7 +1945,7 @@
                                                   <Component id="jLabel1" min="-2" pref="23" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="342" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="290" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                         </DimensionLayout>
@@ -2018,7 +2081,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="0" pref="32" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="82" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -2063,7 +2126,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane4" alignment="0" pref="32" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="0" pref="82" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
