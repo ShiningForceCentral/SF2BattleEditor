@@ -10,10 +10,7 @@ import com.sfc.sf2.battle.AIRegion;
 import com.sfc.sf2.battle.Ally;
 import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.Enemy;
-import com.sfc.sf2.battle.EnemyData;
 import com.sfc.sf2.map.block.MapBlock;
-import com.sfc.sf2.map.block.gui.BlockSlotPanel;
-import com.sfc.sf2.map.block.layout.MapBlockLayout;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.mapsprite.MapSprite;
 import com.sfc.sf2.mapsprite.layout.MapSpriteLayout;
@@ -23,14 +20,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.font.FontRenderContext;
-import java.awt.font.TextLayout;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
@@ -119,15 +111,11 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private EnemyPropertiesTableModel enemiesTable = null;
     
     
-    
-    
-
     public BattlePanel() {
         addMouseListener(this);
         addMouseMotionListener(this);
     }
-   
-    
+       
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);   
@@ -275,12 +263,12 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                     int targetX = (x+j)*3*8+16-8;
                     int targetY = (y+i)*3*8+16;
                     String val = String.valueOf(value);
-                    g2.setColor(Color.black);
+                    g2.setColor(Color.BLACK);
                     g2.drawString(val, targetX-1, targetY-1);
                     g2.drawString(val, targetX-1, targetY+1);
                     g2.drawString(val, targetX+1, targetY-1);
                     g2.drawString(val, targetX+1, targetY+1);
-                    g2.setColor(Color.white);
+                    g2.setColor(Color.WHITE);
                     g2.drawString(val, targetX, targetY);
                 }
             }
@@ -303,12 +291,12 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 int targetX = (x+ally.getX())*3*8+8+offset;
                 int targetY = (y+ally.getY())*3*8+18;
                 String val = String.valueOf(ally.getIndex()+1);
-                g2.setColor(Color.black);
+                g2.setColor(Color.BLACK);
                 g2.drawString(val, targetX-1, targetY-1);
                 g2.drawString(val, targetX-1, targetY+1);
                 g2.drawString(val, targetX+1, targetY-1);
                 g2.drawString(val, targetX+1, targetY+1);
-                g2.setColor(Color.yellow);
+                g2.setColor(Color.YELLOW);
                 g2.drawString(val, targetX, targetY);  
                 if(currentMode==MODE_SPRITE && currentSpritesetMode==SPRITESETMODE_ALLY && i==selectedAlly){
                     g2.setColor(Color.YELLOW);
@@ -326,7 +314,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 if(sprite == null){
                     targetX += 8 + ((enemy.getEnemyData().getID()+1 < 10) ? 0 : -4);
                     targetY += 3;
-                    g2.setColor(Color.black);
+                    g2.setColor(Color.BLACK);
                     g2.drawString(String.valueOf(id), targetX-1, targetY+16-1);
                     g2.drawString(String.valueOf(id), targetX-1, targetY+16+1);
                     g2.drawString(String.valueOf(id), targetX+1, targetY+16-1);
@@ -345,8 +333,47 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                     g2.drawRect((x+enemy.getX())*3*8, (y+enemy.getY())*3*8, 1*24, 1*24);
                 }
             }
+            for(int i=0;i<enemies.length;i++){
+                Enemy enemy = enemies[i];
+                drawAiTargets(g2, x, y, enemy.getX(), enemy.getY(), enemy.getMoveOrder1(), enemy.getTriggerRegion1());
+                drawAiTargets(g2, x, y, enemy.getX(), enemy.getY(), enemy.getMoveOrder2(), enemy.getTriggerRegion2());
+            }
         }
         return spritesImage;
+    }
+    
+    private void drawAiTargets(Graphics2D g2, int mapOffsetX, int mapOffsetY, int enemyX, int enemyY, String order, int target) {
+        int targetX = -1, targetY = -1;
+        switch (order) {
+            case "FOLLOW_TARGET":     //Follow target (ally)
+                Ally[] allies = battle.getSpriteset().getAllies();
+                if (target >= 0 && target < allies.length) {
+                    targetX = allies[target].getX();
+                    targetY = allies[target].getY();
+                }
+                break;
+            case "FOLLOW_ENEMY":     //Follow enemy
+                Enemy[] enemies = battle.getSpriteset().getEnemies();
+                if (target >= 0 && target < enemies.length) {
+                    targetX = enemies[target].getX();
+                    targetY = enemies[target].getY();
+                }
+                break;
+            case "MOVE_TO":
+                AIPoint[] points = battle.getSpriteset().getAiPoints();
+                if (target >= 0 && target < points.length) {
+                    targetX = points[target].getX();
+                    targetY = points[target].getY();
+                }
+                break;
+            default:
+                break;
+        }        
+        if (targetX >= 0 && targetY >= 0) {
+            g2.setColor(Color.YELLOW);
+            g2.setStroke(new BasicStroke(1));
+            g2.drawLine((mapOffsetX + enemyX)*3*8+12, (mapOffsetY + enemyY)*3*8+12, (mapOffsetX+targetX)*3*8+12, (mapOffsetY+targetY)*3*8+12);
+        }
     }
     
     private BufferedImage getAiRegionsImage(){
