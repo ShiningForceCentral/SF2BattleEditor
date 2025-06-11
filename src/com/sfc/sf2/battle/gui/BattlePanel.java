@@ -335,16 +335,20 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
             }
             for(int i=0;i<enemies.length;i++){
                 Enemy enemy = enemies[i];
-                drawAiTargets(g2, x, y, enemy.getX(), enemy.getY(), enemy.getMoveOrder1(), enemy.getTriggerRegion1());
-                drawAiTargets(g2, x, y, enemy.getX(), enemy.getY(), enemy.getMoveOrder2(), enemy.getTriggerRegion2());
+                drawAiTargets(g2, x, y, enemy.getX(), enemy.getY(), enemy.getMoveOrder1());
+                drawAiTargets(g2, x, y, enemy.getX(), enemy.getY(), enemy.getMoveOrder2());
             }
         }
         return spritesImage;
     }
     
-    private void drawAiTargets(Graphics2D g2, int mapOffsetX, int mapOffsetY, int enemyX, int enemyY, String order, int target) {
+    private void drawAiTargets(Graphics2D g2, int mapOffsetX, int mapOffsetY, int enemyX, int enemyY, String order) {
+        int target = 0;
         int targetX = -1, targetY = -1;
-        switch (order) {
+        String[] orderSplit = order.split("\\|");
+        if (orderSplit.length > 1)
+            target = Integer.parseInt(orderSplit[1]);
+        switch (orderSplit[0]) {
             case "FOLLOW_TARGET":     //Follow target (ally)
                 Ally[] allies = battle.getSpriteset().getAllies();
                 if (target >= 0 && target < allies.length) {
