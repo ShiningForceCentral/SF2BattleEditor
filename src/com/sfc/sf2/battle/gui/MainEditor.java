@@ -2175,7 +2175,7 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton37ActionPerformed
 
     private void jSpinner_Trigger1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_Trigger1StateChanged
-        OnEnemyDataChanged((int)jSpinner_Y.getValue(), 6);
+        OnEnemyDataChanged((int)jSpinner_Trigger1.getValue(), 6);
     }//GEN-LAST:event_jSpinner_Trigger1StateChanged
 
     private void jSpinner_YStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_YStateChanged
@@ -2183,7 +2183,7 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jSpinner_YStateChanged
 
     private void jSpinner_Trigger2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_Trigger2StateChanged
-        OnEnemyDataChanged((int)jSpinner_Y.getValue(), 8);
+        OnEnemyDataChanged((int)jSpinner_Trigger2.getValue(), 8);
     }//GEN-LAST:event_jSpinner_Trigger2StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
