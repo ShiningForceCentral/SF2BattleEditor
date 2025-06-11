@@ -404,10 +404,17 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         if(obstructedImage==null){
             obstructedImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D) obstructedImage.getGraphics();  
-            g2.setColor(Color.RED);
+            g2.setColor(Color.BLACK);
+            g2.setStroke(new BasicStroke(3));
             Line2D line1 = new Line2D.Double(6, 6, 18, 18);
             g2.draw(line1);
             Line2D line2 = new Line2D.Double(6, 18, 18, 6);
+            g2.draw(line2);  
+            g2.setColor(Color.RED);
+            g2.setStroke(new BasicStroke(2));
+            line1 = new Line2D.Double(6, 6, 18, 18);
+            g2.draw(line1);
+            line2 = new Line2D.Double(6, 18, 18, 6);
             g2.draw(line2);
         }
         return obstructedImage;
@@ -550,12 +557,12 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 switch (e.getButton()) {
                     case MouseEvent.BUTTON1:
                         if(currentSpritesetMode==SPRITESETMODE_ALLY && selectedAlly>=0){
-                            alliesTable.setValueAt(x, selectedAlly, 1);
-                            alliesTable.setValueAt(y, selectedAlly, 2);
+                            alliesTable.setValueAt(x-battleCoordsOffsetX, selectedAlly, 1);
+                            alliesTable.setValueAt(y-battleCoordsOffsetY, selectedAlly, 2);
                         }
                         if(currentSpritesetMode==SPRITESETMODE_ENEMY && selectedEnemy>=0){
-                            enemiesTable.setValueAt(x, selectedEnemy, 1);
-                            enemiesTable.setValueAt(y, selectedEnemy, 2);
+                            enemiesTable.setValueAt(x-battleCoordsOffsetX, selectedEnemy, 1);
+                            enemiesTable.setValueAt(y-battleCoordsOffsetY, selectedEnemy, 2);
                         }
                         break;
                     case MouseEvent.BUTTON2:
