@@ -2192,15 +2192,15 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton37ActionPerformed
 
     private void jSpinner_Trigger1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_Trigger1StateChanged
-        OnEnemyDataChanged((int)jSpinner_Trigger1.getValue(), 6);
+        OnEnemyDataChanged((int)jSpinner_Trigger1.getModel().getValue(), 6);
     }//GEN-LAST:event_jSpinner_Trigger1StateChanged
 
     private void jSpinner_YStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_YStateChanged
-        OnEnemyDataChanged((int)jSpinner_Y.getValue(), 2);
+        OnEnemyDataChanged((int)jSpinner_Y.getModel().getValue(), 2);
     }//GEN-LAST:event_jSpinner_YStateChanged
 
     private void jSpinner_Trigger2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_Trigger2StateChanged
-        OnEnemyDataChanged((int)jSpinner_Trigger2.getValue(), 8);
+        OnEnemyDataChanged((int)jSpinner_Trigger2.getModel().getValue(), 8);
     }//GEN-LAST:event_jSpinner_Trigger2StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -2237,11 +2237,11 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jSpinner9StateChanged
 
     private void jSpinner_OrderTarget1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_OrderTarget1StateChanged
-        OnEnemyOrderChanged((String)jComboBox_Order1.getSelectedItem(), (int)jSpinner_OrderTarget1.getValue(), true);
+        OnEnemyOrderChanged((String)jComboBox_Order1.getSelectedItem(), (int)jSpinner_OrderTarget1.getModel().getValue(), true);
     }//GEN-LAST:event_jSpinner_OrderTarget1StateChanged
 
     private void jSpinner_OrderTarget2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_OrderTarget2StateChanged
-        OnEnemyOrderChanged((String)jComboBox_Order2.getSelectedItem(), (int)jSpinner_OrderTarget2.getValue(), false);
+        OnEnemyOrderChanged((String)jComboBox_Order2.getSelectedItem(), (int)jSpinner_OrderTarget2.getModel().getValue(), false);
     }//GEN-LAST:event_jSpinner_OrderTarget2StateChanged
 
     private void jTextField_ItemFlagsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_ItemFlagsActionPerformed
@@ -2253,7 +2253,7 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox_NameItemStateChanged
 
     private void jSpinner_XStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_XStateChanged
-        OnEnemyDataChanged((int)jSpinner_X.getValue(), 1);
+        OnEnemyDataChanged((int)jSpinner_X.getModel().getValue(), 1);
     }//GEN-LAST:event_jSpinner_XStateChanged
 
     private void jComboBox_AIItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_AIItemStateChanged
@@ -2269,15 +2269,15 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox_ItemsItemStateChanged
 
     private void jComboBox_Order1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_Order1ItemStateChanged
-        OnEnemyOrderChanged((String)evt.getItem(), (int)jSpinner_OrderTarget1.getValue(), true);
+        OnEnemyOrderChanged((String)evt.getItem(), (int)jSpinner_OrderTarget1.getModel().getValue(), true);
     }//GEN-LAST:event_jComboBox_Order1ItemStateChanged
 
     private void jComboBox_Order2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox_Order2ItemStateChanged
-        OnEnemyOrderChanged((String)evt.getItem(), (int)jSpinner_OrderTarget2.getValue(), false);
+        OnEnemyOrderChanged((String)evt.getItem(), (int)jSpinner_OrderTarget2.getModel().getValue(), false);
     }//GEN-LAST:event_jComboBox_Order2ItemStateChanged
 
     private void jSpinner_Trigger3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_Trigger3StateChanged
-        OnEnemyDataChanged((int)jSpinner_Trigger3.getValue(), 9);
+        OnEnemyDataChanged((int)jSpinner_Trigger3.getModel().getValue(), 9);
     }//GEN-LAST:event_jSpinner_Trigger3StateChanged
 
     private void OnEnemyDataChanged(Object data, int column){
