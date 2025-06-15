@@ -609,6 +609,7 @@
                                                             <Column editable="true" title="Y" type="java.lang.Integer"/>
                                                           </Table>
                                                         </Property>
+                                                        <Property name="selectionMode" type="int" value="0"/>
                                                       </Properties>
                                                     </Component>
                                                   </SubComponents>
@@ -724,6 +725,7 @@
                                                             <Column editable="true" title="Spawn Params" type="java.lang.Integer"/>
                                                           </Table>
                                                         </Property>
+                                                        <Property name="selectionMode" type="int" value="0"/>
                                                       </Properties>
                                                     </Component>
                                                   </SubComponents>
@@ -845,7 +847,7 @@
                                                                   <Component id="jLabel39" alignment="3" min="-2" max="-2" attributes="0"/>
                                                                   <Component id="jSpinner_Trigger3" alignment="3" min="-2" max="-2" attributes="0"/>
                                                               </Group>
-                                                              <EmptySpace pref="59" max="32767" attributes="0"/>
+                                                              <EmptySpace max="32767" attributes="0"/>
                                                           </Group>
                                                       </Group>
                                                     </DimensionLayout>
@@ -1265,6 +1267,7 @@
                                                             <Column editable="true" title="Y4" type="java.lang.Integer"/>
                                                           </Table>
                                                         </Property>
+                                                        <Property name="selectionMode" type="int" value="0"/>
                                                       </Properties>
                                                     </Component>
                                                   </SubComponents>
@@ -1309,6 +1312,7 @@
                                                             <Column editable="true" title="Y" type="java.lang.Integer"/>
                                                           </Table>
                                                         </Property>
+                                                        <Property name="selectionMode" type="int" value="0"/>
                                                       </Properties>
                                                     </Component>
                                                   </SubComponents>

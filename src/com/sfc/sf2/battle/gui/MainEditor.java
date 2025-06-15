@@ -535,6 +535,7 @@ public class MainEditor extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane7.setViewportView(jTable2);
 
         jButton1.setText("Add");
@@ -607,6 +608,7 @@ public class MainEditor extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane8.setViewportView(jTable3);
 
         jButton4.setText("Add");
@@ -903,7 +905,7 @@ public class MainEditor extends javax.swing.JFrame {
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel39)
                     .addComponent(jSpinner_Trigger3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
@@ -952,6 +954,7 @@ public class MainEditor extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane9.setViewportView(jTable4);
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
@@ -986,6 +989,7 @@ public class MainEditor extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable9.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane14.setViewportView(jTable9);
 
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
@@ -1608,7 +1612,7 @@ public class MainEditor extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
             );
 
-            jSplitPane3.setBottomComponent(jPanel7);
+            jSplitPane3.setRightComponent(jPanel7);
 
             jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder("Help"));
 
