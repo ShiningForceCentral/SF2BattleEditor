@@ -10,21 +10,15 @@ import com.sfc.sf2.battle.BattleManager;
 import com.sfc.sf2.battle.Enemy;
 import com.sfc.sf2.battle.EnemyData;
 import com.sfc.sf2.battle.EnemyEnums;
-import com.sfc.sf2.battle.mapcoords.gui.BattleMapCoordsTableModel;
+import com.sfc.sf2.map.layout.DisassemblyException;
 import com.sfc.sf2.map.layout.MapLayoutManager;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDynamic.map;
 import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.PrintStream;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
@@ -1751,8 +1745,11 @@ public class MainEditor extends javax.swing.JFrame {
         int mapIndex = battle.getMapCoords().getMap();
         
         final MapLayoutManager mapLayoutManager = new MapLayoutManager();
-        mapLayoutManager.importDisassembly(PATH_TEST_PREFIX+jTextField21.getText(), PATH_TEST_PREFIX+jTextField22.getText(), mapEntries[mapIndex][0], mapEntries[mapIndex][1], mapEntries[mapIndex][2]);
-        
+        try {
+            mapLayoutManager.importDisassembly(PATH_TEST_PREFIX+jTextField21.getText(), PATH_TEST_PREFIX+jTextField22.getText(), mapEntries[mapIndex][0], mapEntries[mapIndex][1], mapEntries[mapIndex][2]);
+        } catch (DisassemblyException ex) {
+            Logger.getLogger(MainEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jPanel2.removeAll();       
         jPanel2.setLayout(new GridLayout(1,1));        
 
@@ -2076,7 +2073,11 @@ public class MainEditor extends javax.swing.JFrame {
         battle.getMapCoords().setMap(newMapIndex);
         String[][] mapEntries = battleManager.getMapEntries();
         final MapLayoutManager mapLayoutManager = new MapLayoutManager();
-        mapLayoutManager.importDisassembly(PATH_TEST_PREFIX+jTextField21.getText(), PATH_TEST_PREFIX+jTextField22.getText(), mapEntries[newMapIndex][0], mapEntries[newMapIndex][1], mapEntries[newMapIndex][2]);     
+        try {     
+            mapLayoutManager.importDisassembly(PATH_TEST_PREFIX+jTextField21.getText(), PATH_TEST_PREFIX+jTextField22.getText(), mapEntries[newMapIndex][0], mapEntries[newMapIndex][1], mapEntries[newMapIndex][2]);
+        } catch (DisassemblyException ex) {
+            Logger.getLogger(MainEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         battlePanel.setMapLayout(mapLayoutManager.getLayout());
         battlePanel.setBlockset(mapLayoutManager.getBlockset());
         battlePanel.setRedraw(true);
