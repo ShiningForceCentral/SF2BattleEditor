@@ -1875,6 +1875,8 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void UpdateEnemyControls(int selectedRow)
     {
+        
+        
         boolean enabled = selectedRow >= 0;
         jComboBox_Name.setEnabled(enabled);
         jSpinner_X.setEnabled(enabled);

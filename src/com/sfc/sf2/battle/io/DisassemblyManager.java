@@ -546,18 +546,11 @@ public class DisassemblyManager {
                     line = enumScan.nextLine();
                     while(!line.startsWith("; enum")){
                         if(line.startsWith("MAPSPRITE")){
-                            String key = line.substring(10,line.indexOf(":"));
-                            Integer value = line.indexOf("$")+1;
-                            if (value <= 0){
-                                value = line.indexOf("equ")+4;
-                            }
-                            Integer comment = line.indexOf(";");
-                            if (comment == -1){
-                                value = valueOf(line.substring(value).trim());
-                            }
-                            else{
-                                value = valueOf(line.substring(value, comment).trim());
-                            }
+                            int valStart = line.indexOf(":");
+                            int valEnd = line.indexOf(";");
+                            if (valEnd == -1) valEnd = line.length();
+                            String key = line.substring(10, valStart);
+                            int value = valueOf(line.substring(valStart + 1, valEnd).trim());
 
                             //Matches enemy id with mapsprite id. Handles special case of ENEMY_MASTER_MAGE_0, ENEMY_NECROMANCER_0, & ENEMY_BLUE_SHAMAN_0
                             if (enemies.containsKey(key) || enemies.containsKey(key+"_0")){
@@ -723,6 +716,8 @@ public class DisassemblyManager {
     
     private static int valueOf(String s){
         s = s.trim();
+        if (s.startsWith("equ"))
+            s = s.substring(3).trim();
         if(s.startsWith("$")){
             return Integer.valueOf(s.substring(1),16);
         }else{
