@@ -214,6 +214,9 @@ public class MainEditor extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         jTextField33 = new javax.swing.JTextField();
         jButton39 = new javax.swing.JButton();
+        jButton36 = new javax.swing.JButton();
+        jTextField34 = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -1304,6 +1307,22 @@ public class MainEditor extends javax.swing.JFrame {
                 }
             });
 
+            jButton36.setText("File...");
+            jButton36.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton36ActionPerformed(evt);
+                }
+            });
+
+            jTextField34.setText("..\\..\\code\\common\\tech\\graphics\\specialspritesentries.asm");
+            jTextField34.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jTextField34ActionPerformed(evt);
+                }
+            });
+
+            jLabel31.setText("Specal mapsprites :");
+
             javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
             jPanel3.setLayout(jPanel3Layout);
             jPanel3Layout.setHorizontalGroup(
@@ -1381,14 +1400,19 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(jButton18)))
-                    .addGap(0, 0, 0))
+                            .addComponent(jButton18))))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                     .addComponent(jLabel43)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton39))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addComponent(jLabel31)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton36))
             );
             jPanel3Layout.setVerticalGroup(
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1429,6 +1453,11 @@ public class MainEditor extends javax.swing.JFrame {
                         .addComponent(jButton27))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel31)
+                        .addComponent(jButton36))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel32)
                         .addComponent(jButton37))
@@ -1455,7 +1484,7 @@ public class MainEditor extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jButton18)
-                    .addContainerGap(185, Short.MAX_VALUE))
+                    .addContainerGap(152, Short.MAX_VALUE))
             );
 
             jTabbedPane1.addTab("Import", jPanel3);
@@ -1764,13 +1793,14 @@ public class MainEditor extends javax.swing.JFrame {
         String mapCoordsPath = PATH_TEST_PREFIX+jTextField20.getText();
         String basePalettePath = PATH_TEST_PREFIX+jTextField32.getText();
         String mapspriteEntriesPath = PATH_TEST_PREFIX+jTextField30.getText();
+        String specialSpriteEntriesPath = PATH_TEST_PREFIX+jTextField34.getText();
         String mapspriteEnumPath = PATH_TEST_PREFIX+jTextField31.getText();
         String enemyMapspritesPath = PATH_TEST_PREFIX+jTextField33.getText();
         int battleIndex = (int)jSpinner4.getModel().getValue();
         String terrainPath = PATH_TEST_PREFIX+jTextField24.getText();
         String spritesetPath = PATH_TEST_PREFIX+jTextField25.getText();
         
-        battleManager.importDisassembly(mapPalettesPath, mapTilesetsPath, incbinPath, mapEntriesPath, mapCoordsPath, basePalettePath, mapspriteEntriesPath,
+        battleManager.importDisassembly(mapPalettesPath, mapTilesetsPath, incbinPath, mapEntriesPath, mapCoordsPath, basePalettePath, mapspriteEntriesPath, specialSpriteEntriesPath,
                                     mapspriteEnumPath, enemyMapspritesPath, battleIndex, terrainPath, spritesetPath);
 
         battle = battleManager.getBattle();
@@ -2333,6 +2363,18 @@ public class MainEditor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton39ActionPerformed
 
+    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+        int returnVal = jFileChooser1.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser1.getSelectedFile();
+            jTextField34.setText(file.getAbsolutePath());
+        }
+    }//GEN-LAST:event_jButton36ActionPerformed
+
+    private void jTextField34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField34ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField34ActionPerformed
+
     private void OnEnemyDataChanged(Object data, int column){
         int selectRow = jTable3.getSelectedRow();
         if (selectRow == -1)
@@ -2411,6 +2453,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton34;
     private javax.swing.JButton jButton35;
+    private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton37;
     private javax.swing.JButton jButton38;
     private javax.swing.JButton jButton39;
@@ -2451,6 +2494,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -2545,6 +2589,7 @@ public class MainEditor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField31;
     private javax.swing.JTextField jTextField32;
     private javax.swing.JTextField jTextField33;
+    private javax.swing.JTextField jTextField34;
     private javax.swing.JTextField jTextField_ItemFlags;
     // End of variables declaration//GEN-END:variables
 

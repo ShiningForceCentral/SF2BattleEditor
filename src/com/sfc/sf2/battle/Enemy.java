@@ -5,9 +5,6 @@
  */
 package com.sfc.sf2.battle;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author wiz

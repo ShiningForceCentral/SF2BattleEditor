@@ -6,22 +6,17 @@
 package com.sfc.sf2.battle;
 
 import com.sfc.sf2.battle.io.DisassemblyManager;
-import com.sfc.sf2.battle.io.PngManager;
 import com.sfc.sf2.battle.mapcoords.BattleMapCoords;
 import com.sfc.sf2.battle.mapcoords.BattleMapCoordsManager;
 import com.sfc.sf2.battle.mapterrain.BattleMapTerrainManager;
-import com.sfc.sf2.graphics.Tile;
+import com.sfc.sf2.graphics.GraphicsManager;
 import com.sfc.sf2.map.layout.MapLayoutManager;
 import com.sfc.sf2.mapsprite.MapSprite;
 import com.sfc.sf2.mapsprite.MapSpriteManager;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -39,8 +34,8 @@ public class BattleManager {
     private EnemyData[] enemyData = null;
     private EnemyEnums enemyEnums = null;
     
-    public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String basePalettePath,
-                                    String mapspriteEntriesPath, String mapspriteEnumPath, String enemyMapspritesPath, int battleIndex, String terrainPath, String spritesetPath){
+    public void importDisassembly(String mapPalettesPath, String mapTilesetsPath, String incbinPath, String mapEntriesPath, String mapCoordsPath, String basePalettePath, String mapspriteEntriesPath, String specialSpritesPath,
+            String mapspriteEnumPath, String enemyMapspritesPath, int battleIndex, String terrainPath, String spritesetPath){
         System.out.println("com.sfc.sf2.battle.BattleManager.importDisassembly() - Importing disassembly ...");
         mapCoordsManager.importDisassembly(mapCoordsPath);
         coordsArray = mapCoordsManager.getCoords();
@@ -51,6 +46,7 @@ public class BattleManager {
         battle.setTerrain(mapTerrainManager.getTerrain());
         mapEntries = importMapEntryFile(incbinPath, mapEntriesPath);
         MapSprite[] mapsprites = mapspriteManager.importDisassemblyFromEntryFile(basePalettePath, mapspriteEntriesPath, incbinPath);
+        MapSprite[] specialSprites; //TODO How to load special sprites
         String[] enemyMapsprites = DisassemblyManager.importEnemyMapspriteData(enemyMapspritesPath);
         enemyEnums = DisassemblyManager.importEnemyEnums(mapspriteEnumPath);
         enemyData = DisassemblyManager.importEnemyData(enemyEnums, mapsprites, enemyMapsprites, mapspriteEnumPath);

@@ -44,6 +44,8 @@ public class DisassemblyManager {
     private static final String MACRO_ENEMY_LINE3 = "combatantBehavior";
     
     private static String header;
+    private static int SpecialSpritesStart = -1;
+    private static int SpecialSpritesEnd = -1;
     
     public static SpriteSet importSpriteset(String spritesetPath, EnemyData[] enemyData, EnemyEnums enemyEnums){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
@@ -555,7 +557,10 @@ public class DisassemblyManager {
                     if (enemyMapspriteEnums.containsKey(enemyMapsprites[spriteID]))
                         spriteID = enemyMapspriteEnums.get(enemyMapsprites[spriteID]);
                 }
-                if (spriteID*3 < allMapsprites.length){
+                
+                if (spriteID >= SpecialSpritesStart && spriteID <= SpecialSpritesEnd) {
+                    
+                } else if (spriteID*3 < allMapsprites.length){
                     enemy.setMapSprite(allMapsprites[spriteID*3+2]);
                 }   
                 
@@ -580,6 +585,9 @@ public class DisassemblyManager {
         LinkedHashMap<String, Integer> aiCommandSets = new LinkedHashMap<>();
         LinkedHashMap<String, Integer> aiOrders = new LinkedHashMap<>();
         LinkedHashMap<String, Integer> spawnParams = new LinkedHashMap<>();
+        
+        SpecialSpritesStart = -1;
+        SpecialSpritesEnd = -1;
             
         EnemyEnums enemyEnums = new EnemyEnums();
         int itemEquippedValue = 0;
@@ -594,9 +602,9 @@ public class DisassemblyManager {
                 File file = new File(mapspriteEnumPath);
                 Scanner scan = new Scanner(file);
                 while(scan.hasNext()){
-                    String line = scan.nextLine();
+                    String line = scan.nextLine().trim();
                     
-                    if(line.trim().startsWith("; enum Enemies")){
+                    if(line.startsWith("; enum Enemies")){
                         while(scan.hasNext()){
                             line = scan.nextLine();
 
@@ -614,7 +622,7 @@ public class DisassemblyManager {
                         System.out.println("Enemies imported: " + enemies.size() + " entries.");
                         enemyEnums.setEemies(enemies);
                     }
-                    else if(line.trim().startsWith("; enum AiCommandsets")){
+                    else if(line.startsWith("; enum AiCommandsets")){
                         while(scan.hasNext()){
                             line = scan.nextLine();
 
@@ -632,7 +640,7 @@ public class DisassemblyManager {
                         System.out.println("AI Commands imported: " + aiCommandSets.size() + " entries.");
                         enemyEnums.setCommandSets(aiCommandSets);
                     }
-                    else if(line.trim().startsWith("; enum AiOrders")){
+                    else if(line.startsWith("; enum AiOrders")){
                         while(scan.hasNext()){
                             line = scan.nextLine();
 
@@ -650,7 +658,7 @@ public class DisassemblyManager {
                         System.out.println("AI Orders imported: " + aiOrders.size() + " entries.");
                         enemyEnums.setOrders(aiOrders);
                     }
-                    else if(line.trim().startsWith("; enum SpawnSettings")){
+                    else if(line.startsWith("; enum SpawnSettings")){
                         while(scan.hasNext()){
                             line = scan.nextLine();
 
@@ -668,7 +676,7 @@ public class DisassemblyManager {
                         System.out.println("Spawn Params imported: " + spawnParams.size() + " entries.");
                         enemyEnums.setSpawnParams(spawnParams);
                     }
-                    else if(line.trim().startsWith("; enum Items")){
+                    else if(line.startsWith("; enum Items")){
                         while(scan.hasNext()){
                             line = scan.nextLine();
 
@@ -699,6 +707,14 @@ public class DisassemblyManager {
                         
                         System.out.println("Items imported: " + items.size() + " entries.");
                         enemyEnums.setItems(items);
+                    }
+                    else if(line.startsWith("MAPSPRITES_SPECIALS")){
+                        String id = line.substring(line.lastIndexOf("_"), line.indexOf(":"));
+                        if (id.equals("START")) {
+                            SpecialSpritesStart = valueOf(line.substring(line.indexOf(":")+1));
+                        } else if (id.equals("END")) {
+                            SpecialSpritesEnd = valueOf(line.substring(line.indexOf(":")+1));
+                        }
                     }
                 }
             }
