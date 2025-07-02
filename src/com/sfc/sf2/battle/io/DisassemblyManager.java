@@ -518,26 +518,12 @@ public class DisassemblyManager {
         return spritesetBytes;
     }
     
-    public static EnemyData[] importEnemyData(EnemyEnums enemyEnums, MapSprite[] mapsprites, String mapspriteEnumPath){
+    public static EnemyData[] importEnemyData(EnemyEnums enemyEnums, MapSprite[] allMapsprites, String[] enemyMapsprites, String mapspriteEnumPath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyData() - Importing disassembly ...");
         List<EnemyData> enemyDataList = new ArrayList(enemyEnums.getEnemies().size());
+        Map<String, Integer> enemyMapspriteEnums = new HashMap<>();
             
         try {
-            LinkedHashMap<String, Integer> enemies = enemyEnums.getEnemies();
-            for (Map.Entry<String, Integer> entry : enemies.entrySet()) {
-                EnemyData enemy = new EnemyData();
-                enemy.setName(entry.getKey());
-                enemy.setID(entry.getValue());
-
-                if (enemy.getMapSprite() == null && entry.getValue()*3 < mapsprites.length){
-                    enemy.setMapSprite(mapsprites[entry.getValue()*3+2]);
-                }
-                
-                while (enemyDataList.size() <= enemy.getID())
-                    enemyDataList.add(null);
-                enemyDataList.set(entry.getValue(), enemy);
-            }
-                 
             File enumFile = new File(mapspriteEnumPath);
             Scanner enumScan = new Scanner(enumFile);
             while(enumScan.hasNext()){
@@ -551,20 +537,32 @@ public class DisassemblyManager {
                             if (valEnd == -1) valEnd = line.length();
                             String key = line.substring(10, valStart);
                             int value = valueOf(line.substring(valStart + 1, valEnd).trim());
-
-                            //Matches enemy id with mapsprite id. Handles special case of ENEMY_MASTER_MAGE_0, ENEMY_NECROMANCER_0, & ENEMY_BLUE_SHAMAN_0
-                            if (enemies.containsKey(key) || enemies.containsKey(key+"_0")){
-                                int index = enemies.get(key);
-                                if (index < enemyDataList.size() && enemyDataList.get(index) != null && value*3 < mapsprites.length){
-                                    enemyDataList.get(index).setMapSprite(mapsprites[value*3+2]);
-                                }
-                            }
+                            enemyMapspriteEnums.put(key, value);
                         }
                         line = enumScan.nextLine();
                     }
                 }
             }
             
+            LinkedHashMap<String, Integer> enemies = enemyEnums.getEnemies();
+            for (Map.Entry<String, Integer> entry : enemies.entrySet()) {
+                EnemyData enemy = new EnemyData();
+                enemy.setName(entry.getKey());
+                enemy.setID(entry.getValue());
+
+                int spriteID = entry.getValue();
+                if (spriteID < enemyMapsprites.length) {
+                    if (enemyMapspriteEnums.containsKey(enemyMapsprites[spriteID]))
+                        spriteID = enemyMapspriteEnums.get(enemyMapsprites[spriteID]);
+                }
+                if (spriteID*3 < allMapsprites.length){
+                    enemy.setMapSprite(allMapsprites[spriteID*3+2]);
+                }   
+                
+                while (enemyDataList.size() <= enemy.getID())
+                    enemyDataList.add(null);
+                enemyDataList.set(entry.getValue(), enemy);
+            }            
         } catch (Exception ex) {
             Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -712,6 +710,43 @@ public class DisassemblyManager {
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyEnums() - Disassembly imported.");
         
         return enemyEnums;
+    }
+    
+    public static String[] importEnemyMapspriteData(String enemyMapspritesPath){
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemySpritesetData() - Importing disassembly ...");
+        List<String> enemyMapsprites = new ArrayList<>();
+            
+        try {
+            if(enemyMapspritesPath.endsWith(".bin")){
+        
+                //TODO Handle .bin enums (is this necessary?)
+                
+            }else{                                
+                File file = new File(enemyMapspritesPath);
+                Scanner scan = new Scanner(file);
+                int index = 0;
+                while(scan.hasNext()){
+                    String line = scan.nextLine();
+                    if(line.trim().startsWith("mapsprite")){
+                        line = line.replace("mapsprite", "");
+                        int commentIndex = line.indexOf(";");
+                        if (commentIndex != -1)
+                            line = line.substring(0, commentIndex).trim();
+                        enemyMapsprites.add(line);
+                    }
+                    index++;
+                }
+            }
+        System.out.println("Enemy spritesets imported: " + enemyMapsprites.size() + " entries.");
+        } catch (IOException ex) {
+            Logger.getLogger(DisassemblyManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemySpritesetData() - Disassembly imported.");
+        
+        String[] spritesets = new String[enemyMapsprites.size()];
+        spritesets = enemyMapsprites.toArray(spritesets);
+        return spritesets;
     }
     
     private static int valueOf(String s){
