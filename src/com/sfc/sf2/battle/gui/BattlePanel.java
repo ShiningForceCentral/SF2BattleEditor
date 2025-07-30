@@ -13,7 +13,6 @@ import com.sfc.sf2.battle.Enemy;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.mapsprite.MapSprite;
-import com.sfc.sf2.mapsprite.layout.MapSpriteLayout;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -99,6 +98,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage coordsImage;
     private BufferedImage terrainImage;
     private BufferedImage obstructedImage;
+    private BufferedImage explorationFlagImage;
     private BufferedImage leftUpstairsImage;
     private BufferedImage rightUpstairsImage;
     private BufferedImage spritesImage;
@@ -140,32 +140,12 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         if(redraw){
             MapBlock[] blocks = layout.getBlocks();
             int imageHeight = 64*3*8;
-            Color[] palette = blocks[0].getTiles()[0].getPalette();
-            palette[0] = new Color(255, 255, 255, 0);
-            IndexColorModel icm = buildIndexColorModel(palette);
             currentImage = new BufferedImage(tilesPerRow*8, imageHeight , BufferedImage.TYPE_INT_ARGB);
             Graphics graphics = currentImage.getGraphics();            
             for(int y=0;y<64;y++){
                 for(int x=0;x<64;x++){
                     MapBlock block = blocks[y*64+x];
-                    BufferedImage blockImage = block.getImage();
-                    BufferedImage explorationFlagImage = block.getExplorationFlagImage();
-                    BufferedImage interactionFlagImage = block.getInteractionFlagImage();
-                    if(blockImage==null){
-                        blockImage = new BufferedImage(3*8, 3*8 , BufferedImage.TYPE_BYTE_INDEXED, icm);
-                        Graphics blockGraphics = blockImage.getGraphics();                    
-                        blockGraphics.drawImage(block.getTiles()[0].getImage(), 0*8, 0*8, null);
-                        blockGraphics.drawImage(block.getTiles()[1].getImage(), 1*8, 0*8, null);
-                        blockGraphics.drawImage(block.getTiles()[2].getImage(), 2*8, 0*8, null);
-                        blockGraphics.drawImage(block.getTiles()[3].getImage(), 0*8, 1*8, null);
-                        blockGraphics.drawImage(block.getTiles()[4].getImage(), 1*8, 1*8, null);
-                        blockGraphics.drawImage(block.getTiles()[5].getImage(), 2*8, 1*8, null);
-                        blockGraphics.drawImage(block.getTiles()[6].getImage(), 0*8, 2*8, null);
-                        blockGraphics.drawImage(block.getTiles()[7].getImage(), 1*8, 2*8, null);
-                        blockGraphics.drawImage(block.getTiles()[8].getImage(), 2*8, 2*8, null);
-                        block.setImage(blockImage);
-                    }
-                    graphics.drawImage(blockImage, x*3*8, y*3*8, null);
+                    graphics.drawImage(block.getIndexedColorImage(), x*3*8, y*3*8, null);
                     if(drawExplorationFlags){
                         int explorationFlags = block.getFlags()&0xC000;
                         if(explorationFlagImage==null){
@@ -323,7 +303,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                     g2.drawString(String.valueOf(id), targetX, targetY+16);
                 }else{
                     if(mapspriteImages[id] == null){
-                        mapspriteImages[id] = MapSpriteLayout.buildImage(sprite.getTiles(), 6).getSubimage(0, 0, 3*8, 3*8);
+                        mapspriteImages[id] = sprite.getIndexedColorImage().getSubimage(0, 0, 3*8, 3*8);
                     }
                     g2.drawImage(mapspriteImages[id], targetX, targetY, null);
                 } 

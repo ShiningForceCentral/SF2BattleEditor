@@ -21,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +42,9 @@ public class DisassemblyManager {
     private static final String MACRO_ENEMY_LINE2 = "combatantAiAndItem";
     private static final String MACRO_ENEMY_LINE3 = "combatantBehavior";
     
-    private static String header;
+    private String header;
     
-    public static SpriteSet importSpriteset(String spritesetPath, EnemyData[] enemyData, EnemyEnums enemyEnums){
+    public SpriteSet importSpriteset(String spritesetPath, EnemyData[] enemyData, EnemyEnums enemyEnums){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
         SpriteSet spriteset = null;
         if(spritesetPath.endsWith(".asm")){
@@ -57,7 +56,7 @@ public class DisassemblyManager {
         return spriteset;
     }    
 
-    public static SpriteSet importSpritesetAsm(String spritesetPath, EnemyData[] enemyData, EnemyEnums enemyEnums){
+    public SpriteSet importSpritesetAsm(String spritesetPath, EnemyData[] enemyData, EnemyEnums enemyEnums){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
         SpriteSet spriteset = new SpriteSet();
         
@@ -260,7 +259,7 @@ public class DisassemblyManager {
         return spriteset;
     }
 
-    public static SpriteSet importSpritesetBin(String spritesetPath, EnemyData[] enemyData, EnemyEnums enemyEnums){
+    public SpriteSet importSpritesetBin(String spritesetPath, EnemyData[] enemyData, EnemyEnums enemyEnums){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importAreas() - Importing disassembly ...");
         SpriteSet spriteset = new SpriteSet();
         try {
@@ -354,7 +353,129 @@ public class DisassemblyManager {
         return s;
     }
     
-    public static void exportSpriteSet(SpriteSet spriteset, String spritesetPath, EnemyEnums enemyEnums){
+    public String[][] importMapEntryFile(String basePath, String mapEntriesFilePath){
+        String[][] entries = null;
+        List<String> tilesetsPaths = new ArrayList();
+        List<String> blocksPaths = new ArrayList();
+        List<String> layoutPaths = new ArrayList();
+        try{
+            File entryFile = new File(mapEntriesFilePath);
+            Scanner scan = new Scanner(entryFile);
+            while(scan.hasNext()){
+                String line = scan.nextLine();
+                if(line.contains("pt_MapData:")){
+                    System.out.println("pt_MapData found");
+                    while(scan.hasNext()&&line.contains("dc.l")){
+                        String mapPointer = line.substring(line.indexOf("dc.l")+5).trim();
+                        System.out.println(mapPointer+" : ");
+                        Scanner mapScan = new Scanner(entryFile);
+                        while(mapScan.hasNext()){
+                            String mapline = mapScan.nextLine();
+                            if(mapline.startsWith(mapPointer)){
+                                while(mapScan.hasNext()&&!mapline.contains("include")){
+                                    mapline = mapScan.nextLine();
+                                }
+                                String tilesetsPath = mapline.substring(mapline.indexOf("\"")+1, mapline.lastIndexOf("\""));
+                                System.out.println("  tilesetsPath : "+tilesetsPath);
+                                tilesetsPaths.add(tilesetsPath);
+                                mapline = mapScan.nextLine();
+                                while(mapScan.hasNext()&&!mapline.contains("dc.l")){
+                                    mapline = mapScan.nextLine();
+                                }
+                                String blocksPointer = mapline.substring(mapline.indexOf("dc.l")+5).trim();
+                                Scanner blocksScan = new Scanner(entryFile);
+                                while(blocksScan.hasNext()){
+                                    String blocksLine = blocksScan.nextLine();
+                                    if(blocksLine.startsWith(blocksPointer)){
+                                        while(blocksScan.hasNext()&&!blocksLine.contains("incbin")){
+                                            blocksLine = blocksScan.nextLine();
+                                        }
+                                        String blocksPath = blocksLine.substring(blocksLine.indexOf("\"")+1, blocksLine.lastIndexOf("\""));
+                                        System.out.println("  blocksPath : "+blocksPath);                                        
+                                        blocksPaths.add(blocksPath);
+                                        break;
+                                    }
+                                }
+                                mapline = mapScan.nextLine();
+                                while(mapScan.hasNext()&&!mapline.contains("dc.l")){
+                                    mapline = mapScan.nextLine();
+                                }
+                                String layoutPointer = mapline.substring(mapline.indexOf("dc.l")+5).trim();
+                                Scanner layoutsScan = new Scanner(entryFile);
+                                while(layoutsScan.hasNext()){
+                                    String layoutLine = layoutsScan.nextLine();
+                                    if(layoutLine.startsWith(layoutPointer)){
+                                        while(layoutsScan.hasNext()&&!layoutLine.contains("incbin")){
+                                            layoutLine = layoutsScan.nextLine();
+                                        }
+                                        String layoutPath = layoutLine.substring(layoutLine.indexOf("\"")+1, layoutLine.lastIndexOf("\""));
+                                        System.out.println("  layoutPath : "+layoutPath); 
+                                        layoutPaths.add(layoutPath);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        line = scan.nextLine();
+                    }
+                    break;
+                }
+            }         
+            entries = new String[tilesetsPaths.size()][];
+            for(int i=0;i<entries.length;i++){
+                entries[i] = new String[3];
+                entries[i][0] = basePath + tilesetsPaths.get(i);
+                entries[i][1] = basePath + blocksPaths.get(i);
+                entries[i][2] = basePath + layoutPaths.get(i);
+                System.out.println(entries[i][0]+" / "+entries[i][1]+" / "+entries[i][2]);
+            }
+        }catch(Exception e){
+             System.err.println("com.sfc.sf2.battle.DisassemblyManager.importMapEntryFile() - Error while parsing map entries data : "+e);
+        }         
+        return entries;
+    }
+    
+    public String[] importSpritesetEntriesFile(String spritesetEntriesFilePath) {
+        String[] entries = null;
+        try {
+            List<Integer> entriesIndices = new ArrayList<>();
+            String[] paths = null;
+            File entryFile = new File(spritesetEntriesFilePath);
+            Scanner scan = new Scanner(entryFile);
+            while (scan.hasNext()) {
+                String line = scan.nextLine();
+                if (line.startsWith("pt_BattleSpritesets")) {
+                    line = scan.nextLine().trim();
+                    while (line.startsWith("dc.l")) {
+                        entriesIndices.add(Integer.valueOf(line.replaceAll("[^0-9]", "")));
+                        line = scan.nextLine().trim();
+                    }
+                    paths = new String[entriesIndices.size()];
+                    do {
+                        int commentIndex = line.lastIndexOf(";");
+                        if (commentIndex > -1) {
+                            line = line.substring(0, commentIndex).trim();
+                        }
+                        int index = Integer.parseInt(line.substring(line.lastIndexOf("\\")+1).replaceAll("[^0-9]", ""));
+                        String path = line.substring(line.indexOf("include")+8).replaceAll("\"", "");
+                        paths[index] = path;
+                        line = scan.hasNext() ? scan.nextLine().trim() : "";
+                    } while(scan.hasNext() && line.startsWith("include"));
+                }
+            }
+            
+            entries = new String[entriesIndices.size()];
+            for (int i = 0; i < entries.length; i++) {
+                entries[i] = paths[entriesIndices.get(i)];
+            }
+        }catch(Exception e){
+             System.err.println("com.sfc.sf2.battlemapterrain.io.DisassemblyManager.importSpritesetEntriesFile() - Error while parsing map entries data : "+e);
+        }         
+        return entries;
+    }
+    
+    public void exportSpriteSet(SpriteSet spriteset, String spritesetPath, EnemyEnums enemyEnums){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.exportSpriteSet() - Exporting disassembly ...");
         try { 
             if(spritesetPath.endsWith(".asm")){
@@ -378,7 +499,7 @@ public class DisassemblyManager {
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.exportSpriteSet() - Disassembly exported.");         
     }
     
-    private static String produceSpriteSetAsm(SpriteSet spriteset, EnemyEnums enemyEnums){
+    private String produceSpriteSetAsm(SpriteSet spriteset, EnemyEnums enemyEnums){
                 
         Ally[] allies = spriteset.getAllies();
         Enemy[] enemies = spriteset.getEnemies();
@@ -454,7 +575,7 @@ public class DisassemblyManager {
     }
     
     //Lagacy? Do spritesets need binary format anymore?
-    private static byte[] produceSpriteSetBin(SpriteSet spriteset, EnemyEnums enemyEnums){
+    private byte[] produceSpriteSetBin(SpriteSet spriteset, EnemyEnums enemyEnums){
         Ally[] allies = spriteset.getAllies();
         Enemy[] enemies = spriteset.getEnemies();
         AIRegion[] aiRegions = spriteset.getAiRegions();
@@ -518,7 +639,7 @@ public class DisassemblyManager {
         return spritesetBytes;
     }
     
-    public static EnemyData[] importEnemyData(EnemyEnums enemyEnums, MapSprite[] mapsprites, String mapspriteEnumPath){
+    public EnemyData[] importEnemyData(EnemyEnums enemyEnums, MapSprite[] mapsprites, String mapspriteEnumPath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyData() - Importing disassembly ...");
         List<EnemyData> enemyDataList = new ArrayList(enemyEnums.getEnemies().size());
             
@@ -575,7 +696,7 @@ public class DisassemblyManager {
         return enemyData;
     }
     
-    public static EnemyEnums importEnemyEnums(String mapspriteEnumPath){
+    public EnemyEnums importEnemyEnums(String mapspriteEnumPath){
         System.out.println("com.sfc.sf2.battle.io.DisassemblyManager.importEnemyEnums() - Importing disassembly ...");
         LinkedHashMap<String, Integer> enemies = new LinkedHashMap<>();
         LinkedHashMap<String, Integer> items = new LinkedHashMap<>();
@@ -714,7 +835,7 @@ public class DisassemblyManager {
         return enemyEnums;
     }
     
-    private static int valueOf(String s){
+    private int valueOf(String s){
         s = s.trim();
         if (s.startsWith("equ"))
             s = s.substring(3).trim();
