@@ -7,6 +7,7 @@ package com.sfc.sf2.battle.gui;
 
 import com.sfc.sf2.battle.AIRegion;
 import com.sfc.sf2.battle.Battle;
+import com.sfc.sf2.battle.layout.BattleLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -20,12 +21,12 @@ public class AIRegionPropertiesTableModel extends AbstractTableModel {
     private final Integer[][] tableData;
     private final String[] columns = {"Type", "X1", "Y1", "X2", "Y2", "X3", "Y3", "X4", "Y4"};
     private Battle battle;
-    private BattlePanel battlePanel;
+    private BattleLayout battleLayout;
     
-    public AIRegionPropertiesTableModel(Battle battle, BattlePanel battlePanel) {
+    public AIRegionPropertiesTableModel(Battle battle, BattleLayout battleLayout) {
         super();
         this.battle = battle;
-        this.battlePanel = battlePanel;
+        this.battleLayout = battleLayout;
         tableData = new Integer[16][];
         int i = 0;
         AIRegion[] regions = battle.getSpriteset().getAiRegions();
@@ -88,9 +89,9 @@ public class AIRegionPropertiesTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int row, int col) {
         tableData[row][col] = (Integer)value;
         updateProperties();
-        //battlePanel.updateAIRegionDisplay();
-        battlePanel.revalidate();
-        battlePanel.repaint();
+        //battleLayout.updateAIRegionDisplay();
+        battleLayout.revalidate();
+        battleLayout.repaint();
     }    
  
     @Override

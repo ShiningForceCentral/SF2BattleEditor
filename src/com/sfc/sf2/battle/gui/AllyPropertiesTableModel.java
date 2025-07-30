@@ -7,6 +7,7 @@ package com.sfc.sf2.battle.gui;
 
 import com.sfc.sf2.battle.Ally;
 import com.sfc.sf2.battle.Battle;
+import com.sfc.sf2.battle.layout.BattleLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -20,12 +21,12 @@ public class AllyPropertiesTableModel extends AbstractTableModel {
     private Integer[][] tableData;
     private final String[] columns = {"Index", "X", "Y"};
     private Battle battle;
-    private BattlePanel battlePanel;
+    private BattleLayout battleLayout;
     
-    public AllyPropertiesTableModel(Battle battle, BattlePanel battlePanel) {
+    public AllyPropertiesTableModel(Battle battle, BattleLayout battleLayout) {
         super();
         this.battle = battle;
-        this.battlePanel = battlePanel;
+        this.battleLayout = battleLayout;
         Ally[] allies = battle.getSpriteset().getAllies();
         tableData = new Integer[allies.length][];
         int i = 0;
@@ -73,9 +74,9 @@ public class AllyPropertiesTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int row, int col) {
         tableData[row][col] = (Integer)value;
         updateProperties();
-        battlePanel.updateSpriteDisplay();
-        battlePanel.revalidate();
-        battlePanel.repaint();
+        battleLayout.updateSpriteDisplay();
+        battleLayout.revalidate();
+        battleLayout.repaint();
     }    
  
     @Override
@@ -95,9 +96,9 @@ public class AllyPropertiesTableModel extends AbstractTableModel {
             newTable[newTable.length-1][2] = 0;
             tableData = newTable;
             updateProperties();
-            battlePanel.updateSpriteDisplay();
-            battlePanel.revalidate();
-            battlePanel.repaint();
+            battleLayout.updateSpriteDisplay();
+            battleLayout.revalidate();
+            battleLayout.repaint();
         }
     }
     
@@ -109,9 +110,9 @@ public class AllyPropertiesTableModel extends AbstractTableModel {
             }
             tableData = newTable;
             updateProperties();
-            battlePanel.updateSpriteDisplay();
-            battlePanel.revalidate();
-            battlePanel.repaint();
+            battleLayout.updateSpriteDisplay();
+            battleLayout.revalidate();
+            battleLayout.repaint();
         }
     }
     

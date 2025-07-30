@@ -7,6 +7,7 @@ package com.sfc.sf2.battle.gui;
 
 import com.sfc.sf2.battle.AIPoint;
 import com.sfc.sf2.battle.Battle;
+import com.sfc.sf2.battle.layout.BattleLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -20,12 +21,12 @@ public class AIPointPropertiesTableModel extends AbstractTableModel {
     private final Integer[][] tableData;
     private final String[] columns = {"X", "Y"};
     private Battle battle;
-    private BattlePanel battlePanel;
+    private BattleLayout battleLayout;
     
-    public AIPointPropertiesTableModel(Battle battle, BattlePanel battlePanel) {
+    public AIPointPropertiesTableModel(Battle battle, BattleLayout battleLayout) {
         super();
         this.battle = battle;
-        this.battlePanel = battlePanel;
+        this.battleLayout = battleLayout;
         tableData = new Integer[64][];
         int i = 0;
         AIPoint[] points = battle.getSpriteset().getAiPoints();
@@ -70,9 +71,9 @@ public class AIPointPropertiesTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int row, int col) {
         tableData[row][col] = (Integer)value;
         updateProperties();
-        //battlePanel.updateAIPointDisplay();
-        battlePanel.revalidate();
-        battlePanel.repaint();
+        //battleLayout.updateAIPointDisplay();
+        battleLayout.revalidate();
+        battleLayout.repaint();
     }    
  
     @Override

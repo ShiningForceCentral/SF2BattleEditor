@@ -5,11 +5,12 @@
  */
 package com.sfc.sf2.battle.gui;
 
-import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.BattleManager;
 import com.sfc.sf2.battle.Enemy;
 import com.sfc.sf2.battle.EnemyData;
 import com.sfc.sf2.battle.EnemyEnums;
+import com.sfc.sf2.battle.layout.BattleLayout;
+import com.sfc.sf2.battle.mapcoords.BattleMapCoords;
 import com.sfc.sf2.map.layout.DisassemblyException;
 import com.sfc.sf2.map.layout.MapLayoutManager;
 import java.awt.GridLayout;
@@ -36,8 +37,7 @@ public class MainEditor extends javax.swing.JFrame {
     //private static final String PATH_TEST_PREFIX = "C:\\SEGADEV\\GITHUB\\SF2DISASM\\disasm\\data\\battles\\";
     
     BattleManager battleManager = new BattleManager();
-    Battle battle = null;
-    BattlePanel battlePanel = null;
+    BattleLayout battleLayout = new BattleLayout();
     AllyPropertiesTableModel allyTableModel;
     EnemyPropertiesTableModel enemyTableModel;
     AIRegionPropertiesTableModel aiRegionTableModel;
@@ -58,6 +58,10 @@ public class MainEditor extends javax.swing.JFrame {
             jFileChooser1.setCurrentDirectory(workingDirectory);
             jFileChooser2.setCurrentDirectory(workingDirectory);
             jTextArea2.setCaretPosition(0);
+            
+            jPanel2.removeAll();
+            jPanel2.setLayout(new GridLayout(1,1));
+            jPanel2.add(battleLayout);
         } catch (URISyntaxException ex) {
             Logger.getLogger(MainEditor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1747,35 +1751,25 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        if(jComboBox1.getSelectedIndex()>=0 && battlePanel!=null){
-            battlePanel.setCurrentDisplaySize(jComboBox1.getSelectedIndex()+1);
-            jPanel2.revalidate();
-            jPanel2.repaint();  
+        if(jComboBox1.getSelectedIndex()>=0){
+            battleLayout.setCurrentDisplaySize(jComboBox1.getSelectedIndex()+1);
+            repaintLayout();
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if(battlePanel!=null){
-            battlePanel.setDrawExplorationFlags(jCheckBox1.isSelected());
-            jPanel2.revalidate();
-            jPanel2.repaint();
-        }
+        battleLayout.setDrawExplorationFlags(jCheckBox1.isSelected());
+        repaintLayout();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        if(battlePanel!=null){
-            battlePanel.setDrawGrid(jCheckBox2.isSelected());
-            jPanel2.revalidate();
-            jPanel2.repaint();
-        }
+        battleLayout.setShowGrid(jCheckBox2.isSelected());
+        repaintLayout();
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        if(battlePanel!=null){
-            battlePanel.setDrawTerrain(jCheckBox3.isSelected());
-            jPanel2.revalidate();
-            jPanel2.repaint();
-        }
+        battleLayout.setDrawTerrain(jCheckBox3.isSelected());
+        repaintLayout();
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
@@ -1820,57 +1814,21 @@ public class MainEditor extends javax.swing.JFrame {
         battleManager.importMapCoordsDisassembly(incbinPath, mapEntriesPath, mapCoordsPath, battleIndex);
         battleManager.importSpritesDataDisassembly(incbinPath, basePalettePath, mapspriteEntriesPath, mapspriteEnumPath, battleIndex, spritesetEntriesPath);
         battleManager.importTerrainDisassembly(mapPalettesPath, mapTilesetsPath, incbinPath, mapEntriesPath, terrainEntriesPath, mapCoordsPath, battleIndex);
-
-        battle = battleManager.getBattle();
         
-        String[][] mapEntries = battleManager.getMapEntries();
-        int mapIndex = battle.getMapCoords().getMap();
+        updateInterface();
         
-        final MapLayoutManager mapLayoutManager = new MapLayoutManager();
-        try {
-            mapLayoutManager.importDisassembly(PATH_TEST_PREFIX+jTextField21.getText(), PATH_TEST_PREFIX+jTextField22.getText(), mapEntries[mapIndex][0], mapEntries[mapIndex][1], mapEntries[mapIndex][2]);
-        } catch (DisassemblyException ex) {
-            Logger.getLogger(MainEditor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        jPanel2.removeAll();       
-        jPanel2.setLayout(new GridLayout(1,1));        
-
-        jPanel2.removeAll();
-        jPanel2.setLayout(new GridLayout(1,1));
-        battlePanel = new BattlePanel();
-        battlePanel.setBattle(battle);
-        battlePanel.setMapLayout(mapLayoutManager.getLayout());
-        battlePanel.setBlockset(mapLayoutManager.getBlockset());
-        battlePanel.setDrawExplorationFlags(jCheckBox1.isSelected());
-        battlePanel.setDrawGrid(jCheckBox2.isSelected());
-        battlePanel.setDrawTerrain(jCheckBox3.isSelected());
-        battlePanel.setDrawSprites(jCheckBox4.isSelected());
-        battlePanel.setCurrentDisplaySize(jComboBox1.getSelectedIndex()+1);
-        jPanel2.add(battlePanel);
-        jPanel2.setSize(battlePanel.getWidth(), battlePanel.getHeight());
-        jPanel2.revalidate();
-        jPanel2.repaint();
-        
-        jSpinner1.setValue(battle.getMapCoords().getMap());
-        jSpinner2.setValue(battle.getMapCoords().getX());
-        jSpinner3.setValue(battle.getMapCoords().getY());
-        jSpinner5.setValue(battle.getMapCoords().getWidth());
-        jSpinner6.setValue(battle.getMapCoords().getHeight());
-        jSpinner7.setValue(battle.getMapCoords().getTrigX());
-        jSpinner8.setValue(battle.getMapCoords().getTrigY());
-        
-        allyTableModel = new AllyPropertiesTableModel(battle, battlePanel);
+        allyTableModel = new AllyPropertiesTableModel(battleManager.getBattle(), battleLayout);
         jTable2.setModel(allyTableModel);
         jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
-                battlePanel.setCurrentMode(BattlePanel.MODE_SPRITE);
-                battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_ALLY);
+                battleLayout.setCurrentMode(BattleLayout.MODE_SPRITE);
+                battleLayout.setCurrentSpritesetMode(BattleLayout.SPRITESETMODE_ALLY);
                 if(selectedRow!=jTable2.getSelectedRow()){
                     selectedRow = jTable2.getSelectedRow();
-                    battlePanel.setSelectedAlly(selectedRow);
-                    battlePanel.updateSpriteDisplay();
+                    battleLayout.setSelectedAlly(selectedRow);
+                    battleLayout.updateSpriteDisplay();
                     jPanel2.revalidate();
                     jPanel2.repaint();
                 }
@@ -1879,42 +1837,42 @@ public class MainEditor extends javax.swing.JFrame {
         
         EnemyData[] enemyData = battleManager.getEnemyData();
         
-        battlePanel.setAlliesTable(allyTableModel);
+        battleLayout.setAlliesTable(allyTableModel);
         jPanel21.validate();
         jPanel21.repaint();
-        enemyTableModel = new EnemyPropertiesTableModel(battle, battlePanel, enemyData);
+        enemyTableModel = new EnemyPropertiesTableModel(battleManager.getBattle(), battleLayout, enemyData);
         jTable3.setModel(enemyTableModel);
         jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
-                battlePanel.setCurrentMode(BattlePanel.MODE_SPRITE);
-                battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_ENEMY);
+                battleLayout.setCurrentMode(BattleLayout.MODE_SPRITE);
+                battleLayout.setCurrentSpritesetMode(BattleLayout.SPRITESETMODE_ENEMY);
                 if(selectedRow!=jTable3.getSelectedRow()){
                     selectedRow = jTable3.getSelectedRow();
-                    battlePanel.setSelectedEnemy(selectedRow);
+                    battleLayout.setSelectedEnemy(selectedRow);
                     UpdateEnemyControls(selectedRow);
-                    battlePanel.updateSpriteDisplay();
+                    battleLayout.updateSpriteDisplay();
                     jPanel2.revalidate();
                     jPanel2.repaint();
                 }
             }
         });  
-        battlePanel.setEnemiesTable(enemyTableModel);
+        battleLayout.setEnemiesTable(enemyTableModel);
         jPanel24.validate();
         jPanel24.repaint();
-        aiRegionTableModel = new AIRegionPropertiesTableModel(battle, battlePanel);
+        aiRegionTableModel = new AIRegionPropertiesTableModel(battleManager.getBattle(), battleLayout);
         jTable4.setModel(aiRegionTableModel);
         jTable4.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
-                battlePanel.setCurrentMode(BattlePanel.MODE_SPRITE);
-                battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_AIREGION);
+                battleLayout.setCurrentMode(BattleLayout.MODE_SPRITE);
+                battleLayout.setCurrentSpritesetMode(BattleLayout.SPRITESETMODE_AIREGION);
                 if(selectedRow!=jTable4.getSelectedRow()){
                     selectedRow = jTable4.getSelectedRow();
-                    battlePanel.setSelectedAIRegion(selectedRow);
-                    battlePanel.updateAIRegionDisplay();
+                    battleLayout.setSelectedAIRegion(selectedRow);
+                    battleLayout.updateAIRegionDisplay();
                     jPanel2.revalidate();
                     jPanel2.repaint();
                 }
@@ -1922,18 +1880,18 @@ public class MainEditor extends javax.swing.JFrame {
         });  
         jPanel25.validate();
         jPanel25.repaint();
-        aiPointTableModel = new AIPointPropertiesTableModel(battle, battlePanel);
+        aiPointTableModel = new AIPointPropertiesTableModel(battleManager.getBattle(), battleLayout);
         jTable9.setModel(aiPointTableModel);
         jTable9.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             private int selectedRow = -1;
             @Override
             public void valueChanged(ListSelectionEvent event) {
-                battlePanel.setCurrentMode(BattlePanel.MODE_SPRITE);
-                battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_AIPOINT);
+                battleLayout.setCurrentMode(BattleLayout.MODE_SPRITE);
+                battleLayout.setCurrentSpritesetMode(BattleLayout.SPRITESETMODE_AIPOINT);
                 if(selectedRow!=jTable9.getSelectedRow()){
                     selectedRow = jTable9.getSelectedRow();
-                    battlePanel.setSelectedAIPoint(selectedRow);
-                    battlePanel.updateAIPointDisplay();
+                    battleLayout.setSelectedAIPoint(selectedRow);
+                    battleLayout.updateAIPointDisplay();
                     jPanel2.revalidate();
                     jPanel2.repaint();
                 }
@@ -1941,7 +1899,7 @@ public class MainEditor extends javax.swing.JFrame {
         });  
         jPanel26.validate();
         jPanel26.repaint();
-        battlePanel.setTitledPanel(jPanel1);
+        battleLayout.setTitledPanel(jPanel1);
         
         EnemyEnums enemyEnums = battleManager.getEnemyEnums();
         jComboBox_Name.setModel(new DefaultComboBoxModel<>(enemyEnums.getEnemies().keySet().toArray(new String[enemyEnums.getEnemies().size()])));
@@ -1973,7 +1931,7 @@ public class MainEditor extends javax.swing.JFrame {
         jTextField_ItemFlags.setEnabled(enabled);
               
         if (selectedRow != -1){
-            Enemy enemy = (selectedRow == -1) ? null : battle.getSpriteset().getEnemies()[selectedRow];
+            Enemy enemy = (selectedRow == -1) ? null : battleManager.getBattle().getSpriteset().getEnemies()[selectedRow];
             if (enemy != null) {
                 jComboBox_Name.setSelectedItem(enemy.getEnemyData().getName());
                 jSpinner_X.setValue(enemy.getX());
@@ -2143,8 +2101,8 @@ public class MainEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton27ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        if(battlePanel!=null){
-            battlePanel.setDrawSprites(jCheckBox4.isSelected());
+        if(battleLayout!=null){
+            battleLayout.setDrawSprites(jCheckBox4.isSelected());
             jPanel2.revalidate();
             jPanel2.repaint();
         }
@@ -2152,7 +2110,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
         int newMapIndex = (int)jSpinner1.getModel().getValue();
-        battle.getMapCoords().setMap(newMapIndex);
+        battleManager.getBattleCoords().setMap(newMapIndex);
         String[][] mapEntries = battleManager.getMapEntries();
         final MapLayoutManager mapLayoutManager = new MapLayoutManager();
         try {     
@@ -2160,53 +2118,47 @@ public class MainEditor extends javax.swing.JFrame {
         } catch (DisassemblyException ex) {
             Logger.getLogger(MainEditor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        battlePanel.setMapLayout(mapLayoutManager.getLayout());
-        battlePanel.setBlockset(mapLayoutManager.getBlockset());
-        battlePanel.setRedraw(true);
-        jPanel2.revalidate();
-        jPanel2.repaint();        
+        battleLayout.setMapLayout(mapLayoutManager.getLayout());
+        battleLayout.setBlockset(mapLayoutManager.getBlockset());
+        battleLayout.updateBattleDisplay();
+        repaintLayout();
     }//GEN-LAST:event_jSpinner1StateChanged
 
     private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner2StateChanged
-        battle.getMapCoords().setX((int)jSpinner2.getModel().getValue());
-        battlePanel.updateCoordsDisplay();
-        jPanel2.revalidate();
-        jPanel2.repaint();       
+        battleManager.getBattleCoords().setX((int)jSpinner2.getModel().getValue());
+        battleLayout.updateCoordsDisplay();
+        repaintLayout();  
     }//GEN-LAST:event_jSpinner2StateChanged
 
     private void jSpinner3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner3StateChanged
-        battle.getMapCoords().setY((int)jSpinner3.getModel().getValue());
-        battlePanel.updateCoordsDisplay();
-        jPanel2.revalidate();
-        jPanel2.repaint();       
+        battleManager.getBattleCoords().setY((int)jSpinner3.getModel().getValue());
+        battleLayout.updateCoordsDisplay();
+        repaintLayout();
     }//GEN-LAST:event_jSpinner3StateChanged
 
     private void jSpinner5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner5StateChanged
-        battle.getMapCoords().setWidth((int)jSpinner5.getModel().getValue());
-        battlePanel.updateCoordsDisplay();
+        battleManager.getBattleCoords().setWidth((int)jSpinner5.getModel().getValue());
+        battleLayout.updateCoordsDisplay();
         jPanel2.revalidate();
         jPanel2.repaint();       
     }//GEN-LAST:event_jSpinner5StateChanged
 
     private void jSpinner6StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner6StateChanged
-        battle.getMapCoords().setHeight((int)jSpinner6.getModel().getValue());
-        battlePanel.updateCoordsDisplay();
-        jPanel2.revalidate();
-        jPanel2.repaint();       
+        battleManager.getBattleCoords().setHeight((int)jSpinner6.getModel().getValue());
+        battleLayout.updateCoordsDisplay();
+        repaintLayout(); 
     }//GEN-LAST:event_jSpinner6StateChanged
 
     private void jSpinner7StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner7StateChanged
-        battle.getMapCoords().setTrigX((int)jSpinner7.getModel().getValue());
-        battlePanel.updateCoordsDisplay();
-        jPanel2.revalidate();
-        jPanel2.repaint();       
+        battleManager.getBattleCoords().setTrigX((int)jSpinner7.getModel().getValue());
+        battleLayout.updateCoordsDisplay();
+        repaintLayout();   
     }//GEN-LAST:event_jSpinner7StateChanged
 
     private void jSpinner8StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner8StateChanged
-        battle.getMapCoords().setTrigY((int)jSpinner8.getModel().getValue());
-        battlePanel.updateCoordsDisplay();
-        jPanel2.revalidate();
-        jPanel2.repaint();       
+        battleManager.getBattleCoords().setTrigY((int)jSpinner8.getModel().getValue());
+        battleLayout.updateCoordsDisplay();
+        repaintLayout();  
     }//GEN-LAST:event_jSpinner8StateChanged
 
     private void jTabbedPane2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane2FocusGained
@@ -2215,16 +2167,16 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jTabbedPane2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane2StateChanged
         int index = jTabbedPane2.getSelectedIndex();
-        if(battlePanel!=null){
+        if(battleLayout!=null){
             switch(index){
                 case 0:
-                    battlePanel.setCurrentMode(BattlePanel.MODE_NONE);
+                    battleLayout.setCurrentMode(BattleLayout.MODE_NONE);
                     break;
                 case 1:
-                    battlePanel.setCurrentMode(BattlePanel.MODE_TERRAIN);
+                    battleLayout.setCurrentMode(BattleLayout.MODE_TERRAIN);
                     break;
                 case 2:
-                    battlePanel.setCurrentMode(BattlePanel.MODE_SPRITE);
+                    battleLayout.setCurrentMode(BattleLayout.MODE_SPRITE);
                     break;
             }
         }
@@ -2248,19 +2200,19 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jTabbedPane3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane3StateChanged
         int index = jTabbedPane3.getSelectedIndex();
-        if(battlePanel!=null){
+        if(battleLayout!=null){
             switch(index){
                 case 0:
-                    battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_ALLY);
+                    battleLayout.setCurrentSpritesetMode(BattleLayout.SPRITESETMODE_ALLY);
                     break;
                 case 1:
-                    battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_ENEMY);
+                    battleLayout.setCurrentSpritesetMode(BattleLayout.SPRITESETMODE_ENEMY);
                     break;
                 case 2:
-                    battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_AIREGION);
+                    battleLayout.setCurrentSpritesetMode(BattleLayout.SPRITESETMODE_AIREGION);
                     break;
                 case 3:
-                    battlePanel.setCurrentSpritesetMode(BattlePanel.SPRITESETMODE_AIPOINT);
+                    battleLayout.setCurrentSpritesetMode(BattleLayout.SPRITESETMODE_AIPOINT);
                     break;
             }
         }
@@ -2320,7 +2272,7 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void jSpinner9StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner9StateChanged
         int newApplicableTerrainValue = (int)jSpinner9.getModel().getValue();
-        battlePanel.setApplicableTerrainValue(newApplicableTerrainValue);
+        battleLayout.setApplicableTerrainValue(newApplicableTerrainValue);
     }//GEN-LAST:event_jSpinner9StateChanged
 
     private void jSpinner_OrderTarget1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner_OrderTarget1StateChanged
@@ -2384,6 +2336,37 @@ public class MainEditor extends javax.swing.JFrame {
 
     private void OnEnemyOrderChanged(String order, int target, boolean order1){
         OnEnemyDataChanged(order+"|"+target, order1 ? 5 : 7);
+    }
+    
+    private void updateInterface() {
+        battleLayout.setBattle(battleManager.getBattle());
+        battleLayout.setTerrain(battleManager.getBattle().getTerrain());
+        battleLayout.setCoords(battleManager.getBattleCoords());
+        battleLayout.setMapLayout(battleManager.getMapLayout());
+        battleLayout.setBlockset(battleManager.getMapLayout().getBlocks());
+        
+        battleLayout.setDrawTerrain(jCheckBox3.isSelected());
+        battleLayout.setDrawSprites(jCheckBox4.isSelected());        
+        battleLayout.setCurrentDisplaySize(jComboBox1.getSelectedIndex()+1);
+        battleLayout.setDrawExplorationFlags(jCheckBox1.isSelected());
+        battleLayout.setShowGrid(jCheckBox2.isSelected());
+        battleLayout.setDrawTerrain(jCheckBox3.isSelected());
+        
+        BattleMapCoords coords = battleManager.getBattleCoords();
+        jSpinner1.setValue(coords.getMap());
+        jSpinner2.setValue(coords.getX());
+        jSpinner3.setValue(coords.getY());
+        jSpinner5.setValue(coords.getWidth());
+        jSpinner6.setValue(coords.getHeight());
+        jSpinner7.setValue(coords.getTrigX());
+        jSpinner8.setValue(coords.getTrigY());
+        
+        repaintLayout();
+    }
+    
+    private void repaintLayout() {
+        jPanel2.revalidate();
+        jPanel2.repaint();
     }
     
     /**

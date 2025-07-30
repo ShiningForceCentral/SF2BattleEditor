@@ -5,6 +5,7 @@
  */
 package com.sfc.sf2.battle;
 
+import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.battle.io.DisassemblyManager;
 import com.sfc.sf2.battle.mapcoords.BattleMapCoords;
 import com.sfc.sf2.battle.mapcoords.BattleMapCoordsManager;
@@ -88,6 +89,14 @@ public class BattleManager {
 
     public void setBattle(Battle battle) {
         this.battle = battle;
+    }
+
+    public BattleMapCoords getBattleCoords() {
+        return this.battle.getMapCoords();
+    }
+
+    public MapLayout getMapLayout() {
+        return mapTerrainManager.getMapLayout();
     }
 
     public EnemyData[] getEnemyData() {

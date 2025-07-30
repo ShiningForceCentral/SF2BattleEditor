@@ -3,28 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sfc.sf2.battle.gui;
+package com.sfc.sf2.battle.layout;
 
 import com.sfc.sf2.battle.AIPoint;
 import com.sfc.sf2.battle.AIRegion;
 import com.sfc.sf2.battle.Ally;
 import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.Enemy;
+import com.sfc.sf2.battle.gui.AllyPropertiesTableModel;
+import com.sfc.sf2.battle.gui.EnemyPropertiesTableModel;
+import com.sfc.sf2.battle.mapterrain.layout.BattleMapTerrainLayout;
 import com.sfc.sf2.map.block.MapBlock;
 import com.sfc.sf2.map.layout.MapLayout;
 import com.sfc.sf2.mapsprite.MapSprite;
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.IndexColorModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -34,226 +32,74 @@ import javax.swing.border.TitledBorder;
  *
  * @author wiz
  */
-public class BattlePanel extends JPanel implements MouseListener, MouseMotionListener {
-    
-    private static final int DEFAULT_TILES_PER_ROW = 64*3;
-    
-    private static final int ACTION_CHANGE_BLOCK_VALUE = 0;
-    private static final int ACTION_CHANGE_BLOCK_FLAGS = 1;
-    private static final int ACTION_MASS_COPY = 2;
-    
-    int lastMapX = 0;
-    int lastMapY = 0;
-    
-    private int lastMouseX = 0;
-    private int lastMouseY = 0;
-    private int battleCoordsOffsetX = 0;
-    private int battleCoordsOffsetY = 0;    
-    private TitledBorder titledBorder = null;
-    private JPanel titledPanel = null;
-    
-    public static final int MODE_NONE = 0;
-    public static final int MODE_TERRAIN = 1;
-    public static final int MODE_SPRITE = 2;
-    
-    private int currentMode = 0;
+public class BattleLayout extends BattleMapTerrainLayout {
     
     public static final int SPRITESETMODE_ALLY = 0;
     public static final int SPRITESETMODE_ENEMY = 1;
     public static final int SPRITESETMODE_AIREGION = 2;
     public static final int SPRITESETMODE_AIPOINT = 3;
-    private int currentSpritesetMode = 0;
-    private int selectedAlly = -1;
-    private int selectedEnemy = -1;
-    private int selectedAIRegion = -1;
-    private int selectedAIPoint = -1;
     
-    private MapBlock selectedBlock0;
-    MapBlock[][] copiedBlocks;
+    public static final int MODE_NONE = 0;
+    public static final int MODE_TERRAIN = 1;
+    public static final int MODE_SPRITE = 2;
     
-    private List<int[]> actions = new ArrayList<int[]>();
+    protected Battle battle;
     
-    private int tilesPerRow = DEFAULT_TILES_PER_ROW;
-    private Battle battle;
-    private MapLayout layout;
-    private MapBlock[] blockset;
-    private int currentDisplaySize = 1;
+    protected int currentMode = 0;
+    protected int currentSpritesetMode = 0;
+    protected int selectedAlly = -1;
+    protected int selectedEnemy = -1;
+    protected int selectedAIRegion = -1;
+    protected int selectedAIPoint = -1;
+    protected int applicableTerrainValue = -1;
+    private int lastMouseX = 0;
+    private int lastMouseY = 0;
+    private int battleCoordsOffsetX = 0;
+    private int battleCoordsOffsetY = 0;
+    int lastMapX = 0;
+    int lastMapY = 0;
     
-    private int applicableTerrainValue = -1;
+    protected TitledBorder titledBorder = null;
+    protected JPanel titledPanel = null;
     
-    private BufferedImage currentImage;
-    private boolean redraw = true;
-    private int renderCounter = 0;
-    private boolean drawExplorationFlags = true;
-    private boolean drawInteractionFlags = false;
-    private boolean drawGrid = false;
-    private boolean drawActionFlags = false;
-    private boolean drawCoords = true;
-    private boolean drawTerrain = true;
-    private boolean drawSprites = true;
-    private boolean drawAiRegions = true;
-    private boolean drawAiPoints = true;
+    protected MapBlock selectedBlock0;
+    protected MapBlock[][] copiedBlocks;
     
-    private BufferedImage gridImage;
-    private BufferedImage coordsImage;
-    private BufferedImage terrainImage;
-    private BufferedImage obstructedImage;
-    private BufferedImage explorationFlagImage;
-    private BufferedImage leftUpstairsImage;
-    private BufferedImage rightUpstairsImage;
+    protected List<int[]> actions = new ArrayList<>();
+    
+    protected boolean drawSprites = true;
+    protected boolean drawAiRegions = true;
+    protected boolean drawAiPoints = true;
+    
     private BufferedImage spritesImage;
     private BufferedImage aiRegionsImage;
     private BufferedImage aiPointsImage;
     
-    private BufferedImage[] mapspriteImages = new BufferedImage[256];
+    private final BufferedImage[] mapspriteImages = new BufferedImage[256];
     
     private AllyPropertiesTableModel alliesTable = null;
     private EnemyPropertiesTableModel enemiesTable = null;
     
-    
-    public BattlePanel() {
+    public BattleLayout() {
+        super();
         addMouseListener(this);
         addMouseMotionListener(this);
     }
-       
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);   
-        g.drawImage(buildImage(), 0, 0, this);       
-    }
     
-    public BufferedImage buildImage(){
-        if(redraw){
-            currentImage = buildImage(this.battle,this.tilesPerRow, false);
-            setSize(currentImage.getWidth(), currentImage.getHeight());
+    public BufferedImage buildImage(MapLayout layout, int tilesPerRow) {
+        BufferedImage image = super.buildImage(layout, tilesPerRow);
+        Graphics graphics = image.getGraphics();
+        if(drawSprites){
+            graphics.drawImage(getSpritesImage(),0,0,null);
         }
-        return currentImage;
-    }
-    
-    public BufferedImage buildImage(Battle battle, int tilesPerRow, boolean pngExport){
-        renderCounter++;
-        System.out.println("Map render "+renderCounter);
-        this.battle = battle;
-        battleCoordsOffsetX = battle.getMapCoords().getX();
-        battleCoordsOffsetY = battle.getMapCoords().getY();
-            
-        if(redraw){
-            MapBlock[] blocks = layout.getBlocks();
-            int imageHeight = 64*3*8;
-            currentImage = new BufferedImage(tilesPerRow*8, imageHeight , BufferedImage.TYPE_INT_ARGB);
-            Graphics graphics = currentImage.getGraphics();            
-            for(int y=0;y<64;y++){
-                for(int x=0;x<64;x++){
-                    MapBlock block = blocks[y*64+x];
-                    graphics.drawImage(block.getIndexedColorImage(), x*3*8, y*3*8, null);
-                    if(drawExplorationFlags){
-                        int explorationFlags = block.getFlags()&0xC000;
-                        if(explorationFlagImage==null){
-                            explorationFlagImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
-                            Graphics2D g2 = (Graphics2D) explorationFlagImage.getGraphics();
-                            switch (explorationFlags) {
-                                case 0xC000:
-                                    g2.drawImage(getObstructedImage(), 0, 0, null);
-                                    break;
-                                case 0x8000:
-                                    g2.drawImage(getRightUpstairs(), 0, 0, null);
-                                    break;
-                                case 0x4000:
-                                    g2.drawImage(getLeftUpstairs(), 0, 0, null);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            block.setExplorationFlagImage(explorationFlagImage);
-                        }
-                        graphics.drawImage(explorationFlagImage, x*3*8, y*3*8, null); 
-                    }                    
-                }
-                   
-            } 
-            if(drawGrid){
-                graphics.drawImage(getGridImage(), 0, 0, null);
-            }
-            if(drawCoords){
-                graphics.drawImage(getCoordsImage(),0,0,null);
-            }
-            if(drawTerrain){
-                graphics.drawImage(getTerrainImage(),0,0,null);
-            }
-            if(drawSprites){
-                graphics.drawImage(getSpritesImage(),0,0,null);
-            }
-            if(drawAiRegions){
-                graphics.drawImage(getAiRegionsImage(),0,0,null);
-            }
-            if(drawAiPoints){
-                graphics.drawImage(getAiPointsImage(),0,0,null);
-            }
-            redraw = false;
-            currentImage = resize(currentImage);
+        if(drawAiRegions){
+            graphics.drawImage(getAiRegionsImage(),0,0,null);
         }
-                  
-        return currentImage;
-    }
-    
-    private BufferedImage getGridImage(){
-        if(gridImage==null){
-            gridImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) gridImage.getGraphics(); 
-            g2.setColor(Color.BLACK);
-            for(int i=0;i<64;i++){
-                g2.drawLine(3*8+i*3*8, 0, 3*8+i*3*8, 3*8*64-1);
-                g2.drawLine(0, 3*8+i*3*8, 3*8*64-1, 3*8+i*3*8);
-            }
+        if(drawAiPoints){
+            graphics.drawImage(getAiPointsImage(),0,0,null);
         }
-        return gridImage;
-    }
-    
-    private BufferedImage getCoordsImage(){
-        if(coordsImage==null){
-            coordsImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) coordsImage.getGraphics();
-            g2.setStroke(new BasicStroke(3)); 
-            g2.setColor(Color.YELLOW);
-            int width = battle.getMapCoords().getWidth();
-            int heigth = battle.getMapCoords().getHeight();
-            g2.drawRect(battle.getMapCoords().getX()*24 + 3, battle.getMapCoords().getY()*24+3, width*24-6, heigth*24-6);
-            g2.setColor(Color.ORANGE);
-            if(battle.getMapCoords().getTrigX() < 64 && battle.getMapCoords().getTrigY() < 64){
-                g2.drawRect(battle.getMapCoords().getTrigX()*24 + 3, battle.getMapCoords().getTrigY()*24+3, 1*24-6, 1*24-6);
-            }            
-        }
-        return coordsImage;
-    }
-    
-    private BufferedImage getTerrainImage(){
-        if(terrainImage==null){
-            terrainImage = new BufferedImage(3*8*64, 3*8*64, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) terrainImage.getGraphics();
-            byte[] data = battle.getTerrain().getData();
-            int width = battle.getMapCoords().getWidth();
-            int height = battle.getMapCoords().getHeight();
-            int x = battle.getMapCoords().getX();
-            int y = battle.getMapCoords().getY();
-            for(int i=0;i<height;i++){
-                for(int j=0;j<width;j++){
-                    int value = data[i*48+j];
-                    //Font font = new Font("Courier", Font.BOLD, 12);
-                    //g2.setFont(font);
-                    int targetX = (x+j)*3*8+16-8;
-                    int targetY = (y+i)*3*8+16;
-                    String val = String.valueOf(value);
-                    g2.setColor(Color.BLACK);
-                    g2.drawString(val, targetX-1, targetY-1);
-                    g2.drawString(val, targetX-1, targetY+1);
-                    g2.drawString(val, targetX+1, targetY-1);
-                    g2.drawString(val, targetX+1, targetY+1);
-                    g2.setColor(Color.WHITE);
-                    g2.drawString(val, targetX, targetY);
-                }
-            }
-        }
-        return terrainImage;
+        graphics.dispose();
+        return image;
     }
     
     private BufferedImage getSpritesImage(){
@@ -411,128 +257,10 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         return aiPointsImage;
     }
     
-    private BufferedImage getObstructedImage(){
-        if(obstructedImage==null){
-            obstructedImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) obstructedImage.getGraphics();  
-            g2.setColor(Color.BLACK);
-            g2.setStroke(new BasicStroke(3));
-            Line2D line1 = new Line2D.Double(6, 6, 18, 18);
-            g2.draw(line1);
-            Line2D line2 = new Line2D.Double(6, 18, 18, 6);
-            g2.draw(line2);  
-            g2.setColor(Color.RED);
-            g2.setStroke(new BasicStroke(2));
-            line1 = new Line2D.Double(6, 6, 18, 18);
-            g2.draw(line1);
-            line2 = new Line2D.Double(6, 18, 18, 6);
-            g2.draw(line2);
-        }
-        return obstructedImage;
-    }
-    
-    private BufferedImage getLeftUpstairs(){
-        if(leftUpstairsImage==null){
-            leftUpstairsImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) leftUpstairsImage.getGraphics();  
-            g2.setColor(Color.CYAN);
-            g2.setStroke(new BasicStroke(3));
-            Line2D line1 = new Line2D.Double(3, 3, 21, 21);
-            g2.draw(line1);
-        }
-        return leftUpstairsImage;
-    }   
-    
-    private BufferedImage getRightUpstairs(){
-        if(rightUpstairsImage==null){
-            rightUpstairsImage = new BufferedImage(3*8, 3*8, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = (Graphics2D) rightUpstairsImage.getGraphics();  
-            g2.setColor(Color.CYAN);
-            g2.setStroke(new BasicStroke(3));
-            Line2D line1 = new Line2D.Double(3, 21, 21, 3);
-            g2.draw(line1);
-        }
-        return rightUpstairsImage;
-    }     
-    
-    private IndexColorModel buildIndexColorModel(Color[] colors){
-        byte[] reds = new byte[16];
-        byte[] greens = new byte[16];
-        byte[] blues = new byte[16];
-        byte[] alphas = new byte[16];
-        reds[0] = (byte)0xFF;
-        greens[0] = (byte)0xFF;
-        blues[0] = (byte)0xFF;
-        alphas[0] = 0;
-        for(int i=1;i<16;i++){
-            reds[i] = (byte)colors[i].getRed();
-            greens[i] = (byte)colors[i].getGreen();
-            blues[i] = (byte)colors[i].getBlue();
-            alphas[i] = (byte)0xFF;
-        }
-        IndexColorModel icm = new IndexColorModel(4,16,reds,greens,blues,alphas);
-        return icm;
-    }    
-    
-    public void resize(int size){
-        this.currentDisplaySize = size;
-        currentImage = resize(currentImage);
-    }
-    
-    private BufferedImage resize(BufferedImage image){
-        BufferedImage newImage = new BufferedImage(image.getWidth()*currentDisplaySize, image.getHeight()*currentDisplaySize, BufferedImage.TYPE_INT_ARGB);
-        Graphics g = newImage.getGraphics();
-        g.drawImage(image, 0, 0, image.getWidth()*currentDisplaySize, image.getHeight()*currentDisplaySize, null);
-        g.dispose();
-        return newImage;
-    }    
-    
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(getWidth(), getHeight());
-    }
-    
-    public int getTilesPerRow() {
-        return tilesPerRow;
-    }
-
-    public void setTilesPerRow(int tilesPerRow) {
-        this.tilesPerRow = tilesPerRow;
-    }
-
-    public int getCurrentDisplaySize() {
-        return currentDisplaySize;
-    }
-
-    public void setCurrentDisplaySize(int currentDisplaySize) {
-        this.currentDisplaySize = currentDisplaySize;
-        redraw = true;
-    }
-
-    public MapLayout getMapLayout() {
-        return layout;
-    }
-
-    public void setMapLayout(MapLayout layout) {
-        this.layout = layout;
-    }
-
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
     @Override
     public void mousePressed(MouseEvent e) {
-        int x = e.getX() / (currentDisplaySize * 3*8);
-        int y = e.getY() / (currentDisplaySize * 3*8);
+        int x = e.getX() / (displaySize * 3*8);
+        int y = e.getY() / (displaySize * 3*8);
         int startX = battle.getMapCoords().getX();
         int startY = battle.getMapCoords().getY();
         int width = battle.getMapCoords().getWidth();
@@ -543,7 +271,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                 switch (e.getButton()) {
                     case MouseEvent.BUTTON1:
                         battle.getTerrain().getData()[(y-startY)*48+(x-startX)]++;
-                        terrainImage = null;
+                        updateTerrainDisplay();
                         redraw = true;
                         this.revalidate();
                         this.repaint();
@@ -554,7 +282,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                         break;
                     case MouseEvent.BUTTON3:
                         battle.getTerrain().getData()[(y-startY)*48+(x-startX)]--;
-                        terrainImage = null;
+                        updateTerrainDisplay();
                         redraw = true;
                         this.revalidate();
                         this.repaint();
@@ -583,8 +311,8 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                         break;
                     default:
                         break;
-                } 
-                terrainImage = null;
+                }
+                updateBattleDisplay();
                 redraw = true;
                 this.revalidate();
                 this.repaint();
@@ -597,10 +325,11 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         this.repaint();
         //System.out.println("Map press "+e.getButton()+" "+x+" - "+y);
     }
+    
     @Override
     public void mouseReleased(MouseEvent e) {
-        int endX = e.getX() / (currentDisplaySize * 3 * 8);
-        int endY = e.getY() / (currentDisplaySize * 3 * 8);
+        int endX = e.getX() / (displaySize * 3 * 8);
+        int endY = e.getY() / (displaySize * 3 * 8);
         int startX = battle.getMapCoords().getX();
         int startY = battle.getMapCoords().getY();
         switch (currentMode) {
@@ -633,7 +362,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
                                 battle.getTerrain().getData()[(y-startY)*48+(x-startX)] = (byte)(applicableTerrainValue&0xFF);
                             }
                         }
-                        terrainImage = null;
+                        updateTerrainDisplay();
                         this.redraw=true;
                         this.repaint();
                         break;
@@ -658,8 +387,8 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void mouseMoved(MouseEvent e) {
         
-        int x = e.getX() / (currentDisplaySize * 3*8);
-        int y = e.getY() / (currentDisplaySize * 3*8);
+        int x = e.getX() / (displaySize * 3*8);
+        int y = e.getY() / (displaySize * 3*8);
         
         if(x!=lastMouseX||y!=lastMouseY){
             lastMouseX=x;
@@ -670,33 +399,7 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
             titledPanel.repaint();
             //System.out.println("New cursor pos : "+x+","+y);
         }
-        
     }
-
-    public MapBlock[] getBlockset() {
-        return blockset;
-    }
-
-    public void setBlockset(MapBlock[] blockset) {
-        this.blockset = blockset;
-    }
-
-    public boolean isDrawExplorationFlags() {
-        return drawExplorationFlags;
-    }
-
-    public void setDrawExplorationFlags(boolean drawExplorationFlags) {
-        this.drawExplorationFlags = drawExplorationFlags;
-        this.redraw = true;
-    }
-    public boolean isDrawInteractionFlags() {
-        return drawInteractionFlags;
-    }
-
-    public void setDrawInteractionFlags(boolean drawInteractionFlags) {
-        this.drawInteractionFlags = drawInteractionFlags;
-        this.redraw = true;
-    }    
 
     public MapBlock getSelectedBlock0() {
         return selectedBlock0;
@@ -714,37 +417,12 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         this.actions = actions;
     }
 
-    public boolean isRedraw() {
-        return redraw;
-    }
-
-    public void setRedraw(boolean redraw) {
-        this.redraw = redraw;
-    }
-
-    public boolean isDrawGrid() {
-        return drawGrid;
-    }
-
-    public void setDrawGrid(boolean drawGrid) {
-        this.drawGrid = drawGrid;
-        this.redraw = true;
-    }
-
     public int getCurrentMode() {
         return currentMode;
     }
 
     public void setCurrentMode(int currentMode) {
         this.currentMode = currentMode;
-    }
-    
-    public boolean isDrawActionFlags() {
-        return drawActionFlags;
-    }
-
-    public void setDrawActionFlags(boolean drawActionFlags) {
-        this.drawActionFlags = drawActionFlags;
     }
 
     public Battle getBattle() {
@@ -753,15 +431,6 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
 
     public void setBattle(Battle battle) {
         this.battle = battle;
-    }
-
-    public boolean isDrawTerrain() {
-        return drawTerrain;
-    }
-
-    public void setDrawTerrain(boolean drawTerrain) {
-        this.drawTerrain = drawTerrain;
-        this.redraw = true;
     }
 
     public boolean isDrawSprites() {
@@ -773,9 +442,9 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
         this.redraw = true;
     }
         
-    public void updateCoordsDisplay(){
-        coordsImage = null;
-        terrainImage = null;
+    public void updateBattleDisplay(){
+        updateCoordsDisplay();
+        updateTerrainDisplay();
         spritesImage = null;
         aiRegionsImage = null;
         aiPointsImage = null;
@@ -892,6 +561,4 @@ public class BattlePanel extends JPanel implements MouseListener, MouseMotionLis
     public void setTitledPanel(JPanel titledPanel) {
         this.titledPanel = titledPanel;
     }
-    
-    
 }

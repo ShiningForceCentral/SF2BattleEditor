@@ -8,6 +8,7 @@ package com.sfc.sf2.battle.gui;
 import com.sfc.sf2.battle.Battle;
 import com.sfc.sf2.battle.Enemy;
 import com.sfc.sf2.battle.EnemyData;
+import com.sfc.sf2.battle.layout.BattleLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -21,13 +22,13 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
     private Object[][] tableData;
     private final String[] columns = {"Name", "X", "Y", "AI", "Item", "Order 1", "Region 1", "Order 2", "Region 2", "Byte10", "Spawn"};
     private Battle battle;
-    private BattlePanel battlePanel;
+    private BattleLayout battleLayout;
     private EnemyData[] enemyData;
     
-    public EnemyPropertiesTableModel(Battle battle, BattlePanel battlePanel, EnemyData[] enemyData) {
+    public EnemyPropertiesTableModel(Battle battle, BattleLayout battleLayout, EnemyData[] enemyData) {
         super();
         this.battle = battle;
-        this.battlePanel = battlePanel;
+        this.battleLayout = battleLayout;
         this.enemyData = enemyData;
         Enemy[] enemies = battle.getSpriteset().getEnemies();
         tableData = new Object[enemies.length][];
@@ -115,9 +116,9 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
         newTable[newTable.length-1][10] = tableData[tableData.length-1][10];
         tableData = newTable;
         updateProperties();
-        battlePanel.updateSpriteDisplay();
-        battlePanel.revalidate();
-        battlePanel.repaint();
+        battleLayout.updateSpriteDisplay();
+        battleLayout.revalidate();
+        battleLayout.repaint();
     }
     
     public void removeRow(){
@@ -128,9 +129,9 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
             }
             tableData = newTable;
             updateProperties();
-            battlePanel.updateSpriteDisplay();
-            battlePanel.revalidate();
-            battlePanel.repaint();
+            battleLayout.updateSpriteDisplay();
+            battleLayout.revalidate();
+            battleLayout.repaint();
         }
     }
     
@@ -147,9 +148,9 @@ public class EnemyPropertiesTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int row, int col) {
         tableData[row][col] = value;
         updateProperties();
-        battlePanel.updateSpriteDisplay();
-        battlePanel.revalidate();
-        battlePanel.repaint();
+        battleLayout.updateSpriteDisplay();
+        battleLayout.revalidate();
+        battleLayout.repaint();
         this.fireTableCellUpdated(row, col);
     }
  
