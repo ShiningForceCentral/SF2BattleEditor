@@ -799,12 +799,17 @@ public class DisassemblyManager {
                                 line = line.substring(line.indexOf("_")+1);
                                 String item = line.substring(0, line.indexOf(":"));
                                 int value = 0;
-                                if (item.equals("NOTHING"))
+                                if (item.equals("NOTHING")) {
                                     value = itemNothingValue;
-                                else if (item.equals("EQUIPPED"))
+                                } else if (item.equals("EQUIPPED")) {
                                     value = itemEquippedValue;
-                                else
+                                } else {
+                                    int commentIndex = line.indexOf(";");
+                                    if (commentIndex > -1) {
+                                        line = line.substring(0, commentIndex);
+                                    }
                                     value = valueOf(line.substring(line.indexOf("equ")+4));
+                                }
                                 items.put(item, value);
                             }
                             else if (line.startsWith("item")){
@@ -836,6 +841,10 @@ public class DisassemblyManager {
     }
     
     private int valueOf(String s){
+        int commentIndex = s.indexOf(";");
+        if (commentIndex > -1) {
+            s = s.substring(0, commentIndex);
+        }
         s = s.trim();
         if (s.startsWith("equ"))
             s = s.substring(3).trim();
